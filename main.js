@@ -53,6 +53,19 @@
 		if (promise) promise.catch(() => {});
 	};
 	const videos = document.querySelectorAll("video[data-src]");
+	// Plakátky (náhledy videí) až kousek před tím, než na ně uživatel doscrolluje.
+	const posters = new IntersectionObserver(
+		(entries) => {
+			for (const entry of entries) {
+				if (entry.isIntersecting && entry.target.dataset.poster) {
+					entry.target.poster = entry.target.dataset.poster;
+					posters.unobserve(entry.target);
+				}
+			}
+		},
+		{ rootMargin: "900px 0px" }
+	);
+	videos.forEach((video) => posters.observe(video));
 	if (reduceMotion) {
 		// Omezené animace: videa se pustí až najetím nebo klepnutím.
 		videos.forEach((video) => {

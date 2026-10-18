@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <rect x="0" y="0" width="128" height="128" rx="22" fill="#0b0e14"/>
+  <g fill="#a3a9b3" stroke="#05070a" stroke-width="3">
+    <rect x="22" y="40" width="22" height="16" rx="3"/>
+    <rect x="12" y="16" width="16" height="96" rx="4"/>
+    <rect x="38" y="16" width="16" height="96" rx="4"/>
+    <rect x="84" y="40" width="22" height="16" rx="3"/>
+    <rect x="74" y="16" width="16" height="96" rx="4"/>
+    <rect x="100" y="16" width="16" height="96" rx="4"/>
+  </g>
+  <g fill="#e6e9ee">
+    <rect x="16" y="21" width="3" height="86" rx="1.5"/>
+    <rect x="42" y="21" width="3" height="86" rx="1.5"/>
+    <rect x="78" y="21" width="3" height="86" rx="1.5"/>
+    <rect x="104" y="21" width="3" height="86" rx="1.5"/>
+  </g>
+  <g fill="none" stroke-linecap="round">
+    <path d="M6 82 H122" stroke="#05070a" stroke-width="9"/>
+    <path d="M6 82 H122" stroke="#d3d7de" stroke-width="4" stroke-dasharray="9 6"/>
+  </g>
+  <path d="M54 88 V80 A10 10 0 0 1 74 80 V88" fill="none" stroke="#05070a" stroke-width="9"/>
+  <path d="M54 88 V80 A10 10 0 0 1 74 80 V88" fill="none" stroke="#c9cdd4" stroke-width="4.5"/>
+  <rect x="46" y="86" width="36" height="30" rx="6" fill="#ffb000" stroke="#05070a" stroke-width="3.5"/>
+  <circle cx="64" cy="98" r="4.5" fill="#05070a"/>
+  <path d="M61 100 H67 L68.5 109 H59.5 Z" fill="#05070a"/>
+</svg>

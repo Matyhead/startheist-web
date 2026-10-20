@@ -450,6 +450,7 @@ kbd {
 .ticks--gold b { color: #fff; }
 .intro__media figcaption { margin-top: 12px; font-size: 14px; color: var(--muted); }
 .chips--center { justify-content: center; margin-top: 28px; }
+.pillars--after { margin-top: 20px; }
 
 /* Fotokoutek: polaroid nakřivo na korkové desce, popisek vedle */
 .clip--photo {

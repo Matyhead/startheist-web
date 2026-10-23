@@ -1,8 +1,11 @@
 // Hush Heist web: videa se načtou a hrají, až když jsou vidět; navigace, záložky,
-// galerie, hodiny na „kameře“ v úvodu a údaje o nejnovější verzi dema z GitHubu.
+// galerie, hodiny na „kameře“ v úvodu, přepínač jazyka a údaje o nejnovější verzi dema
+// z GitHubu (Windows i Mac, na Macu je Mac hlavní tlačítko). Stejný skript pro českou
+// (/) i anglickou (/en) stránku: jazyk pozná z <html lang>.
 (() => {
 	const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 	const repo = "Matyhead/startheist-web";
+	const czech = document.documentElement.lang === "cs";
 
 	// Česká typografie: jednopísmenné předložky a spojky nezůstanou na konci řádku.
 	const glue = (root) => {
@@ -11,7 +14,16 @@
 			node.nodeValue = node.nodeValue.replace(/(^|[\s(„])([kvszaiouKVSZAIOU])\s+/g, "$1$2 ");
 		}
 	};
-	document.querySelectorAll("p, li, h1, h2, h3, figcaption, summary").forEach(glue);
+	if (czech) document.querySelectorAll("p, li, h1, h2, h3, figcaption, summary").forEach(glue);
+
+	// Přepínač jazyka: volbu si zapamatuje (kořen webu podle ní přesměruje, viz <head>).
+	document.querySelectorAll("[data-lang]").forEach((link) =>
+		link.addEventListener("click", () => {
+			try {
+				localStorage.setItem("hh-lang", link.dataset.lang);
+			} catch (error) {}
+		})
+	);
 
 	// Navigace: pozadí po odscrollování, mobilní menu.
 	const nav = document.getElementById("nav");
@@ -106,7 +118,7 @@
 			const h = Math.floor(total / 3600) % 24;
 			const m = Math.floor(total / 60) % 60;
 			const s = total % 60;
-			clock.textContent = `STŘEDA ${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+			clock.textContent = `${czech ? "STŘEDA" : "WED"} ${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
 		};
 		tick();
 		setInterval(tick, 1000);
@@ -147,17 +159,33 @@
 		if (event.key === "Escape" && !box.hidden) closeBox();
 	});
 
-	// Nejnovější verze dema (GitHub Releases): datum a velikost pod tlačítkem.
+	// Stažení: na Macu je hlavní tlačítko verze pro Mac (iPad se hlásí jako Mac, ale má dotyk).
+	const platform = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
+	const onMac = /mac/i.test(platform) && navigator.maxTouchPoints < 2;
+	const win = document.getElementById("download-win");
+	const mac = document.getElementById("download-mac");
+	if (onMac && win && mac) {
+		win.classList.replace("btn--gold", "btn--ghost");
+		mac.classList.replace("btn--ghost", "btn--gold");
+		mac.parentElement.insertBefore(mac, win);
+		document.querySelectorAll("[data-mac-label]").forEach((el) => (el.textContent = el.dataset.macLabel));
+	}
+
+	// Nejnovější verze dema (GitHub Releases): datum a velikost pod tlačítky.
 	fetch(`https://api.github.com/repos/${repo}/releases/latest`, { headers: { Accept: "application/vnd.github+json" } })
 		.then((response) => (response.ok ? response.json() : null))
 		.then((release) => {
 			if (!release) return;
-			const asset = (release.assets || []).find((item) => item.name.endsWith(".zip"));
-			if (!asset) return;
-			const date = new Date(release.published_at).toLocaleDateString("cs-CZ", { day: "numeric", month: "numeric", year: "numeric" });
-			const size = Math.round(asset.size / 1048576);
-			document.getElementById("download-meta").textContent = `verze z ${date} · .zip, ${size} MB`;
-			document.getElementById("download-btn").href = asset.browser_download_url;
+			const date = new Date(release.published_at).toLocaleDateString(czech ? "cs-CZ" : "en-US", czech ? { day: "numeric", month: "numeric", year: "numeric" } : { day: "numeric", month: "short", year: "numeric" });
+			const fill = (button, name) => {
+				const asset = (release.assets || []).find((item) => item.name === name);
+				if (!button || !asset) return;
+				const size = Math.round(asset.size / 1048576);
+				button.querySelector("[data-meta]").textContent = czech ? `verze z ${date} · .zip, ${size} MB` : `${date} build · .zip, ${size} MB`;
+				button.href = asset.browser_download_url;
+			};
+			fill(win, "HushHeist-demo.zip");
+			fill(mac, "HushHeist-mac.zip");
 		})
 		.catch(() => {});
 })();

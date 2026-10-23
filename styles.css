@@ -462,7 +462,7 @@ kbd {
 .clip--photo figcaption strong { display: block; margin-bottom: 6px; font-family: var(--display); font-weight: 400; font-size: 30px; text-transform: uppercase; letter-spacing: .02em; color: var(--gold); }
 
 /* Akce (mapy) */
-.places { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.places { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .place { display: flex; flex-direction: column; gap: 12px; }
 .place__media {
 	position: relative; overflow: hidden; border-radius: var(--radius); background: #000;
@@ -482,6 +482,66 @@ kbd {
 	.places { grid-template-columns: 1fr; }
 	.clip--photo { flex-direction: column; }
 	.clip--photo img { width: 86%; }
+}
+
+/* Přepínač jazyka v liště */
+.lang { display: flex; gap: 2px; padding: 3px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, .18); background: rgba(11, 14, 20, .35); }
+.lang a { padding: 5px 9px; border-radius: 7px; font-size: 13px; font-weight: 800; letter-spacing: .06em; text-decoration: none; color: #aeb5c1; line-height: 1; transition: color .2s, background .2s; }
+.lang a:hover { color: #fff; }
+.lang a[aria-current="true"] { background: var(--gold); color: var(--ink); }
+
+/* Řádky s ukázkou: obráceně (video vlevo) a bez mezery pod sebou */
+.intro--last { margin-bottom: 0; }
+.intro--flip .intro__media { order: -1; }
+.ticks--blue { margin-top: 22px; }
+.ticks--blue li::before { color: var(--blue); }
+
+/* Tma: noční pás s teplou září čelovky */
+.section--night {
+	background: radial-gradient(900px 520px at 28% 50%, rgba(255, 214, 140, .10), transparent 70%), #05070a;
+	border-top: 1px solid #12161f; border-bottom: 1px solid #12161f;
+}
+.section--night .lead { color: #b9bfca; }
+.frame--glow { box-shadow: 0 0 0 1px rgba(255, 214, 140, .12), 0 40px 90px -30px rgba(255, 196, 90, .28); }
+
+/* Noční události pod mapami */
+.events { margin-top: clamp(40px, 6vw, 64px); display: grid; grid-template-columns: .8fr 2.2fr; gap: clamp(20px, 4vw, 48px); align-items: start; }
+.events__head h3 { font-family: var(--display); font-weight: 400; font-size: clamp(28px, 3vw, 36px); text-transform: uppercase; letter-spacing: .02em; margin-bottom: 8px; }
+.events__head p { margin: 0; color: var(--muted); font-size: 15px; }
+.events__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.events__list li { padding: 14px 16px; border-radius: 12px; background: var(--panel); border: 1px solid var(--border); color: var(--muted); font-size: 14px; line-height: 1.45; }
+.events__list b { display: block; margin-bottom: 4px; font-size: 15px; color: var(--gold-2); }
+
+/* Stažení: Windows a Mac vedle sebe */
+.download__buttons { display: flex; flex-wrap: wrap; gap: 12px; }
+.download__buttons .btn--ghost { background: rgba(255, 255, 255, .04); }
+.faq code { font: 600 14px/1.4 ui-monospace, "SF Mono", Menlo, Consolas, monospace; padding: 1px 6px; border-radius: 6px; background: var(--panel-2); color: #fff; white-space: nowrap; }
+.footer__small a { color: inherit; }
+
+.nav__links a, .nav__cta { white-space: nowrap; }
+@media (min-width: 901px) and (max-width: 1240px) {
+	.nav__inner { gap: 20px; }
+	.nav__links { gap: 18px; }
+	.nav__links a { font-size: 14px; }
+}
+@media (min-width: 901px) and (max-width: 1100px) {
+	.nav__cta { display: none; }
+}
+@media (max-width: 1020px) {
+	.events { grid-template-columns: 1fr; }
+}
+@media (max-width: 900px) {
+	.intro--flip .intro__media { order: 0; }
+	.lang { margin-left: auto; }
+	.nav__cta { margin-left: 0; }
+	.events__list { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+	.lang { margin-left: auto; }
+	.nav__toggle { margin-left: 0; }
+	.events__list { grid-template-columns: 1fr; }
+	.download__buttons .btn { width: 100%; }
+	.faq code { white-space: normal; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -3,9 +3,10 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="/config.js"></script>
 	<title>Hush Heist · Steal the loot. Watch your mouth.</title>
-	<meta name="description" content="A proximity voice chat heist game for 1–7 players. Rob a department store, villa, museum, bank, casino or TV station at night while the guard listens through hidden mics. No one wants to guard? The computer will. Free demo for Windows and Mac.">
-	<meta name="theme-color" content="#0b0e14">
+	<meta name="description" content="A co-op heist game with proximity voice chat for 1–7 players. Thieves rob a building at night while the guard watches them through cameras, microphones and a drone. Whatever you say near a mic, the guard hears too. Internal playtest: demo for Windows and Mac.">
+	<meta name="theme-color" content="#0a0d13">
 	<link rel="icon" href="/assets/img/icon.svg" type="image/svg+xml">
 	<link rel="icon" href="/favicon.ico" sizes="48x48">
 	<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
@@ -17,7 +18,7 @@
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="https://startheist.com/en">
 	<meta property="og:title" content="Hush Heist · Steal the loot. Watch your mouth.">
-	<meta property="og:description" content="Plan the heist out loud. The guard is listening. Proximity voice chat, rubber arms, a computer guard for small crews and a pub with karaoke. Free demo for Windows and Mac.">
+	<meta property="og:description" content="Thieves rob at night, the guard listens through hidden mics. Rubber arms, physics falls and a pub for a lobby. Internal playtest: grab the demo and bring your crew.">
 	<meta property="og:image" content="https://startheist.com/assets/img/og.jpg">
 	<meta property="og:image:width" content="1200">
 	<meta property="og:image:height" content="630">
@@ -29,11 +30,12 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
-	<link rel="preload" as="image" href="/assets/img/hero.jpg">
+	<link rel="preload" as="image" href="/assets/img/hero.jpg?v=pt1" media="(min-aspect-ratio: 3/4)">
+	<link rel="preload" as="image" href="/assets/img/hero_tall.jpg" media="(max-aspect-ratio: 3/4)">
 	<link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-	<a class="skip" href="#about">Skip to content</a>
+	<a class="skip" href="#o-hre">Skip to content</a>
 
 	<header class="nav" id="nav">
 		<div class="nav__inner">
@@ -41,20 +43,20 @@
 				<img src="/assets/img/logo.png" alt="Hush Heist" width="122" height="48">
 			</a>
 			<nav class="nav__links" id="nav-links" aria-label="Main">
-				<a href="#about">About</a>
-				<a href="#solo">Small crews</a>
-				<a href="#pub">The pub</a>
-				<a href="#quota">Quota</a>
-				<a href="#jobs">Jobs</a>
-				<a href="#roles">Roles</a>
-				<a href="#clips">Clips</a>
-				<a href="#faq">FAQ</a>
+				<a href="#hlas">Voice</a>
+				<a href="#ruce">Rubber arms</a>
+				<a href="#pady">Falls</a>
+				<a href="#ochranka">The guard</a>
+				<a href="#hospoda">The pub</a>
+				<a href="#mista">Places</a>
+				<a href="#stahnout">How to play</a>
 			</nav>
 			<div class="lang" role="group" aria-label="Language / Jazyk">
 				<a href="/en" hreflang="en" aria-current="true" data-lang="en">EN</a>
 				<a href="/" hreflang="cs" lang="cs" data-lang="cs">CZ</a>
 			</div>
-			<a class="btn btn--gold btn--sm nav__cta" href="#download">Get the demo</a>
+			<a class="btn btn--gold btn--sm nav__cta if-playtest" href="#stahnout">Get the demo</a>
+			<a class="btn btn--steam btn--sm nav__cta if-soon" href="#stahnout" data-steam>On Steam</a>
 			<button class="nav__toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
 				<span></span><span></span><span></span>
 			</button>
@@ -62,17 +64,19 @@
 	</header>
 
 	<main id="top">
-		<!-- Hero: gameplay montage in the background, framed like security camera footage -->
+		<!-- Hero: gameplay cut styled as security camera footage (portrait on phones) -->
 		<section class="hero">
 			<div class="hero__media" aria-hidden="true">
-				<video class="hero__video" autoplay muted loop playsinline preload="auto" poster="/assets/img/hero.jpg">
-					<source src="/assets/video/hero.mp4" type="video/mp4">
-				</video>
+				<picture>
+					<source media="(max-aspect-ratio: 3/4)" srcset="/assets/img/hero_tall.jpg">
+					<img src="/assets/img/hero.jpg?v=pt1" alt="" width="1600" height="900" fetchpriority="high">
+				</picture>
+				<video class="hero__video" muted loop playsinline preload="none" data-wide="/assets/video/hero.mp4?v=pt1" data-tall="/assets/video/hero_tall.mp4"></video>
 				<div class="hero__shade"></div>
 				<div class="scanlines"></div>
 				<div class="cctv cctv--hero">
 					<span class="cctv__rec"><i></i>REC</span>
-					<span class="cctv__cam">CAM 4 · ENTRANCE HALL</span>
+					<span class="cctv__cam">CAM 4 · CORRIDOR</span>
 					<span class="cctv__time" data-clock>WED 23:47:12</span>
 					<span class="cctv__corner cctv__corner--tl"></span>
 					<span class="cctv__corner cctv__corner--tr"></span>
@@ -81,524 +85,571 @@
 				</div>
 			</div>
 			<div class="hero__content">
-				<img class="hero__logo" src="/assets/img/logo.png" alt="Hush Heist" width="420" height="164">
-				<p class="eyebrow">Online heist game · 1 to 7 players</p>
-				<h1 class="hero__title">Steal the loot.<br><span>Watch your mouth.</span></h1>
-				<p class="hero__lead">Your crew breaks into a department store, villa, museum, bank, casino or TV station at night and plans every move out loud. Trouble is, the rooms are bugged and the guard hears every word. A friend can guard, or the computer will. One excited “guys, I found the safe!” and it's over.</p>
-				<div class="hero__actions">
-					<a class="btn btn--gold btn--lg" href="#download">
-						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16" /></svg>
-						<span class="btn__text">Download the demo<small data-mac-label="for Mac · free">Windows &amp; Mac · free</small></span>
-					</a>
-					<a class="btn btn--ghost btn--lg" href="/assets/video/trailer.mp4" data-trailer>
-						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>
-						Watch the trailer
-					</a>
-					<a class="btn btn--ghost btn--lg" href="#about">How it works</a>
+				<div class="hero__top">
+					<img class="hero__logo" src="/assets/img/logo.png" alt="Hush Heist" width="420" height="164">
+					<p class="stamp if-playtest"><b>Internal playtest</b><small>invite only demo</small></p>
+					<p class="stamp stamp--soon if-soon"><b>Coming soon to Steam</b><small>wishlist it now</small></p>
 				</div>
-				<ul class="chips" aria-label="At a glance">
+				<h1 class="hero__title">Steal the loot.<span>Watch your mouth.</span></h1>
+				<p class="hero__lead">A crew of thieves robs a building at night. The guard watches them through cameras, microphones and a drone with a taser. Thieves hear each other by distance, but <b>whatever you say near a mic, the guard hears too.</b></p>
+				<div class="hero__actions">
+					<a class="btn btn--gold btn--lg if-playtest" data-dl href="https://github.com/Matyhead/startheist-web/releases/latest/download/HushHeist-demo.zip">
+						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16" /></svg>
+						<span class="btn__text">Download the demo (playtest)<small data-os-label data-win="for Windows · free" data-mac="for Mac · free">for Windows · free</small></span>
+					</a>
+					<a class="btn btn--steam btn--lg if-soon" data-steam href="#stahnout">
+						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5l-1.2-1.1C6.2 15.3 3.5 12.8 3.5 9.6A4.6 4.6 0 0 1 8.1 5c1.5 0 2.9.7 3.9 1.8A5.1 5.1 0 0 1 15.9 5a4.6 4.6 0 0 1 4.6 4.6c0 3.2-2.7 5.7-7.3 9.8z" /></svg>
+						<span class="btn__text">Wishlist on Steam<small>coming soon</small></span>
+					</a>
+					<button class="btn btn--ghost btn--lg" type="button" data-trailer>
+						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>
+						Trailer · 30 s
+					</button>
+				</div>
+				<p class="hero__alt if-playtest">On a <a data-dl-alt data-win="Windows PC" data-mac="Mac" href="https://github.com/Matyhead/startheist-web/releases/latest/download/HushHeist-mac.zip">Mac</a>? · <a href="#stahnout">Tester guide</a> · Steam required</p>
+				<p class="hero__alt if-soon">The playtest demo is still available: <a href="#stahnout">Windows and Mac</a></p>
+				<p class="hero__phone">It plays on a Windows PC or a Mac. <button class="linkbtn" type="button" data-share>Send yourself the link</button> and grab the demo there.</p>
+				<ul class="chips" aria-label="Key facts">
 					<li>1–7 players</li>
+					<li>proximity voice chat</li>
 					<li>guard: a friend or the computer</li>
 					<li>7-minute rounds</li>
-					<li>proximity voice chat</li>
-					<li>English &amp; Czech</li>
+					<li>English and Czech</li>
 					<li>Windows · Mac · Steam</li>
 				</ul>
 			</div>
-			<a class="hero__scroll" href="#about" aria-label="Scroll to the game description"><span></span></a>
+			<a class="hero__scroll" href="#o-hre" aria-label="Scroll down to the pitch"><span></span></a>
 		</section>
 
 		<div class="tape" aria-hidden="true">
 			<div class="tape__track">
-				<span>CAUTION · WET FLOOR · NO TALKING NEAR THE MIC · DAYS WITHOUT A ROBBERY: 0 · CAUTION · WET FLOOR · NO TALKING NEAR THE MIC · DAYS WITHOUT A ROBBERY: 0 · </span>
-				<span>CAUTION · WET FLOOR · NO TALKING NEAR THE MIC · DAYS WITHOUT A ROBBERY: 0 · CAUTION · WET FLOOR · NO TALKING NEAR THE MIC · DAYS WITHOUT A ROBBERY: 0 · </span>
+				<span>CAUTION · MICROPHONES IN USE · NO TALKING NEAR THE MIC · WET FLOOR · DAYS WITHOUT A ROBBERY: 0 · CAUTION · MICROPHONES IN USE · NO TALKING NEAR THE MIC · WET FLOOR · DAYS WITHOUT A ROBBERY: 0 · </span>
+				<span>CAUTION · MICROPHONES IN USE · NO TALKING NEAR THE MIC · WET FLOOR · DAYS WITHOUT A ROBBERY: 0 · CAUTION · MICROPHONES IN USE · NO TALKING NEAR THE MIC · WET FLOOR · DAYS WITHOUT A ROBBERY: 0 · </span>
 			</div>
 		</div>
 
-		<!-- The pitch -->
-		<section class="section" id="about">
+		<!-- The pitch: three sentences and the trailer -->
+		<section class="section" id="o-hre">
 			<div class="wrap">
-				<div class="intro">
-					<div class="intro__text reveal">
-						<p class="eyebrow">The pitch</p>
-						<h2 class="h2">A heist where your mouth is the weak spot</h2>
-						<p class="lead">Hush Heist is about robbing a store quietly while the adrenaline is pumping and your buddy is yelling that he found a statue. Thieves hear each other by distance: whisper in a corner and only the guy next to you hears it. But the rooms have microphones, and the guard hears everything said near them.</p>
-					</div>
-					<figure class="intro__media reveal">
-						<div class="frame">
-							<video data-src="/assets/video/cctv_en.mp4" muted loop playsinline preload="none" data-poster="/assets/img/cctv_en.jpg" aria-label="The guard's computer: a camera spots a thief in Jewelry"></video>
-						</div>
-						<figcaption>The guard's view: a camera spots a thief in Jewelry and the alert pops up, room name included.</figcaption>
-					</figure>
+				<div class="section__head section__head--center reveal">
+					<p class="eyebrow">The pitch</p>
+					<h2 class="h2">A heist where <em>your own mouth</em> gives you away</h2>
 				</div>
-				<div class="pillars">
-					<article class="pillar reveal">
-						<div class="pillar__icon pillar__icon--gold">
-							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5 11a7 7 0 0 0 14 0M12 18v3" /></svg>
-						</div>
-						<h3>Proximity voice</h3>
-						<p>Whisper in your partner's ear or shout across the store. Walls and closed doors muffle your voice, and a siren drowns it out completely.</p>
+				<div class="trio">
+					<article class="trio__card trio__card--gold reveal">
+						<div class="trio__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16v11H4zM8 8V6a4 4 0 0 1 8 0v2M12 12v3" /></svg></div>
+						<h3>Thieves steal</h3>
+						<p>At night they break into a department store, villa, museum, bank, casino or TV station. They have seven minutes to get the loot into the van. Two of you, three, or the whole crew.</p>
 					</article>
-					<article class="pillar reveal">
-						<div class="pillar__icon pillar__icon--blue">
-							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h3l3-7 4 14 3-7h5" /></svg>
-						</div>
-						<h3>The guard is listening</h3>
-						<p>Mics pick up footsteps, crowbars, a smashed vase and every word. Cameras and motion sensors watch, a taser drone hunts. The guard is a friend, or the computer.</p>
+					<article class="trio__card trio__card--blue reveal">
+						<div class="trio__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l12-3 2 6-12 3zM9 12l1 4M5 19h8M17 7h4" /></svg></div>
+						<h3>The guard watches</h3>
+						<p>Sits in the office at the cameras, listens to the mics, locks doors, kills the lights and hunts thieves with a taser drone. A friend guards, and if nobody wants to, the computer does.</p>
 					</article>
-					<article class="pillar reveal">
-						<div class="pillar__icon pillar__icon--red">
-							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16v11H4zM8 8V6a4 4 0 0 1 8 0v2M12 12v3" /></svg>
-						</div>
-						<h3>Steal everything</h3>
-						<p>TVs, gold bars, a sarcophagus, a golden toilet, a JACKPOT machine, cardboard Mr. Novák. Armchairs, plants and barrels too. Heavy stuff takes two, and rubber arms stretch until they snap.</p>
+					<article class="trio__card trio__card--red reveal">
+						<div class="trio__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5 11a7 7 0 0 0 14 0M12 18v3" /></svg></div>
+						<h3>Your mouth snitches</h3>
+						<p>Thieves hear each other by distance, as if they stood side by side. But whatever you say under a mic, the guard hears too. One loud “the safe's over here!” is all it takes.</p>
 					</article>
 				</div>
+				<button class="trailer-card reveal" type="button" data-trailer aria-label="Play the Hush Heist trailer (30 seconds, with sound)">
+					<img src="/assets/img/trailer.jpg" alt="" loading="lazy" width="1600" height="900">
+					<span class="trailer-card__play"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l15 8-15 8z" /></svg></i>Watch the trailer</span>
+					<span class="trailer-card__meta">TRAILER · 0:30 · SOUND ON</span>
+				</button>
 			</div>
 		</section>
 
-		<!-- Computer guard: play as a duo or solo -->
-		<section class="section section--panel" id="solo">
+		<!-- Voice and eavesdropping -->
+		<section class="section section--panel" id="hlas">
 			<div class="wrap">
-				<div class="intro intro--last">
-					<div class="intro__text reveal">
-						<p class="eyebrow">Two players, three, or just you</p>
-						<h2 class="h2">Nobody wants to guard? The computer will.</h2>
-						<p class="lead">If nobody climbs into the bin at the pub, Watchman System 3000 takes the guard's chair. It gets the same cameras, locks and drone a human does, so you can play as a duo, as an all-thief crew, or solo.</p>
-						<ul class="ticks ticks--blue">
-							<li><b>It hears what you say near a mic.</b> Give yourself away and you get A MIC HEARD YOU, plus a chime from the ceiling speaker.</li>
-							<li><b>It locks doors, sets off the alarm or kills the lights,</b> then sends an autopilot drone through the hatches above the doors, straight to the alert. It beeps while it aims, and sometimes it misses.</li>
-							<li><b>Fool it like a human.</b> Hide in a locker, freeze among the mannequins, or knock the drone out of the air with a thrown object and steal it.</li>
-							<li><b>It scales with your crew.</b> Gentler on a lone thief, toughest on three or more.</li>
+				<div class="feature">
+					<div class="reveal">
+						<p class="eyebrow eyebrow--red">Voice and bugs</p>
+						<h2 class="h2">Whisper. <em class="red">The guard is listening.</em></h2>
+						<p class="lead">Whisper in your partner's ear or yell across the whole floor. Your voice carries by distance, like in a real building. But there are mics in the ceiling, and whatever is said near them, the guard hears word for word.</p>
+						<ul class="points points--red">
+							<li><b>Walls and closed doors muffle your voice,</b> an alarm drowns it out completely.</li>
+							<li><b>Mics pick up footsteps too,</b> the crowbar, a smashed vase and heavy things being dragged. The guard sees which one is blinking on the map.</li>
+							<li><b>The radio on B</b> carries your voice to the whole crew, wherever they are.</li>
+							<li><b>The jammer</b> floods nearby mics with static for a while. The cameras still see you.</li>
+							<li><b>Sprinting leaves you out of breath</b> and the mic hears you panting.</li>
+							<li><b>Helium from a balloon:</b> twenty seconds of cartoon voice. Everyone hears it, the guard included.</li>
+							<li><b>Got caught?</b> Yell at the guard through the cell glass. The guard answers over the PA in any room.</li>
 						</ul>
 					</div>
-					<figure class="intro__media reveal">
-						<div class="frame">
-							<video data-src="/assets/video/auto_drone.mp4" muted loop playsinline preload="none" data-poster="/assets/img/auto_drone.jpg" aria-label="The computer guard's drone flies down the corridor and tases a thief"></video>
+					<figure class="ev reveal">
+						<span class="ev__tag">Evidence #1 · corridor</span>
+						<div class="ev__frame ev__frame--square">
+							<video data-src="/assets/video/talk.mp4" muted loop playsinline preload="none" data-poster="/assets/img/talk.jpg" aria-label="Two thieves talk in a corridor right under a ceiling microphone"></video>
+							<span class="mic" aria-hidden="true"><i></i><i></i><i></i></span>
+							<span class="mic__label" aria-hidden="true">MICROPHONE</span>
+							<p class="heard" aria-hidden="true"><span class="heard__bars"><i></i><i></i><i></i><i></i><i></i></span><span class="heard__text">GUARD OFFICE HEARS: <b>“Hey, the safe's over here!”</b></span></p>
 						</div>
-						<figcaption>Ferda and Lojza were chatting under a mic. The computer heard them and sent the drone.</figcaption>
+						<figcaption>Lojza and Ferda make plans right under a ceiling mic. The guard in the office hears every word.</figcaption>
 					</figure>
 				</div>
 			</div>
 		</section>
 
-		<!-- Darkness and headlamps -->
-		<section class="section section--night" id="dark">
+		<!-- Rubber arms and carrying in pairs -->
+		<section class="section" id="ruce">
 			<div class="wrap">
-				<div class="intro intro--flip intro--last">
-					<div class="intro__text reveal">
+				<div class="feature feature--flip">
+					<div class="reveal">
+						<p class="eyebrow">Rubber arms and two-person carries</p>
+						<h2 class="h2">Rubber arms. <em>A safe for two.</em></h2>
+						<p class="lead">You hold loot in palms glued to its sides. Walk away from it and your arms stretch, thin out and squeak like rubber. Go too far and they snap: boing, a noise for the mics, and a few seconds of arms flopping on the floor.</p>
+						<ul class="points">
+							<li><b>Statue, safe, golden JACKPOT machine:</b> you can't budge them alone. Two of you can, until everyone pulls a different way.</li>
+							<li><b>A TV goes faster with two</b> and every extra carrier helps.</li>
+							<li><b>Small things go in your four pockets,</b> big ones in your hands on a spring. They bump into walls, and the heavier they are, the slower you walk.</li>
+							<li><b>You can grab and throw almost anything:</b> armchairs, plants, mannequins, clothes racks. Doors and drawers are pulled by hand.</li>
+						</ul>
+					</div>
+					<figure class="ev reveal">
+						<span class="ev__tag">Evidence #2 · gallery</span>
+						<div class="ev__frame">
+							<video data-src="/assets/video/stretch_en.mp4" muted loop playsinline preload="none" data-poster="/assets/img/stretch_en.jpg" aria-label="A thief pulls a bronze statue alone and his arms stretch"></video>
+						</div>
+						<figcaption><strong>Solo on a statue.</strong> The statue doesn't move, the arms do. They stretch until they snap.</figcaption>
+					</figure>
+				</div>
+				<div class="bento">
+					<figure class="ev ev--wide reveal">
+						<span class="ev__tag">Evidence #3 · museum</span>
+						<div class="ev__frame">
+							<video data-src="/assets/video/museum.mp4" muted loop playsinline preload="none" data-poster="/assets/img/museum.jpg" aria-label="A thief walks away from a statue in a museum and his rubber arms stretch across the hall"></video>
+						</div>
+						<figcaption><strong>Museum.</strong> Just a little further.</figcaption>
+					</figure>
+					<figure class="ev reveal">
+						<span class="ev__tag">Evidence #4 · electronics</span>
+						<div class="ev__frame">
+							<video data-src="/assets/video/carry.mp4?v=pt1" muted loop playsinline preload="none" data-poster="/assets/img/carry.jpg?v=pt1" aria-label="First-person view of a thief carrying a TV in rubber arms"></video>
+						</div>
+						<figcaption><strong>First person.</strong> A TV in your hands, rubber arms in front of your eyes.</figcaption>
+					</figure>
+				</div>
+			</div>
+		</section>
+
+		<!-- Physics falls -->
+		<section class="section section--panel" id="pady">
+			<div class="wrap">
+				<div class="section__head reveal">
+					<p class="eyebrow">Physics falls</p>
+					<h2 class="h2">Every fall is <em>real physics</em></h2>
+					<p class="lead">Slip on a banana peel, step into foam from a smashed extinguisher, get hit by a thrown chair or the drone's taser. Your body flies wherever the hit sends it and tumbles all the way down the stairs. Then you get up and pretend nothing happened.</p>
+				</div>
+				<div class="bento">
+					<figure class="ev ev--wide reveal">
+						<span class="ev__tag">Evidence #5 · stairwell</span>
+						<div class="ev__frame">
+							<video data-src="/assets/video/stairs.mp4" muted loop playsinline preload="none" data-poster="/assets/img/stairs.jpg" aria-label="A thief ragdolls down the stairs"></video>
+						</div>
+						<figcaption><strong>Stairwell.</strong> Going down was quicker than he expected.</figcaption>
+					</figure>
+					<figure class="ev reveal">
+						<span class="ev__tag">Evidence #6 · corridor</span>
+						<div class="ev__frame">
+							<video data-src="/assets/video/slip.mp4?v=k3" muted loop playsinline preload="none" data-poster="/assets/img/slip.jpg?v=k3" aria-label="A thief slips on a banana peel and bounces off a bucket"></video>
+						</div>
+						<figcaption><strong>Banana in the corridor.</strong> The guard has it on camera.</figcaption>
+					</figure>
+					<figure class="ev reveal">
+						<span class="ev__tag">Evidence #7 · pub</span>
+						<div class="ev__frame">
+							<video data-src="/assets/video/knock.mp4?v=k3" muted loop playsinline preload="none" data-poster="/assets/img/knock.jpg?v=k3" aria-label="Ferda throws a chair at Lojza and Lojza goes down"></video>
+						</div>
+						<figcaption><strong>A chair to a friend's face.</strong> Nobody minds at the pub. Much.</figcaption>
+					</figure>
+					<div class="ev ev--wide reveal">
+						<ul class="points points--red" style="margin:0">
+							<li><b>You go down from</b> a banana, a wet floor, a thrown chair, bottle or ball, a proper shove, the taser and big drops (off the top of a ladder or jumping into the stairwell from upstairs).</li>
+							<li><b>A cushion or a rubber duck</b> won't knock you over. At night, though, thrown loot will drop your partner, so watch where you aim.</li>
+							<li><b>The whole crew sees the same fall,</b> online too. And if it's embarrassing enough, it makes the papers.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- The guard -->
+		<section class="section section--blue" id="ochranka">
+			<div class="wrap">
+				<div class="feature">
+					<div class="reveal">
+						<p class="eyebrow eyebrow--blue">The guard</p>
+						<h2 class="h2">Cameras, mics <em class="blue">and a taser drone</em></h2>
+						<p class="lead">One player guards from an office they can't leave. During the day they get ninety seconds to place cameras, mics and motion sensors on the map. At night they watch the screens, listen and strike.</p>
+						<p class="lead" style="margin-top:14px">The guard wins when every thief is in the cell or time runs out.</p>
+					</div>
+					<figure class="ev reveal">
+						<span class="ev__tag">Evidence #8 · taser</span>
+						<div class="ev__frame">
+							<video data-src="/assets/video/stun.mp4" muted loop playsinline preload="none" data-poster="/assets/img/stun.jpg" aria-label="The guard's drone flies down a corridor and tasers a thief"></video>
+						</div>
+						<figcaption>The drone flies down the corridor, zap, and a thief is on the floor. A partner can pick him up, otherwise he wakes up in the cell.</figcaption>
+					</figure>
+				</div>
+				<div class="kit">
+					<article class="kit__item reveal">
+						<h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l12-3 2 6-12 3zM9 12l1 4M5 19h8M17 7h4" /></svg>Cameras and sensors</h3>
+						<p>A camera that sees a thief for more than a moment raises the alarm. A sensor reports anyone who isn't sneaking.</p>
+					</article>
+					<article class="kit__item reveal">
+						<h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5 11a7 7 0 0 0 14 0M12 18v3" /></svg>Microphones</h3>
+						<p>They hear voices, footsteps and crashes. The one where something is happening blinks on the map.</p>
+					</article>
+					<article class="kit__item reveal">
+						<h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 11V8a6 6 0 0 1 12 0v3M5 11h14v10H5zM12 15v2" /></svg>Locks and alarm</h3>
+						<p>Click a door to lock it. An alarm deafens the thieves in the room and flips their controls inside out.</p>
+					</article>
+					<article class="kit__item reveal">
+						<h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z" /></svg>Lights out</h3>
+						<p>A room goes dark for 25 seconds and cameras can barely see. Whoever turns on a headlamp lights up like a beacon.</p>
+					</article>
+					<article class="kit__item reveal">
+						<h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h4M15 5h4M7 5v3M17 5v3M7 8h10v4H7zM12 12v3M9 18l3-3 3 3" /></svg>Taser drone</h3>
+						<p>FPV goggles, momentum and a battery. It flies through hatches above doors and loses signal outside. And if it crashes, the thieves will steal it.</p>
+					</article>
+					<article class="kit__item reveal">
+						<h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h3l5 4V6L7 10zM16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12" /></svg>PA and the cell</h3>
+						<p>The guard talks into any room through the ceiling speaker. Caught thieves sit in the cell, and their partners can break them out.</p>
+					</article>
+				</div>
+
+				<div class="feature feature--flip" style="margin-top:clamp(56px,7vw,96px)">
+					<div class="reveal">
 						<p class="eyebrow">The guard hits the lights</p>
-						<h2 class="h2">Darkness hides you. Your headlamp gives you away.</h2>
-						<p class="lead">The guard clicks a light bulb on the map and the room goes dark for 25 seconds. Cameras can barely see you in the dark, but you can't see the loot either. Switch on your headlamp and the cameras and drone see you just fine.</p>
-						<ul class="ticks ticks--gold">
-							<li><b>Headlamp on L.</b> Your crew sees the beam from across the room. So does the camera.</li>
-							<li><b>Without a headlamp,</b> a camera only spots you in the dark from four meters away.</li>
-							<li><b>In a thunderstorm,</b> lightning kills the lights on its own, and thunder drowns out footsteps and voices near the mics.</li>
+						<h3 class="h2" style="font-size:clamp(34px,4.4vw,56px)">Darkness hides you. <em>Your headlamp doesn't.</em></h3>
+						<ul class="points">
+							<li><b>In the dark</b> a camera only spots you up close. But you can't see the loot.</li>
+							<li><b>Headlamp on L</b> lights the way. Your partners, the cameras and the drone all see its beam.</li>
+							<li><b>In a storm</b> lightning kills the lights by itself and thunder drowns out footsteps and voices at the mics.</li>
 						</ul>
 					</div>
-					<figure class="intro__media reveal">
-						<div class="frame frame--glow">
-							<video data-src="/assets/video/dark.mp4" muted loop playsinline preload="none" data-poster="/assets/img/dark.jpg" aria-label="The guard kills the casino lights and two thieves switch on their headlamps"></video>
+					<figure class="ev reveal">
+						<span class="ev__tag">Evidence #9 · casino</span>
+						<div class="ev__frame ev__frame--glow">
+							<video data-src="/assets/video/dark.mp4" muted loop playsinline preload="none" data-poster="/assets/img/dark.jpg" aria-label="The guard turns off the lights in the casino hall and two thieves switch on their headlamps"></video>
 						</div>
 						<figcaption>Casino floor: the guard killed the lights, Ferda and Lojza switched on their headlamps.</figcaption>
 					</figure>
 				</div>
-			</div>
-		</section>
 
-		<!-- How a round goes -->
-		<section class="section" id="round">
-			<div class="wrap">
-				<div class="section__head reveal">
-					<p class="eyebrow">How a round goes</p>
-					<h2 class="h2">Pub at night, heist after dark, headlines by morning</h2>
-				</div>
-				<ol class="timeline">
-					<li class="step reveal">
-						<figure class="step__media frame">
-							<img src="/assets/img/pub.jpg" alt="The Golden Crook pub: the crew, the bar and the job board" loading="lazy" width="1280" height="720">
-						</figure>
-						<div class="step__text">
-							<span class="step__num">0</span>
-							<p class="step__time">Evening · the pub</p>
-							<h3>Pick the job</h3>
-							<p>At The Golden Crook you throw a knife at the job you want on the board. The bin decides who guards: whoever sits in it is the guard. Feel free to shove someone in. Empty bin? The computer guards.</p>
-						</div>
-					</li>
-					<li class="step reveal">
-						<figure class="step__media frame">
-							<img src="/assets/img/ui_planning_en.jpg" alt="Heist plan: building map, entrance vote and tool choice" loading="lazy" width="1600" height="900">
-						</figure>
-						<div class="step__text">
-							<span class="step__num">1</span>
-							<p class="step__time">Afternoon · 90 seconds</p>
-							<h3>Prep</h3>
-							<p>The guard places cameras, mics and motion sensors on the map. Meanwhile the thieves vote at the van on how to get in and pick their tools. The guard can't hear them, so this is the time to plan.</p>
-						</div>
-					</li>
-					<li class="step reveal">
-						<figure class="step__media frame">
-							<video data-src="/assets/video/van.mp4" muted loop playsinline preload="none" data-poster="/assets/img/van.jpg" aria-label="The van pulls up to the store at night"></video>
-						</figure>
-						<div class="step__text">
-							<span class="step__num">2</span>
-							<p class="step__time">Night · 7 minutes</p>
-							<h3>The heist</h3>
-							<p>The “plumbers'” van parks by the entrance. You have seven minutes to get loot worth the target into it. The guard locks doors, kills lights, sets off alarms and hunts you with the drone. The music ramps up when things get hairy. Every night is different: different loot, different locked doors, the odd thunderstorm.</p>
-						</div>
-					</li>
-					<li class="step reveal">
-						<figure class="step__media frame">
-							<video data-src="/assets/video/news_en.mp4" muted loop playsinline preload="none" data-poster="/assets/img/news_en.jpg" aria-label="The Grapevine front page at the end of the round"></video>
-						</figure>
-						<div class="step__text">
-							<span class="step__num">3</span>
-							<p class="step__time">Morning</p>
-							<h3>The paper</h3>
-							<p>The round ends with the front page of The Grapevine: how much you stole, what you broke, who slipped. And instead of a photo, it plays a clip of your most embarrassing moment.</p>
-						</div>
-					</li>
-				</ol>
-			</div>
-		</section>
-
-		<!-- The pub: the lobby where you pick the job and the guard -->
-		<section class="section section--panel" id="pub">
-			<div class="wrap">
-				<div class="intro">
-					<div class="intro__text reveal">
-						<p class="eyebrow">Before the job</p>
-						<h2 class="h2">The lobby is a pub called The Golden Crook</h2>
-						<p class="lead">No menu full of buttons. Before the job, the crew runs around a 90s dive bar, throws bottles and beer mugs at each other, shoves each other around and argues about what to rob tonight.</p>
-						<ul class="ticks ticks--gold">
-							<li><b>Whoever sits in the bin is the guard.</b> Climb in yourself or get shoved in by your crew. Whoever guarded last time gets spat out. An empty bin means the computer guards.</li>
-							<li><b>Pick the job by throwing a knife</b> at a photo on the boss's board. The handle is your color and it sticks with a satisfying wobble. Once everyone has thrown, the boss points at the winner and you're off.</li>
-							<li><b>At the mirror rack</b> you choose what goes on your head and over your eyes. More pieces unlock with the money you steal (or protect, as the guard), and the crew sees them in the pub, during the heist, in photos and in the paper.</li>
-							<li><b>The Achievements board</b> shows who already has Workplace Accident (slip with something big in your hands) or Art Collector (drive off with just a rubber duck). There are 21 to collect.</li>
+				<div class="robot reveal">
+					<div>
+						<p class="robot__name">WATCHMAN SYSTEM 3000</p>
+						<h3>Only two or three of you? The computer guards.</h3>
+						<p class="lead">If nobody climbs into the bin at the pub, the computer takes over as the guard. It has the same cameras, mics, locks and drone as a human, so the whole crew can steal, even just the two of you.</p>
+						<ul class="points points--blue">
+							<li><b>It hears what you say near a mic,</b> locks doors, sounds the alarm and kills the lights.</li>
+							<li><b>The autopilot drone</b> follows noise, turns toward anyone it spots and searches the neighbouring rooms.</li>
+							<li><b>It scales with your crew:</b> softer on a lone thief, toughest on three or more.</li>
 						</ul>
 					</div>
-					<figure class="intro__media reveal">
-						<div class="frame">
-							<video data-src="/assets/video/pub.mp4" muted loop playsinline preload="none" data-poster="/assets/img/pub.jpg" aria-label="The crew at the pub: karaoke, dancing and the job board"></video>
+					<figure class="ev">
+						<div class="ev__frame">
+							<video data-src="/assets/video/auto_drone.mp4" muted loop playsinline preload="none" data-poster="/assets/img/auto_drone.jpg" aria-label="The computer guard's drone flies down a corridor and stuns a thief"></video>
 						</div>
-						<figcaption>Ferda's on karaoke, Lojza's dancing and Mařka is on her third shot.</figcaption>
+						<figcaption>Ferda and Lojza were chatting under a mic. The computer heard them and sent the drone.</figcaption>
 					</figure>
 				</div>
-				<div class="bento">
-					<figure class="clip clip--wide reveal">
-						<img src="/assets/img/pub_board_en.jpg" alt="The job board with three jobs, night events and thrown knives" loading="lazy" width="1600" height="900">
-						<figcaption><strong>The boss's board.</strong> Three jobs every night: difficulty in skulls, estimated loot, number of floors and sometimes a night event. Most knives wins. Ties go to a random draw.</figcaption>
+
+				<h3 class="subhead reveal">Against all that, every thief gets one tool</h3>
+				<p class="reveal">The crew has to cover for each other. Hover over a clip to see the tool in action.</p>
+				<div class="tools">
+					<article class="tool reveal">
+						<div class="ev__frame"><video data-src="/assets/video/tool_spray.mp4" muted loop playsinline preload="none" data-poster="/assets/img/tool_spray.jpg" aria-label="Spray paint covers a camera"></video></div>
+						<h3>Spray paint <span>3 uses</span></h3>
+						<p>Blacks out a camera or sensor. The guard stares at darkness.</p>
+					</article>
+					<article class="tool reveal">
+						<div class="ev__frame"><video data-src="/assets/video/tool_jammer.mp4" muted loop playsinline preload="none" data-poster="/assets/img/tool_jammer.jpg" aria-label="A jammer silences a microphone"></video></div>
+						<h3>Jammer <span>2 uses</span></h3>
+						<p>Nearby mics hear nothing but static for a while.</p>
+					</article>
+					<article class="tool reveal">
+						<div class="ev__frame"><video data-src="/assets/video/tool_crowbar.mp4" muted loop playsinline preload="none" data-poster="/assets/img/tool_crowbar.jpg" aria-label="A crowbar pries a door open"></video></div>
+						<h3>Crowbar <span>unlimited</span></h3>
+						<p>Doors, windows and display cases. Fast, but very loud.</p>
+					</article>
+					<article class="tool reveal">
+						<div class="ev__frame"><video data-src="/assets/video/tool_cutter.mp4" muted loop playsinline preload="none" data-poster="/assets/img/tool_cutter.jpg" aria-label="A glass cutter cuts a display case"></video></div>
+						<h3>Glass cutter <span>unlimited</span></h3>
+						<p>Cut a hole in the glass by hand. Quiet, but slower.</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<!-- The pub as the lobby -->
+		<section class="section section--night" id="hospoda">
+			<div class="wrap">
+				<div class="feature">
+					<div class="reveal">
+						<p class="eyebrow">The lobby is a pub</p>
+						<h2 class="h2">The Golden <em>Crook</em></h2>
+						<p class="lead">No menu full of buttons. Before the job, the crew runs around a 90s dive bar, throws bottles and chairs at each other and argues about who to rob tonight.</p>
+						<ul class="points">
+							<li><b>Whoever climbs into the bin is the guard.</b> Feel free to shove someone in. An empty bin means the computer guards.</li>
+							<li><b>You pick the job by throwing a knife</b> into its photo on the boss's board. Most knives wins.</li>
+							<li><b>The boss sets a quota for three jobs.</b> Make it: he celebrates and the next one is higher. Miss it: he throws you across the whole pub and you start from zero.</li>
+							<li><b>The crew's shared cash buys upgrades</b> at the boss's table: a better crowbar, longer arms, an extra pocket, a banana peel or a whoopee cushion. For every two upgrades, the insurance company buys the guard an extra piece of kit.</li>
+							<li><b>The mirror coat rack:</b> hats and glasses unlocked with stolen money (for the guard, with guarded money). The crew sees them at the pub, during the heist and in the paper.</li>
+						</ul>
+					</div>
+					<figure class="ev reveal">
+						<span class="ev__tag">The boss's board</span>
+						<div class="ev__frame">
+							<img src="/assets/img/sm/pub_board_en.jpg" alt="Job board with three jobs, a night event and knives stuck in it" loading="lazy" width="960" height="540">
+						</div>
+						<figcaption>Three jobs a night: difficulty in skulls, estimated loot, number of floors and sometimes a night event.</figcaption>
 					</figure>
-					<figure class="clip reveal">
-						<img src="/assets/img/pub_bin_en.jpg" alt="A player in a guard cap sits in the bin under a glowing GUARD sign" loading="lazy" width="1600" height="900">
-						<figcaption><strong>Bin No. 07.</strong> Whoever sits in it guards. The glowing sign above says who.</figcaption>
+				</div>
+				<div class="bento" style="margin-top:clamp(44px,6vw,80px)">
+					<figure class="ev reveal">
+						<span class="ev__tag">Bin No. 07</span>
+						<div class="ev__frame"><img src="/assets/img/sm/pub_bin_en.jpg" alt="A player in a guard's cap sits in the bin under a glowing GUARD sign" loading="lazy" width="960" height="540"></div>
+						<figcaption><strong>Whoever's inside guards.</strong> The sign above shows who.</figcaption>
 					</figure>
-					<figure class="clip reveal">
-						<img src="/assets/img/pub_karaoke_screen.jpg" alt="Karaoke: the singer waves at the mic, the lyrics screen behind him" loading="lazy" width="1600" height="900">
-						<figcaption><strong>Karaoke.</strong> Songs about heists, a cheap-PA echo and an applause meter at the end.</figcaption>
+					<figure class="ev reveal">
+						<span class="ev__tag">The boss's shop</span>
+						<div class="ev__frame"><img src="/assets/img/sm/boss_shop_en.jpg" alt="The boss's shop: a table of goods with price tags and the boss behind it" loading="lazy" width="960" height="540"></div>
+						<figcaption><strong>Anyone in the crew can buy.</strong> Whoever spends it all on cushions has some explaining to do.</figcaption>
 					</figure>
-					<figure class="clip clip--wide clip--photo reveal">
-						<img src="/assets/img/polaroid_en.jpg" alt="Photo booth polaroid: four thieves against a height chart" loading="lazy" width="1100" height="908">
-						<figcaption><strong>Photo booth.</strong> A mugshot wall with a height chart. Countdown, flash, and everyone gets a polaroid of the crew saved to Pictures, dated and with the suspects' names.</figcaption>
-					</figure>
-					<figure class="clip clip--wide reveal">
-						<video data-src="/assets/video/knock.mp4?v=k3" muted loop playsinline preload="none" data-poster="/assets/img/knock.jpg?v=k3" aria-label="Ferda throws a chair at Lojza and Lojza goes down"></video>
-						<figcaption><strong>Chair to the face.</strong> A thrown chair, a bottle or a good shove knocks a buddy down like a banana peel, and the body flies wherever the hit sends it. During the heist thrown loot does too, so watch where you aim.</figcaption>
-					</figure>
-					<figure class="clip reveal">
-						<img src="/assets/img/pub_wardrobe.jpg" alt="A thief in a cowboy hat and sunglasses at the mirror rack" loading="lazy" width="1600" height="900">
-						<figcaption><strong>Mirror rack.</strong> Fez, top hat, nose glasses. Unlocked with stolen cash, seen by everyone.</figcaption>
+					<figure class="ev reveal">
+						<span class="ev__tag">Mirror coat rack</span>
+						<div class="ev__frame"><img src="/assets/img/sm/pub_wardrobe.jpg" alt="A thief in a cowboy hat and sunglasses at the coat rack with a mirror" loading="lazy" width="960" height="540"></div>
+						<figcaption><strong>Fez, top hat, nose glasses.</strong> Unlocked with loot.</figcaption>
 					</figure>
 				</div>
 				<ul class="chips chips--center reveal" aria-label="What else is in the pub">
+					<li>pool</li>
 					<li>darts</li>
-					<li>pool (the triangle by the restroom racks the balls)</li>
-					<li>helium balloon</li>
-					<li>Who's Winning board</li>
 					<li>one-armed bandit</li>
 					<li>jukebox</li>
-					<li>whisky (third shot and you're on the floor)</li>
-					<li>cigarettes</li>
-					<li>Tonight's Take board</li>
+					<li>helium balloons</li>
+					<li>photo booth with a polaroid</li>
+					<li>whisky (third shot puts you on the floor)</li>
+					<li>21 achievements on the board</li>
 				</ul>
 			</div>
 		</section>
 
-		<!-- The boss's quota and shop -->
-		<section class="section" id="quota">
-			<div class="wrap">
-				<div class="intro intro--flip intro--last">
-					<div class="intro__text reveal">
-						<p class="eyebrow">The boss wants his cut</p>
-						<h2 class="h2">A quota for the night, a shop for your loot</h2>
-						<p class="lead">The boss sets your crew a quota over three jobs. Everything you haul away in the van counts toward it and lands in the crew's shared kitty, which you spend right at his table.</p>
-						<ul class="ticks ticks--gold">
-							<li><b>The shop</b> has extra spray and jammer charges, a better crowbar, a sharper cutter, an extra pocket, longer arms, plus a banana peel and a whoopee cushion waiting by the van.</li>
-							<li><b>Anyone can buy,</b> with everyone's money. Whoever blows the kitty on whoopee cushions has some explaining to do.</li>
-							<li><b>For every two upgrades</b> you buy, the insurance company gets the guard an extra camera, sensor or mic. It keeps things fair.</li>
-							<li><b>Hit the quota</b> and the boss celebrates, then raises the bar. <b>Miss it and you're fired.</b> The boss throws the whole crew across the pub and everything resets.</li>
-						</ul>
-					</div>
-					<figure class="intro__media reveal">
-						<div class="frame">
-							<img src="/assets/img/boss_shop_en.jpg" alt="The boss's shop: a table of goods with price tags, the boss behind it" loading="lazy" width="1600" height="900">
-						</div>
-						<figcaption>The boss's shop: price tags on everything, the crew kitty on the sign and the boss behind the table.</figcaption>
-					</figure>
-				</div>
-			</div>
-		</section>
-
-		<!-- Jobs: the maps -->
-		<section class="section section--panel" id="jobs">
+		<!-- Places and night events -->
+		<section class="section" id="mista">
 			<div class="wrap">
 				<div class="section__head reveal">
 					<p class="eyebrow">Where to tonight</p>
-					<h2 class="h2">A different place every night</h2>
-					<p class="lead">Koruna Department Store is tuned down to the last shelf. Villas, museums, banks, casinos and TV stations are built differently every time: different rooms, different loot, different locked doors. Some have two floors, and then you're hauling the safe down the stairs together.</p>
+					<h2 class="h2">Six places. <em>Every night different.</em></h2>
+					<p class="lead">Koruna Department Store is tuned down to the last shelf. Villas, museums, banks, casinos and TV stations are built differently every time: different rooms, different loot, different locked doors. Some have two floors, and then you carry the safe down the stairs together.</p>
 				</div>
 				<div class="places">
 					<article class="place reveal">
-						<div class="place__media"><img src="/assets/img/stretch.jpg" alt="A thief drags a statue through the gallery on rubber arms" loading="lazy" width="1280" height="720"></div>
-						<h3>Department store <span>1 floor</span></h3>
-						<p>Electronics, jewelry, a gallery with a statue and a rubber duck displayed as art.</p>
+						<img src="/assets/img/stretch_en.jpg" alt="Department store gallery with a bronze statue" loading="lazy" width="960" height="540">
+						<div class="place__body">
+							<h3>Department store <span>1 floor</span></h3>
+							<p>Electronics, jewellery, a gallery with a statue and a rubber duck on display as art.</p>
+						</div>
 					</article>
 					<article class="place reveal">
-						<div class="place__media"><img src="/assets/img/map_villa.jpg" alt="A golden toilet in the villa's bathroom" loading="lazy" width="1600" height="900"></div>
-						<h3>Villa <span>1–2 floors</span></h3>
-						<p>A golden toilet in the bathroom, wine in the cellar, a portrait of the owner worth pocket change. A safe in the bedroom upstairs.</p>
+						<img src="/assets/img/sm/map_villa.jpg" alt="A golden toilet in the villa's bathroom" loading="lazy" width="960" height="540">
+						<div class="place__body">
+							<h3>Villa <span>1–2 floors</span></h3>
+							<p>A golden toilet in the bathroom, wine in the cellar and a bedroom safe upstairs.</p>
+						</div>
 					</article>
 					<article class="place reveal">
-						<div class="place__media"><img src="/assets/img/map_museum.jpg" alt="The dinosaur hall with a skeleton and a skull" loading="lazy" width="1600" height="900"></div>
-						<h3>Museum <span>1–2 floors</span></h3>
-						<p>A dinosaur skeleton, a sarcophagus with a mummy and a banana taped to the wall, worth $12,000.</p>
+						<img src="/assets/img/sm/map_museum.jpg" alt="Dinosaur hall with a skeleton and a skull" loading="lazy" width="960" height="540">
+						<div class="place__body">
+							<h3>Museum <span>1–2 floors</span></h3>
+							<p>A dinosaur skeleton, a sarcophagus with a mummy and a banana duct-taped to the wall for $12,000.</p>
+						</div>
 					</article>
 					<article class="place reveal">
-						<div class="place__media"><img src="/assets/img/map_bank.jpg" alt="The bank vault with gold bars and a cage full of cash" loading="lazy" width="1600" height="900"></div>
-						<h3>Bank <span>1–2 floors</span></h3>
-						<p>A vault behind steel doors: crowbar or vents. Inside: gold bars, money bags and a piggy bank labeled “emergency fund”.</p>
+						<img src="/assets/img/sm/map_bank.jpg" alt="Bank vault with gold bars and a cage of cash" loading="lazy" width="960" height="540">
+						<div class="place__body">
+							<h3>Bank <span>1–2 floors</span></h3>
+							<p>A steel vault door: crowbar or the vents. Inside, gold bars and a piggy bank labelled “emergency fund”.</p>
+						</div>
 					</article>
 					<article class="place reveal">
-						<div class="place__media"><img src="/assets/img/map_casino.jpg" alt="The golden JACKPOT machine in the casino's VIP lounge" loading="lazy" width="1600" height="900"></div>
-						<h3>Casino <span>1–2 floors</span></h3>
-						<p>Roulette, rows of slots and, in the VIP lounge, a golden JACKPOT machine that takes two to carry. Grab a slot machine and it rings like a win, right into the guard's mic.</p>
+						<img src="/assets/img/sm/map_casino.jpg" alt="Golden JACKPOT machine in the casino's VIP lounge" loading="lazy" width="960" height="540">
+						<div class="place__body">
+							<h3>Casino <span>1–2 floors</span></h3>
+							<p>Roulette, rows of slots and a golden JACKPOT for two. Grab a slot machine and it rings like a win, and the mic hears it.</p>
+						</div>
 					</article>
 					<article class="place reveal">
-						<div class="place__media"><img src="/assets/img/map_studio_en.jpg" alt="The game show studio with a prize wheel" loading="lazy" width="1600" height="900"></div>
-						<h3>TV station <span>1–2 floors</span></h3>
-						<p>A newsroom with a studio camera that takes two, a game show with a prize wheel, a makeup room and, in the archive, the only tape of New Year's Eve 1996.</p>
+						<img src="/assets/img/sm/map_studio_en.jpg" alt="Game show studio with a wheel of fortune" loading="lazy" width="960" height="540">
+						<div class="place__body">
+							<h3>TV station <span>1–2 floors</span></h3>
+							<p>A news studio with a two-person studio camera, a wheel of fortune, make-up room and one New Year's Eve 1996 tape in the archive.</p>
+						</div>
 					</article>
 				</div>
 				<div class="events reveal">
 					<div class="events__head">
 						<h3>Night events</h3>
-						<p>A job on the board can come with a night event. It's on the card, so you know what you're walking into.</p>
+						<p>A job on the board can come with an event. It's on the card, so you know what you're getting into.</p>
 					</div>
 					<ul class="events__list">
-						<li><b>Thunderstorm</b>Lightning kills a room's lights, thunder drowns out voices near the mics.</li>
-						<li><b>Auditors</b>Valuables are worth 50% more, but the guard gets extra cameras.</li>
-						<li><b>Broken AC</b>The vents rattle into the mics. A few windows are left open.</li>
-						<li><b>Sleepy Guard</b>Cameras react slower and the drone's battery is weaker.</li>
-						<li><b>Wet Floors</b>The cleaner just mopped. Run on wet tiles and you slip.</li>
-						<li><b>Open House</b>Every door open and unlocked, but more motion sensors.</li>
+						<li><b>Storm</b>Lightning kills a room's lights, thunder drowns voices at the mics.</li>
+						<li><b>Auditors</b>Valuables worth half as much again, the guard gets more cameras.</li>
+						<li><b>Broken AC</b>Vents rattle into the mics, a few windows are open.</li>
+						<li><b>Sleepy guard</b>Cameras report slower, the drone has a weaker battery.</li>
+						<li><b>Wet floor</b>The cleaner just mopped. Run on it and you slip.</li>
+						<li><b>Open house</b>Everything unlocked, but more sensors.</li>
 					</ul>
 				</div>
 			</div>
 		</section>
 
-		<!-- Roles -->
-		<section class="section" id="roles">
-			<div class="wrap">
-				<div class="section__head reveal">
-					<p class="eyebrow">Two sides</p>
-					<h2 class="h2">Which side are you on?</h2>
-					<p class="lead">It's best with three thieves against one guard. The bin at the pub decides who guards, and last round's guard steals next time. If nobody guards, the computer does.</p>
-				</div>
-				<div class="roles">
-					<article class="role role--thief reveal">
-						<div class="role__media">
-							<video data-src="/assets/video/carry.mp4" muted loop playsinline preload="none" data-poster="/assets/img/carry.jpg" aria-label="A thief carries a TV in first person"></video>
-						</div>
-						<div class="role__body">
-							<p class="role__tag">Thieves</p>
-							<h3>Get the loot into the van</h3>
-							<ul class="ticks">
-								<li>Everyone gets one tool: spray, jammer, crowbar or glass cutter. You'll need each other.</li>
-								<li>Hide in a locker, crawl through the vents, or freeze among the mannequins and the cameras won't tell you apart.</li>
-								<li>Caught teammates get hauled off to the cell. You can run back and pick the lock.</li>
-								<li>In the dark, switch on your headlamp. You'll see the loot, but the cameras will see you.</li>
-								<li>Sprinting leaves you out of breath, and the mics can hear you panting. Sometimes slow is smart.</li>
-							</ul>
-							<p class="role__win"><strong>You win</strong> when the target value is in the van. For three thieves it's $25,000; smaller crews get a lower target.</p>
-						</div>
-					</article>
-					<article class="role role--guard reveal">
-						<div class="role__media">
-							<video data-src="/assets/video/drone.mp4" muted loop playsinline preload="none" data-poster="/assets/img/drone.jpg" aria-label="The guard's drone view"></video>
-						</div>
-						<div class="role__body">
-							<p class="role__tag">Guard</p>
-							<h3>Hold the fort from the office</h3>
-							<ul class="ticks">
-								<li>At the computer you watch the cameras and the building map and listen to the mics.</li>
-								<li>Lock doors, kill the lights and trigger the alarm: it deafens the thieves in the room and flips their controls.</li>
-								<li>Put on the FPV goggles and hunt thieves with a taser drone. Watch the battery and don't fly outside, you'll lose signal. And whatever you do, don't let them steal it.</li>
-								<li>Pick a room and talk into it over the PA. Caught thieves yell at you from the cell and bang on the glass.</li>
-								<li>Protected loot unlocks pieces on the mirror rack, three of them guard-only: a uniform cap, mirrored shades and a guard's mustache.</li>
-							</ul>
-							<p class="role__win"><strong>You win</strong> when every thief is in the cell, or time runs out.</p>
-						</div>
-					</article>
-				</div>
-			</div>
-		</section>
-
-		<!-- Funny moments -->
-		<section class="section section--panel" id="clips">
-			<div class="wrap">
-				<div class="section__head reveal">
-					<p class="eyebrow">Clips from the game</p>
-					<h2 class="h2">And why it's so stupidly fun</h2>
-					<p class="lead">Physics, rubber arms and voice chat. You can't plan the best moments.</p>
-				</div>
-				<div class="bento">
-					<figure class="clip clip--wide reveal">
-						<video data-src="/assets/video/slip.mp4?v=k3" muted loop playsinline preload="none" data-poster="/assets/img/slip.jpg?v=k3" aria-label="A thief slips on a banana peel"></video>
-						<div class="cctv"><span class="cctv__rec"><i></i>REC</span><span class="cctv__cam">CAM 6 · CORRIDOR</span></div>
-						<figcaption><strong>Wet floor.</strong> Banana peels and foam from a smashed fire extinguisher. Real physics does the falling: whoever slips flies down the hallway, bounces off a bucket and tumbles all the way down the stairs.</figcaption>
-					</figure>
-					<figure class="clip reveal">
-						<video data-src="/assets/video/fart.mp4" muted loop playsinline preload="none" data-poster="/assets/img/fart.jpg" aria-label="A thief grabs a whoopee cushion"></video>
-						<figcaption><strong>Whoopee cushion.</strong> The mic by the bench heard it. So did the guard.</figcaption>
-					</figure>
-					<figure class="clip reveal">
-						<video data-src="/assets/video/crew.mp4" muted loop playsinline preload="none" data-poster="/assets/img/crew.jpg" aria-label="Three thieves wave and dance by the van"></video>
-						<figcaption><strong>The crew.</strong> Wave, point, “shh” and a victory dance. No words needed.</figcaption>
-					</figure>
-					<figure class="clip clip--wide reveal">
-						<video data-src="/assets/video/stretch.mp4" muted loop playsinline preload="none" data-poster="/assets/img/stretch.jpg" aria-label="A thief drags a statue on rubber arms"></video>
-						<div class="cctv"><span class="cctv__rec"><i></i>REC</span><span class="cctv__cam">CAM 2 · GALLERY</span></div>
-						<figcaption><strong>Rubber arms.</strong> The statue is heavy, the arms aren't. They stretch until they snap. Carry heavy stuff in pairs.</figcaption>
-					</figure>
-				</div>
-				<div class="pillars pillars--after">
-					<article class="pillar reveal">
-						<div class="pillar__icon pillar__icon--blue">
-							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0-6 6c0 4 6 9 6 9s6-5 6-9a6 6 0 0 0-6-6zM12 18v3" /></svg>
-						</div>
-						<h3>Helium</h3>
-						<p>Balloons in the pub, the villa and the museum. One breath and you sound like a cartoon for twenty seconds. Everyone hears it, the guard too, through the mic.</p>
-					</article>
-					<article class="pillar reveal">
-						<div class="pillar__icon pillar__icon--red">
-							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h3l5 4V6L7 10zM16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12" /></svg>
-						</div>
-						<h3>PA and the cell</h3>
-						<p>The guard talks into a chosen room through the ceiling speaker. Caught thieves yell back from the cell and bang on the glass.</p>
-					</article>
-					<article class="pillar reveal">
-						<div class="pillar__icon pillar__icon--gold">
-							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19l6-6M14 4l6 6-5 5-6-6zM4 14l6 6" /></svg>
-						</div>
-						<h3>Throw with care</h3>
-						<p>Throw something hard, hard enough, and it knocks over a buddy, smashes a camera or brings down the guard's drone. A pillow won't.</p>
-					</article>
-				</div>
-			</div>
-		</section>
-
-		<!-- Tools -->
-		<section class="section" id="tools">
-			<div class="wrap">
-				<div class="section__head reveal">
-					<p class="eyebrow">Thief gear</p>
-					<h2 class="h2">Four tools, one each</h2>
-					<p class="lead">Everyone picks one tool before the round, and the boss sells upgrades. Hover over a clip to see it in action.</p>
-				</div>
-				<div class="tools">
-					<article class="tool reveal">
-						<div class="tool__media">
-							<video data-src="/assets/video/tool_spray.mp4" muted loop playsinline preload="none" data-poster="/assets/img/tool_spray.jpg" aria-label="Spray paints over a camera"></video>
-						</div>
-						<div class="tool__body">
-							<h3>Spray <span>3 uses</span></h3>
-							<p>Paint a camera or sensor black. The guard is left staring at nothing.</p>
-						</div>
-					</article>
-					<article class="tool reveal">
-						<div class="tool__media">
-							<video data-src="/assets/video/tool_jammer.mp4" muted loop playsinline preload="none" data-poster="/assets/img/tool_jammer.jpg" aria-label="A jammer silences a mic"></video>
-						</div>
-						<div class="tool__body">
-							<h3>Jammer <span>2 uses</span></h3>
-							<p>Nearby mics hear only static for a while. Cameras still see you.</p>
-						</div>
-					</article>
-					<article class="tool reveal">
-						<div class="tool__media">
-							<video data-src="/assets/video/tool_crowbar.mp4" muted loop playsinline preload="none" data-poster="/assets/img/tool_crowbar.jpg" aria-label="A crowbar pries a door open"></video>
-						</div>
-						<div class="tool__body">
-							<h3>Crowbar <span>unlimited</span></h3>
-							<p>Pops locked doors, windows and display cases fast. It's loud, though.</p>
-						</div>
-					</article>
-					<article class="tool reveal">
-						<div class="tool__media">
-							<video data-src="/assets/video/tool_cutter.mp4" muted loop playsinline preload="none" data-poster="/assets/img/tool_cutter.jpg" aria-label="A glass cutter cuts open a display case"></video>
-						</div>
-						<div class="tool__body">
-							<h3>Glass cutter <span>unlimited</span></h3>
-							<p>Quietly cuts through window or display glass. Takes longer.</p>
-						</div>
-					</article>
-				</div>
-			</div>
-		</section>
-
-		<!-- The paper -->
-		<section class="section section--paper" id="news">
+		<!-- Newspaper and clips -->
+		<section class="section section--paper" id="noviny">
 			<div class="wrap news">
-				<div class="news__text reveal">
-					<p class="news__kicker">Crime · Koruna Department Store</p>
-					<h2 class="news__title">Wake up to your own headline</h2>
-					<p class="news__lead">Every round ends with the front page of The Grapevine. How much you stole, what you broke, who slipped, who stole the guard's drone and whether the boss fired you. Instead of a photo, it plays a clip of the night's most embarrassing moment.</p>
-					<p class="news__note">The SAVE VIDEO button saves that blunder as a GIF in your Pictures, ready to share. Then the host hits REMATCH and you go again. Usually with a different guard.</p>
+				<div class="reveal">
+					<p class="news__mast">The Grapevine · morning edition · crime</p>
+					<h2 class="news__title">In the morning you make the papers</h2>
+					<p class="news__lead">Every round ends with the front page of The Grapevine tabloid: how much you stole, what you broke, who slipped, who stole the drone and whether the boss fired you. <b>Instead of a photo, it plays a clip of the night's most embarrassing moment.</b></p>
+					<p class="news__note">The <b>SAVE VIDEO</b> button saves that moment as a GIF to your Pictures folder, ready to share. Then the host hits <b>REMATCH</b> and you go again, usually with a different guard.</p>
 				</div>
 				<figure class="news__paper reveal">
-					<video data-src="/assets/video/news_en.mp4" muted loop playsinline preload="none" data-poster="/assets/img/news_en.jpg" aria-label="The Grapevine front page with a video clip"></video>
+					<video data-src="/assets/video/news_en.mp4" muted loop playsinline preload="none" data-poster="/assets/img/news_en.jpg" aria-label="The Grapevine front page with a clip of the blunder"></video>
 				</figure>
 			</div>
 		</section>
 
-		<!-- Gallery -->
-		<section class="section" id="gallery">
+		<!-- Download and tester guide -->
+		<section class="section download" id="stahnout">
 			<div class="wrap">
-				<div class="section__head reveal">
-					<p class="eyebrow">Gallery</p>
-					<h2 class="h2">What it looks like</h2>
+				<div class="section__head section__head--center reveal">
+					<p class="eyebrow if-playtest">You're invited to the job</p>
+					<p class="eyebrow if-soon">Coming soon to Steam</p>
+					<h2 class="h2 if-playtest">Get the demo <em>and bring your crew</em></h2>
+					<h2 class="h2 if-soon">Add it <em>to your wishlist</em></h2>
+					<p class="lead if-playtest">Hush Heist is being playtested with invited players right now. The demo is free, things break now and then, and that makes it even funnier.</p>
+					<p class="lead if-soon">Hush Heist is headed to Steam. Wishlist it, and until it's out, play the playtest demo.</p>
 				</div>
-				<div class="gallery">
-					<button class="shot reveal" data-full="/assets/img/ui_planning_en.jpg"><img src="/assets/img/ui_planning_en.jpg" alt="The heist plan with a tool preview" loading="lazy" width="1600" height="900"><span>Heist plan</span></button>
-					<button class="shot reveal" data-full="/assets/img/ui_setup_en.jpg"><img src="/assets/img/ui_setup_en.jpg" alt="Guard prep with camera coverage" loading="lazy" width="1600" height="900"><span>Guard prep</span></button>
-					<button class="shot reveal" data-full="/assets/img/cctv_still_en.jpg"><img src="/assets/img/cctv_still_en.jpg" alt="The guard's computer with an alert" loading="lazy" width="1600" height="900"><span>Cameras and alerts</span></button>
-					<button class="shot reveal" data-full="/assets/img/ui_map_en.jpg"><img src="/assets/img/ui_map_en.jpg" alt="The building map at the guard's computer with locks and light bulbs" loading="lazy" width="1600" height="900"><span>Map: locks, alarm and lights</span></button>
-					<button class="shot reveal" data-full="/assets/img/map_casino_hall.jpg"><img src="/assets/img/map_casino_hall.jpg" alt="The casino floor with roulette and card tables" loading="lazy" width="1600" height="900"><span>Casino floor</span></button>
-					<button class="shot reveal" data-full="/assets/img/map_studio_news_en.jpg"><img src="/assets/img/map_studio_news_en.jpg" alt="The newsroom with a night city backdrop" loading="lazy" width="1600" height="900"><span>TV newsroom</span></button>
-					<button class="shot reveal" data-full="/assets/img/pub.jpg"><img src="/assets/img/pub.jpg" alt="The Golden Crook pub with the crew" loading="lazy" width="1280" height="720"><span>The Golden Crook</span></button>
-					<button class="shot reveal" data-full="/assets/img/map_gold.jpg"><img src="/assets/img/map_gold.jpg" alt="Gold bars on a shelf in the vault" loading="lazy" width="1600" height="900"><span>Gold bars in the vault</span></button>
-					<button class="shot reveal" data-full="/assets/img/guard_office.jpg"><img src="/assets/img/guard_office.jpg" alt="The guard's office" loading="lazy" width="1600" height="900"><span>The guard's office</span></button>
+				<div class="dossier reveal">
+					<p class="stamp if-playtest" aria-hidden="true"><b>Playtest</b><small>invite only</small></p>
+					<div>
+						<h3 style="font:400 34px/1 var(--display);text-transform:uppercase">Demo for Windows and Mac</h3>
+						<div class="dl__buttons" id="download-buttons">
+							<a class="btn btn--steam btn--xl if-soon" data-steam href="#stahnout">
+								<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5l-1.2-1.1C6.2 15.3 3.5 12.8 3.5 9.6A4.6 4.6 0 0 1 8.1 5c1.5 0 2.9.7 3.9 1.8A5.1 5.1 0 0 1 15.9 5a4.6 4.6 0 0 1 4.6 4.6c0 3.2-2.7 5.7-7.3 9.8z" /></svg>
+								<span class="btn__text">Wishlist on Steam<small>coming soon</small></span>
+							</a>
+							<a class="btn btn--gold btn--xl" id="download-win" href="https://github.com/Matyhead/startheist-web/releases/latest/download/HushHeist-demo.zip">
+								<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16" /></svg>
+								<span class="btn__text">Download for Windows<small data-meta>latest build · .zip, about 170 MB</small></span>
+							</a>
+							<a class="btn btn--ghost btn--xl" id="download-mac" href="https://github.com/Matyhead/startheist-web/releases/latest/download/HushHeist-mac.zip">
+								<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16" /></svg>
+								<span class="btn__text">Download for Mac<small data-meta>latest build · .zip, about 190 MB</small></span>
+							</a>
+						</div>
+						<ul class="reqs">
+							<li>Windows 10 or 11 (64-bit), or a Mac with macOS 13 or newer (Apple Silicon; Intel from macOS 11)</li>
+							<li>Steam running and logged in (you don't buy anything there, it just has to be running)</li>
+							<li>A microphone and headphones. Without a mic it's half the fun.</li>
+							<li>On a Mac, a mouse: right click throws and shoves.</li>
+						</ul>
+					</div>
+					<ol class="steps" id="navod">
+						<li>
+							<h3>Extract the whole zip</h3>
+							<p><b>Windows:</b> right click the zip, <b>Extract All</b>. Don't run the game from inside the zip, the Steam libraries would be missing. <b>Mac:</b> double click the zip to get HushHeist.app.</p>
+						</li>
+						<li>
+							<h3>Start Steam and log in</h3>
+							<p>In Steam the game shows up as “Spacewar”. That's the test ID for games in development, it's fine.</p>
+						</li>
+						<li>
+							<h3>Launch the game</h3>
+							<p><b>Windows:</b> HushHeist.exe. On the blue “Windows protected your PC” screen click <b>More info</b> and <b>Run anyway</b>.</p>
+							<p><b>Mac:</b> macOS blocks it the first time. Click <b>Done</b>, open <b>System Settings › Privacy &amp; Security</b>, scroll down and click <b>Open Anyway</b>. When asked about the microphone, click Allow.</p>
+						</li>
+						<li>
+							<h3>First time?</h3>
+							<p><b>HOW TO PLAY</b> has a short intro for both the thief and the guard. The game is in English, Czech is in <b>SETTINGS › Language / Jazyk</b>.</p>
+						</li>
+						<li>
+							<h3>Host and invite your friends</h3>
+							<p>The host clicks <b>HOST GAME</b> and sends invites from the pub with <kbd>Esc</kbd> › <b>INVITE FRIENDS</b>. Everyone else already has the game running and clicks the invite in Steam chat, or <b>FIND GAME</b> in the menu.</p>
+							<p class="note">The Steam overlay (<kbd>Shift</kbd>+<kbd>Tab</kbd>) doesn't work in the demo, because the game isn't launched from Steam. Invite through Esc in the pub.</p>
+						</li>
+					</ol>
+				</div>
+				<div class="shout">
+					<div class="shout__share reveal">
+						<h3>Pass it on</h3>
+						<p>Had fun? Send the link to other crews. More players, more blunders in the papers.</p>
+						<button class="btn btn--gold btn--sm" type="button" data-share data-done="Link copied">Copy the startheist.com link</button>
+					</div>
+					<div class="reveal" id="zpetna-vazba">
+						<h3>Feedback</h3>
+						<p>A bug, a stuck spot or an idea? <span data-feedback-text>Message whoever invited you.</span> A GIF from the paper or a screenshot helps too.</p>
+						<a class="btn btn--ghost btn--sm" data-feedback href="#zpetna-vazba" hidden>Send feedback</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- FAQ -->
+		<section class="section section--panel" id="faq">
+			<div class="wrap wrap--narrow">
+				<div class="section__head reveal">
+					<p class="eyebrow">FAQ</p>
+					<h2 class="h2">When something's off</h2>
+				</div>
+				<div class="faq reveal">
+					<details>
+						<summary>How many of us do we need?</summary>
+						<p>Just one. Alone you play a thief against the computer (<b>TRAINING</b>). With two, you can both steal while the computer guards, or one of you guards. It plays best with three thieves and one guard, up to seven players.</p>
+					</details>
+					<details>
+						<summary>My friend clicked the invite and Steam wants to install Spacewar</summary>
+						<p>Hush Heist has to be running before you click the invite. Close the Steam window, start the game and click the invite again. Or pick the host's lobby under <b>FIND GAME</b> (a new one shows up after a few seconds, or hit <b>REFRESH</b>).</p>
+					</details>
+					<details>
+						<summary>macOS says the app is damaged</summary>
+						<p>Open Terminal, type <code>xattr -dr com.apple.quarantine</code>, a space, drag HushHeist.app into the window and press Enter. Then open the game again. On macOS 14 and older you can also right click HushHeist.app and choose Open. The game window appears once you answer the microphone prompt.</p>
+					</details>
+					<details>
+						<summary>My friends can't hear me</summary>
+						<p>On Windows open Settings, Privacy, Microphone and allow desktop apps. On a Mac open System Settings, Privacy &amp; Security, Microphone and turn on Hush Heist and Steam. In the game, pick the right mic in <b>SETTINGS › MICROPHONE</b> and click <b>TEST</b>. Someone too loud? Esc and <b>PLAYER VOICES</b> sets each person's volume.</p>
+					</details>
+					<details>
+						<summary>What if the host's game crashes?</summary>
+						<p>Another player takes over and the crew meets up at the pub. Whatever you managed to load counts toward the cash and the boss's quota. Whoever dropped out clicks <b>REJOIN</b>.</p>
+					</details>
+					<details>
+						<summary>The game is laggy</summary>
+						<p>Esc, <b>SETTINGS</b>, <b>DISPLAY &amp; MOUSE</b> and set graphics to <b>LOW</b>. Fullscreen is F11, on a Mac Option+Enter.</p>
+					</details>
+					<details>
+						<summary>Where are the photo booth pictures and newspaper GIFs?</summary>
+						<p>In <b>Pictures › Hush Heist</b> (on both Windows and Mac). The photo booth picture is saved for everyone in the pub at the time, the newspaper GIF for whoever clicks SAVE VIDEO.</p>
+					</details>
+					<details>
+						<summary>Can I play without Steam?</summary>
+						<p>Over a local network, yes: the menu has <b>LOCAL NETWORK</b>. Over the internet, only through Steam for now.</p>
+					</details>
 				</div>
 			</div>
 		</section>
 
 		<!-- Controls -->
-		<section class="section section--panel" id="controls">
+		<section class="section" id="ovladani">
 			<div class="wrap">
 				<div class="section__head reveal">
 					<p class="eyebrow">Controls</p>
 					<h2 class="h2">Every key in one place</h2>
-					<p class="lead">In game, press <kbd>H</kbd> to see them. Esc opens the menu with settings, and you can rebind everything under KEYS.</p>
+					<p class="lead">In the game, press <kbd>H</kbd> to see them. Esc opens the menu with settings, and the KEYS tab lets you rebind them.</p>
 				</div>
 				<div class="tabs reveal">
 					<div class="tabs__list" role="tablist">
@@ -609,18 +660,18 @@
 					<div class="keys" role="tabpanel" id="keys-thief" aria-labelledby="tab-thief">
 						<div class="key"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span>walk</div>
 						<div class="key"><span><kbd>Shift</kbd></span>run</div>
-						<div class="key"><span><kbd>Space</kbd></span>jump, climb ledges</div>
+						<div class="key"><span><kbd>Space</kbd></span>jump, climb a ledge</div>
 						<div class="key"><span><kbd>C</kbd></span>crouch</div>
 						<div class="key"><span><kbd>LMB</kbd></span>hold: grab, drag doors</div>
 						<div class="key"><span><kbd>RMB</kbd></span>throw</div>
 						<div class="key"><span><kbd>Q</kbd></span>drop</div>
-						<div class="key"><span><kbd>E</kbd></span>pocket, windows, vents, van</div>
-						<div class="key"><span><kbd>1</kbd></span>draw your tool</div>
+						<div class="key"><span><kbd>E</kbd></span>pocket, window, vent, van</div>
+						<div class="key"><span><kbd>1</kbd></span>take out your tool</div>
 						<div class="key"><span><kbd>L</kbd></span>headlamp</div>
-						<div class="key"><span><kbd>B</kbd></span>walkie-talkie to the whole crew</div>
-						<div class="key"><span><kbd>T</kbd><kbd>G</kbd><kbd>X</kbd><kbd>F</kbd></span>wave, point, shh, dance</div>
+						<div class="key"><span><kbd>B</kbd></span>radio to the whole crew</div>
+						<div class="key"><span><kbd>T</kbd><kbd>G</kbd><kbd>X</kbd><kbd>F</kbd></span>wave, point, shush, dance</div>
 						<div class="key"><span><kbd>V</kbd></span>talk (with push-to-talk on)</div>
-						<div class="key"><span><kbd>H</kbd></span>all keys</div>
+						<div class="key"><span><kbd>H</kbd></span>all controls</div>
 						<div class="key"><span><kbd>Esc</kbd></span>menu and settings</div>
 					</div>
 					<div class="keys" role="tabpanel" id="keys-guard" aria-labelledby="tab-guard" hidden>
@@ -636,142 +687,41 @@
 						<div class="key"><span><kbd>LMB</kbd></span>in the drone: taser</div>
 						<div class="key"><span><kbd>Space</kbd><kbd>C</kbd></span>in the drone: up and down</div>
 						<div class="key"><span><kbd>E</kbd><kbd>Esc</kbd></span>back to your body</div>
-						<div class="key"><span><kbd>Click</kbd></span>on the map: lock, alarm, light bulb</div>
+						<div class="key"><span><kbd>Click</kbd></span>on the map: lock, alarm, bulb</div>
 						<div class="key"><span><kbd>RMB</kbd><kbd>T</kbd></span>pick a room, hold T: PA</div>
-						<div class="key"><span><kbd>H</kbd></span>all keys</div>
+						<div class="key"><span><kbd>H</kbd></span>all controls</div>
 					</div>
 					<div class="keys" role="tabpanel" id="keys-pub" aria-labelledby="tab-pub" hidden>
 						<div class="key"><span><kbd>E</kbd></span>at the board: throw a knife at a job</div>
-						<div class="key"><span><kbd>LMB</kbd></span>grab a bottle, mug or chair</div>
-						<div class="key"><span><kbd>RMB</kbd></span>throw, or shove with empty hands</div>
+						<div class="key"><span><kbd>LMB</kbd></span>grab a bottle, pint, chair</div>
+						<div class="key"><span><kbd>RMB</kbd></span>throw, shove with empty hands</div>
 						<div class="key"><span><kbd>E</kbd></span>into the bin (you'll guard)</div>
 						<div class="key"><span><kbd>Space</kbd></span>out of the bin</div>
-						<div class="key"><span><kbd>E</kbd></span>at the boss's table: buy from the kitty</div>
-						<div class="key"><span><kbd>E</kbd></span>at the rules board: tutorial</div>
-						<div class="key"><span><kbd>E</kbd></span>at the mic: karaoke</div>
+						<div class="key"><span><kbd>E</kbd></span>at the boss's table: buy with crew cash</div>
+						<div class="key"><span><kbd>E</kbd></span>at the rules board: intro to the game</div>
 						<div class="key"><span><kbd>E</kbd></span>at the camera: crew photo</div>
-						<div class="key"><span><kbd>E</kbd></span>at the rack: try on a hat or glasses</div>
-						<div class="key"><span><kbd>E</kbd></span>shot, cigarette, slot machine, jukebox</div>
-						<div class="key"><span><kbd>E</kbd></span>at the bartender or boss: a tip</div>
+						<div class="key"><span><kbd>E</kbd></span>at the coat rack: put on a hat or glasses</div>
+						<div class="key"><span><kbd>E</kbd></span>shot, cigarette, slots, jukebox</div>
 						<div class="key"><span><kbd>Hold E</kbd></span>at the pool table: cue shot</div>
-						<div class="key"><span><kbd>E</kbd></span>triangle by the restroom: rack the balls</div>
 						<div class="key"><span><kbd>E</kbd></span>at a balloon: inhale helium</div>
 					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- Download and setup -->
-		<section class="section download" id="download">
-			<div class="wrap">
-				<div class="download__card reveal">
-					<div class="download__info">
-						<p class="eyebrow">Demo for friends</p>
-						<h2 class="h2">Get the demo</h2>
-						<p class="lead">The game is in development. Things break now and then, which only makes it funnier. If you hit a bug, tell whoever sent you the link.</p>
-						<div class="download__buttons" id="download-buttons">
-							<a class="btn btn--gold btn--xl" id="download-win" href="https://github.com/Matyhead/startheist-web/releases/latest/download/HushHeist-demo.zip">
-								<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16" /></svg>
-								<span class="btn__text">Download for Windows<small data-meta>latest build · .zip, about 170 MB</small></span>
-							</a>
-							<a class="btn btn--ghost btn--xl" id="download-mac" href="https://github.com/Matyhead/startheist-web/releases/latest/download/HushHeist-mac.zip">
-								<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16" /></svg>
-								<span class="btn__text">Download for Mac<small data-meta>latest build · .zip, about 190 MB</small></span>
-							</a>
-						</div>
-						<ul class="reqs">
-							<li>Windows 10 or 11 (64-bit), or macOS 13+ on Apple Silicon (macOS 11+ on Intel)</li>
-							<li>Steam running and signed in</li>
-							<li>A mic and headphones (without a mic it's half the fun)</li>
-						</ul>
-					</div>
-					<ol class="install" id="how-to-play">
-						<li>
-							<h3>Unzip the whole thing</h3>
-							<p><b>Windows:</b> right-click the file and choose <b>Extract All</b>. Don't run the game from inside the zip. <b>Mac:</b> double-click the zip to get HushHeist.app (feel free to drag it to Applications).</p>
-						</li>
-						<li>
-							<h3>Start Steam and sign in</h3>
-							<p>Steam will show the game as “Spacewar”. That's a test ID for games in development, it's fine.</p>
-						</li>
-						<li>
-							<h3>Launch the game</h3>
-							<p><b>Windows:</b> run HushHeist.exe. If you see the blue “Windows protected your PC” screen, click <b>More info</b>, then <b>Run anyway</b>. <b>Mac:</b> macOS blocks it the first time, so open <b>System Settings › Privacy &amp; Security</b> and click <b>Open Anyway</b>. When it asks about the microphone, click Allow.</p>
-						</li>
-						<li>
-							<h3>Host or join</h3>
-							<p>The host clicks <b>HOST GAME</b> and invites friends from the pub with Esc. Everyone else clicks the Steam invite, or <b>FIND GAME</b>. First time? <b>HOW TO PLAY</b> has a short tutorial for both thief and guard.</p>
-						</li>
-					</ol>
-				</div>
-			</div>
-		</section>
-
-		<!-- FAQ -->
-		<section class="section section--panel" id="faq">
-			<div class="wrap wrap--narrow">
-				<div class="section__head reveal">
-					<p class="eyebrow">FAQ</p>
-					<h2 class="h2">When something's off</h2>
-				</div>
-				<div class="faq reveal">
-					<details>
-						<summary>How many players do we need?</summary>
-						<p>Just one. Solo, you play a thief against the computer (<b>TRAINING</b>). With two, you can both steal while the computer guards, or one of you guards. It's best with three thieves and one guard, and you can go up to seven.</p>
-					</details>
-					<details>
-						<summary>How do I run it on a Mac?</summary>
-						<p>Download the Mac version (HushHeist-mac.zip), it runs on Apple Silicon and Intel. The game isn't signed by Apple yet, so macOS blocks it the first time: click <b>Done</b>, open <b>System Settings › Privacy &amp; Security</b>, scroll down and click <b>Open Anyway</b> next to HushHeist. On macOS 14 and older you can also right-click HushHeist.app and choose Open. If macOS says the app is damaged, type <code>xattr -dr com.apple.quarantine</code> and a space in Terminal, drag HushHeist.app into the window and press Enter. The game window appears once you answer the microphone prompt.</p>
-					</details>
-					<details>
-						<summary>My friends can't hear me</summary>
-						<p>On Windows, open Settings › Privacy &amp; security › Microphone and allow desktop apps. On a Mac, open System Settings › Privacy &amp; Security › Microphone and turn on both Hush Heist and Steam. In the game, <b>SETTINGS › MICROPHONE</b> lets you pick your mic and hit <b>TEST</b>: it records a few seconds and plays them right back. Someone too loud? Esc › <b>PLAYER VOICES</b> sets each player's volume.</p>
-					</details>
-					<details>
-						<summary>I can't see my friend's game in the list</summary>
-						<p>New games take a few seconds to show up on Steam, so click <b>REFRESH</b>. Invites are more reliable: the host presses Esc in the pub and clicks <b>INVITE FRIENDS</b>.</p>
-					</details>
-					<details>
-						<summary>What if the host's game crashes?</summary>
-						<p>The next player takes over and the crew meets back at the pub. Whatever you already loaded counts toward the kitty and the boss's quota. Whoever dropped clicks <b>REJOIN</b> and waits in the pub until the round ends.</p>
-					</details>
-					<details>
-						<summary>The game stutters</summary>
-						<p>Esc › <b>SETTINGS</b> › <b>DISPLAY &amp; MOUSE</b> and set graphics to <b>LOW</b>. F11 toggles fullscreen (Option+Enter on a Mac).</p>
-					</details>
-					<details>
-						<summary>What languages does it support?</summary>
-						<p>English by default. Czech is one click away: <b>SETTINGS</b>, then <b>Language / Jazyk</b> at the very top. The game remembers your choice.</p>
-					</details>
-					<details>
-						<summary>Where are the photo booth pictures and newspaper GIFs?</summary>
-						<p>In <b>Pictures › Hush Heist</b> (Windows and Mac). The photo booth picture is saved for everyone in the pub, the GIF for whoever clicks SAVE VIDEO.</p>
-					</details>
-					<details>
-						<summary>Can I play without Steam?</summary>
-						<p>Over a local network, yes: <b>LOCAL NETWORK</b> in the menu. Over the internet it's Steam only for now.</p>
-					</details>
 				</div>
 			</div>
 		</section>
 	</main>
 
 	<footer class="footer">
-		<div class="wrap footer__inner">
+		<div class="wrap">
 			<img src="/assets/img/logo.png" alt="Hush Heist" width="140" height="55" loading="lazy">
-			<p>Hush Heist is in development. This demo is for friends and testers.</p>
+			<p class="if-playtest">Hush Heist is in development. This demo is an internal playtest for invited players.</p>
+			<p class="if-soon">Hush Heist · coming soon to Steam. <a data-steam href="#stahnout">Add it to your wishlist.</a></p>
 			<p class="footer__small"><a href="/" hreflang="cs" lang="cs" data-lang="cs">Česká verze</a> · startheist.com · © 2026</p>
 		</div>
 	</footer>
 
-	<div class="lightbox trailer" id="trailer" hidden>
-		<button class="lightbox__close" aria-label="Close">×</button>
+	<div class="lightbox" id="trailer" hidden>
+		<button class="lightbox__close" type="button" aria-label="Close">×</button>
 		<video controls playsinline preload="none" aria-label="Hush Heist trailer"></video>
-	</div>
-
-	<div class="lightbox" id="lightbox" hidden>
-		<button class="lightbox__close" aria-label="Close">×</button>
-		<img alt="">
 	</div>
 
 	<script src="/main.js" defer></script>

@@ -19,6 +19,18 @@ obě verze se navzájem odkazují přes `hreflang` (`x-default` je angličtina).
 
 Vercel ji servíruje tak, jak je (nastavení v `vercel.json`).
 
+## Fáze webu: playtest, nebo Již brzy na Steamu
+
+Jediné místo je `config.js` (načítá ho `<head>` obou stránek):
+
+- `phase: "playtest"`: odznak INTERNÍ PLAYTEST, hlavní tlačítko Stáhnout demo (playtest), návod pro testery.
+- `phase: "soon"`: odznak JIŽ BRZY NA STEAMU, hlavní tlačítko Přidat do přání (Steam), demo zůstane
+  ke stažení jako vedlejší možnost. Do `steam` patří adresa stránky hry na Steamu, bez ní se tlačítka
+  Steamu schovají.
+- `feedback`: odkaz pro zpětnou vazbu (Discord, formulář). Prázdný = text „napiš tomu, kdo tě pozval“.
+
+V HTML se obsah pro jednotlivé fáze označuje třídami `if-playtest` a `if-soon`.
+
 ## Stažení dema
 
 Tlačítka na webu vedou na nejnovější release tohoto repa:
@@ -35,8 +47,12 @@ a nový release s oběma zipy). Web se kvůli tomu měnit nemusí.
 ## Videa
 
 Videa a obrázky jsou natočené přímo ze hry (Godot, skriptované záběry v `tools/record_web.gd`
-v repu hry, s `--lang=en|cs`) a převedené na H.264 MP4. Videa se načítají a hrají, až když
-jsou na obrazovce.
+v repu hry, s `--lang=en|cs`) a převedené na H.264 MP4 (ffmpeg, libx264, bez zvuku). Videa se
+načítají a hrají, až když jsou na obrazovce. Úvodní video je ve dvou verzích: `hero.mp4` na šířku
+a `hero_tall.mp4` na výšku pro telefony (skript vybere podle poměru stran, plakát je `<picture>`).
+Hero, `talk`, `stairs`, `stun` a `museum` jsou sestříhané ze záběrů traileru (`tools/record_trailer.gd`),
+`carry` a `stretch` z `record_web.gd`. Zmenšené snímky do sekcí jsou v `assets/img/sm/`.
+Změněný soubor se stejným jménem dostane v HTML `?v=...`, protože `/assets` se cachuje týden.
 
 ## Lokální náhled
 

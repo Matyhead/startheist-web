@@ -169,12 +169,12 @@ h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.25; }
 	color: var(--red); font-family: var(--display); text-transform: uppercase; line-height: 1;
 	transform: rotate(-6deg); background: rgba(255, 59, 47, .08);
 	box-shadow: inset 0 0 0 2px rgba(255, 59, 47, .25);
-	animation: stamp .7s .4s var(--ease) both;
+	animation: stamp .6s var(--ease);
 }
 .stamp b { font-weight: 400; font-size: clamp(22px, 2.4vw, 30px); letter-spacing: .04em; color: inherit; }
 .stamp small { font: 700 10px/1.3 var(--body); letter-spacing: .2em; margin-top: 3px; }
 .stamp--soon { color: #66c0f4; border-color: #66c0f4; background: rgba(102, 192, 244, .08); box-shadow: inset 0 0 0 2px rgba(102, 192, 244, .25); }
-@keyframes stamp { from { opacity: 0; transform: rotate(-14deg) scale(1.8); } to { opacity: 1; transform: rotate(-6deg) scale(1); } }
+@keyframes stamp { from { transform: rotate(-16deg) scale(1.7); } }
 
 /* Překryv jako záznam z bezpečnostní kamery. */
 .cctv { position: absolute; inset: 0; pointer-events: none; font: 600 13px/1 var(--mono); color: rgba(255, 255, 255, .86); letter-spacing: .06em; text-shadow: 0 1px 3px rgba(0, 0, 0, .7); }
@@ -469,7 +469,14 @@ h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.25; }
 	.hero__shade { background: linear-gradient(0deg, var(--bg) 4%, rgba(6, 8, 12, .78) 48%, rgba(6, 8, 12, .25) 100%); }
 	.cctv--hero { inset: 76px 12px 12px; font-size: 11px; }
 	.cctv--hero .cctv__time { display: none; }
-	.hero__content { padding-top: 40vh; padding-bottom: 64px; }
+	.hero__content { padding-top: 122px; padding-bottom: 56px; }
+	.hero__top { gap: 14px 18px; margin-bottom: 12px; }
+	.hero__logo { width: 150px; }
+	.stamp b { font-size: 18px; }
+	.hero__title { font-size: clamp(44px, 12.6vw, 72px); margin-bottom: 14px; }
+	.hero__lead { font-size: 16.5px; margin-bottom: 20px; }
+	.hero__actions { gap: 10px; }
+	.chips li { font-size: 12px; padding: 5px 10px; }
 	.hero__actions .btn { width: 100%; justify-content: center; }
 	.hero__scroll { display: none; }
 }

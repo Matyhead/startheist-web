@@ -1,5 +1,5 @@
 // Hush Heist web: videa se načtou a hrají, až když jsou vidět; navigace, záložky,
-// galerie, hodiny na „kameře“ v úvodu, přepínač jazyka a údaje o nejnovější verzi dema
+// galerie, trailer, hodiny na „kameře“ v úvodu, přepínač jazyka a údaje o nejnovější verzi dema
 // z GitHubu (Windows i Mac, na Macu je Mac hlavní tlačítko). Stejný skript pro českou
 // (/) i anglickou (/en) stránku: jazyk pozná z <html lang>.
 (() => {
@@ -158,6 +158,37 @@
 	document.addEventListener("keydown", (event) => {
 		if (event.key === "Escape" && !box.hidden) closeBox();
 	});
+
+	// Trailer: hraje se zvukem po kliknutí; telefon na výšku dostane verzi na výšku.
+	const trailer = document.getElementById("trailer");
+	if (trailer) {
+		const player = trailer.querySelector("video");
+		const closeTrailer = () => {
+			player.pause();
+			trailer.hidden = true;
+			document.body.style.overflow = "";
+		};
+		document.querySelectorAll("[data-trailer]").forEach((link) =>
+			link.addEventListener("click", (event) => {
+				event.preventDefault();
+				const tall = window.matchMedia("(orientation: portrait) and (max-width: 820px)").matches;
+				const src = tall ? "/assets/video/trailer_vertical.mp4" : "/assets/video/trailer.mp4";
+				trailer.classList.toggle("is-vertical", tall);
+				if (player.getAttribute("src") !== src) player.src = src;
+				trailer.hidden = false;
+				document.body.style.overflow = "hidden";
+				player.currentTime = 0;
+				player.play().catch(() => {});
+				trailer.querySelector("button").focus();
+			})
+		);
+		trailer.addEventListener("click", (event) => {
+			if (event.target !== player) closeTrailer();
+		});
+		document.addEventListener("keydown", (event) => {
+			if (event.key === "Escape" && !trailer.hidden) closeTrailer();
+		});
+	}
 
 	// Stažení: na Macu je hlavní tlačítko verze pro Mac (iPad se hlásí jako Mac, ale má dotyk).
 	const platform = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";

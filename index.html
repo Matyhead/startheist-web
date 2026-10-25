@@ -106,6 +106,10 @@
 						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16" /></svg>
 						<span class="btn__text">Stáhnout demo<small data-mac-label="pro Mac · zdarma">Windows a Mac · zdarma</small></span>
 					</a>
+					<a class="btn btn--ghost btn--lg" href="/assets/video/trailer.mp4" data-trailer>
+						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>
+						Zhlédnout trailer
+					</a>
 					<a class="btn btn--ghost btn--lg" href="#o-hre">Jak se to hraje</a>
 				</div>
 				<ul class="chips" aria-label="Základní informace">
@@ -314,8 +318,8 @@
 						<figcaption><strong>Fotokoutek.</strong> Stěna s výškovým metrem jako při zatčení. Odpočet, blesk a každému se polaroid party uloží do Obrázků, i s datem a jmény podezřelých.</figcaption>
 					</figure>
 					<figure class="clip clip--wide reveal">
-						<video data-src="/assets/video/knock.mp4" muted loop playsinline preload="none" data-poster="/assets/img/knock.jpg" aria-label="Ferda hodí po Lojzovi židli a Lojza jde k zemi"></video>
-						<figcaption><strong>Židlí po kamarádovi.</strong> Hozená židle, lahev nebo pořádné strčení porazí jako banánová slupka. V noci parťáka porazí i hozený lup, tak pozor, kam míříte.</figcaption>
+						<video data-src="/assets/video/knock.mp4?v=k3" muted loop playsinline preload="none" data-poster="/assets/img/knock.jpg?v=k3" aria-label="Ferda hodí po Lojzovi židli a Lojza jde k zemi"></video>
+						<figcaption><strong>Židlí po kamarádovi.</strong> Hozená židle, lahev nebo pořádné strčení porazí jako banánová slupka a tělo letí tam, kam ho rána poslala. V noci parťáka porazí i hozený lup, tak pozor, kam míříte.</figcaption>
 					</figure>
 					<figure class="clip reveal">
 						<img src="/assets/img/pub_wardrobe.jpg" alt="Zloděj v kovbojském klobouku a slunečních brýlích u věšáku se zrcadlem" loading="lazy" width="1600" height="900">
@@ -475,9 +479,9 @@
 				</div>
 				<div class="bento">
 					<figure class="clip clip--wide reveal">
-						<video data-src="/assets/video/slip.mp4" muted loop playsinline preload="none" data-poster="/assets/img/slip.jpg" aria-label="Zloděj uklouzne na banánové slupce"></video>
+						<video data-src="/assets/video/slip.mp4?v=k3" muted loop playsinline preload="none" data-poster="/assets/img/slip.jpg?v=k3" aria-label="Zloděj uklouzne na banánové slupce"></video>
 						<div class="cctv"><span class="cctv__rec"><i></i>REC</span><span class="cctv__cam">KAM 6 · CHODBA</span></div>
-						<figcaption><strong>Mokrá podlaha.</strong> Banánová slupka a pěna z rozbitého hasičáku. Klasika, která nezestárne.</figcaption>
+						<figcaption><strong>Mokrá podlaha.</strong> Banánová slupka a pěna z rozbitého hasičáku. Pád počítá skutečná fyzika: kdo uklouzne, proletí chodbou, odrazí se od kbelíku a ze schodů se skutálí až dolů.</figcaption>
 					</figure>
 					<figure class="clip reveal">
 						<video data-src="/assets/video/fart.mp4" muted loop playsinline preload="none" data-poster="/assets/img/fart.jpg" aria-label="Zloděj chytí prdící polštářek"></video>
@@ -775,6 +779,11 @@
 			<p class="footer__small"><a href="/en" hreflang="en" lang="en" data-lang="en">English version</a> · startheist.com · © 2026</p>
 		</div>
 	</footer>
+
+	<div class="lightbox trailer" id="trailer" hidden>
+		<button class="lightbox__close" aria-label="Zavřít">×</button>
+		<video controls playsinline preload="none" aria-label="Trailer Hush Heist"></video>
+	</div>
 
 	<div class="lightbox" id="lightbox" hidden>
 		<button class="lightbox__close" aria-label="Zavřít">×</button>

@@ -90,6 +90,10 @@
 						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16" /></svg>
 						<span class="btn__text">Download the demo<small data-mac-label="for Mac · free">Windows &amp; Mac · free</small></span>
 					</a>
+					<a class="btn btn--ghost btn--lg" href="/assets/video/trailer.mp4" data-trailer>
+						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>
+						Watch the trailer
+					</a>
 					<a class="btn btn--ghost btn--lg" href="#about">How it works</a>
 				</div>
 				<ul class="chips" aria-label="At a glance">
@@ -298,8 +302,8 @@
 						<figcaption><strong>Photo booth.</strong> A mugshot wall with a height chart. Countdown, flash, and everyone gets a polaroid of the crew saved to Pictures, dated and with the suspects' names.</figcaption>
 					</figure>
 					<figure class="clip clip--wide reveal">
-						<video data-src="/assets/video/knock.mp4" muted loop playsinline preload="none" data-poster="/assets/img/knock.jpg" aria-label="Ferda throws a chair at Lojza and Lojza goes down"></video>
-						<figcaption><strong>Chair to the face.</strong> A thrown chair, a bottle or a good shove knocks a buddy down like a banana peel. During the heist thrown loot does too, so watch where you aim.</figcaption>
+						<video data-src="/assets/video/knock.mp4?v=k3" muted loop playsinline preload="none" data-poster="/assets/img/knock.jpg?v=k3" aria-label="Ferda throws a chair at Lojza and Lojza goes down"></video>
+						<figcaption><strong>Chair to the face.</strong> A thrown chair, a bottle or a good shove knocks a buddy down like a banana peel, and the body flies wherever the hit sends it. During the heist thrown loot does too, so watch where you aim.</figcaption>
 					</figure>
 					<figure class="clip reveal">
 						<img src="/assets/img/pub_wardrobe.jpg" alt="A thief in a cowboy hat and sunglasses at the mirror rack" loading="lazy" width="1600" height="900">
@@ -459,9 +463,9 @@
 				</div>
 				<div class="bento">
 					<figure class="clip clip--wide reveal">
-						<video data-src="/assets/video/slip.mp4" muted loop playsinline preload="none" data-poster="/assets/img/slip.jpg" aria-label="A thief slips on a banana peel"></video>
+						<video data-src="/assets/video/slip.mp4?v=k3" muted loop playsinline preload="none" data-poster="/assets/img/slip.jpg?v=k3" aria-label="A thief slips on a banana peel"></video>
 						<div class="cctv"><span class="cctv__rec"><i></i>REC</span><span class="cctv__cam">CAM 6 · CORRIDOR</span></div>
-						<figcaption><strong>Wet floor.</strong> Banana peels and foam from a smashed fire extinguisher. A classic that never gets old.</figcaption>
+						<figcaption><strong>Wet floor.</strong> Banana peels and foam from a smashed fire extinguisher. Real physics does the falling: whoever slips flies down the hallway, bounces off a bucket and tumbles all the way down the stairs.</figcaption>
 					</figure>
 					<figure class="clip reveal">
 						<video data-src="/assets/video/fart.mp4" muted loop playsinline preload="none" data-poster="/assets/img/fart.jpg" aria-label="A thief grabs a whoopee cushion"></video>
@@ -759,6 +763,11 @@
 			<p class="footer__small"><a href="/" hreflang="cs" lang="cs" data-lang="cs">Česká verze</a> · startheist.com · © 2026</p>
 		</div>
 	</footer>
+
+	<div class="lightbox trailer" id="trailer" hidden>
+		<button class="lightbox__close" aria-label="Close">×</button>
+		<video controls playsinline preload="none" aria-label="Hush Heist trailer"></video>
+	</div>
 
 	<div class="lightbox" id="lightbox" hidden>
 		<button class="lightbox__close" aria-label="Close">×</button>

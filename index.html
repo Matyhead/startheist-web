@@ -19,9 +19,10 @@
 			} catch (e) {}
 		})();
 	</script>
+	<script src="/config.js"></script>
 	<title>Hush Heist · Ukradni lup. Hlídej si pusu.</title>
-	<meta name="description" content="Online loupež pro kamarády, klidně i ve dvou. Zloději v noci vykrádají obchodní dům, vilu, muzeum, banku, kasino nebo televizi a domlouvají se hlasem, jenže ochranka poslouchá mikrofony. Když nikdo nehlídá, hlídá počítač. Demo zdarma pro Windows a Mac.">
-	<meta name="theme-color" content="#0b0e14">
+	<meta name="description" content="Kooperativní hra o vloupání pro 1–7 hráčů s hlasem podle vzdálenosti. Zloději v noci vykrádají budovu, ochranka je hlídá kamerami, mikrofony a dronem. Co řekneš u mikrofonu, slyší i ona. Interní playtest: demo pro Windows a Mac.">
+	<meta name="theme-color" content="#0a0d13">
 	<link rel="icon" href="/assets/img/icon.svg" type="image/svg+xml">
 	<link rel="icon" href="/favicon.ico" sizes="48x48">
 	<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
@@ -33,7 +34,7 @@
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="https://startheist.com/">
 	<meta property="og:title" content="Hush Heist · Ukradni lup. Hlídej si pusu.">
-	<meta property="og:description" content="Loupež pro kamarády. Zloději se domlouvají hlasem, ochranka poslouchá mikrofony. Když nikdo nechce hlídat, hlídá počítač. Demo zdarma pro Windows a Mac.">
+	<meta property="og:description" content="Zloději v noci kradou, ochranka poslouchá mikrofony. Gumové ruce, fyzikální pády a hospoda jako lobby. Interní playtest: stáhni demo a pozvi partu.">
 	<meta property="og:image" content="https://startheist.com/assets/img/og.jpg">
 	<meta property="og:image:width" content="1200">
 	<meta property="og:image:height" content="630">
@@ -45,7 +46,8 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
-	<link rel="preload" as="image" href="/assets/img/hero.jpg">
+	<link rel="preload" as="image" href="/assets/img/hero.jpg?v=pt1" media="(min-aspect-ratio: 3/4)">
+	<link rel="preload" as="image" href="/assets/img/hero_tall.jpg" media="(max-aspect-ratio: 3/4)">
 	<link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -57,20 +59,20 @@
 				<img src="/assets/img/logo.png" alt="Hush Heist" width="122" height="48">
 			</a>
 			<nav class="nav__links" id="nav-links" aria-label="Hlavní">
-				<a href="#o-hre">O hře</a>
-				<a href="#pocitac">Ve dvou</a>
+				<a href="#hlas">Hlas</a>
+				<a href="#ruce">Gumové ruce</a>
+				<a href="#pady">Pády</a>
+				<a href="#ochranka">Ochranka</a>
 				<a href="#hospoda">Hospoda</a>
-				<a href="#kvota">Kvóta</a>
-				<a href="#akce">Akce</a>
-				<a href="#role">Role</a>
-				<a href="#prdel">Ukázky</a>
-				<a href="#faq">FAQ</a>
+				<a href="#mista">Místa</a>
+				<a href="#stahnout">Návod</a>
 			</nav>
 			<div class="lang" role="group" aria-label="Jazyk / Language">
 				<a href="/en" hreflang="en" lang="en" data-lang="en">EN</a>
 				<a href="/" hreflang="cs" aria-current="true" data-lang="cs">CZ</a>
 			</div>
-			<a class="btn btn--gold btn--sm nav__cta" href="#stahnout">Stáhnout demo</a>
+			<a class="btn btn--gold btn--sm nav__cta if-playtest" href="#stahnout">Stáhnout demo</a>
+			<a class="btn btn--steam btn--sm nav__cta if-soon" href="#stahnout" data-steam>Na Steamu</a>
 			<button class="nav__toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
 				<span></span><span></span><span></span>
 			</button>
@@ -78,17 +80,19 @@
 	</header>
 
 	<main id="top">
-		<!-- Úvod: sestřih ze hry na pozadí jako záznam z bezpečnostní kamery -->
+		<!-- Úvod: sestřih ze hry jako záznam z bezpečnostní kamery (na telefonu na výšku) -->
 		<section class="hero">
 			<div class="hero__media" aria-hidden="true">
-				<video class="hero__video" autoplay muted loop playsinline preload="auto" poster="/assets/img/hero.jpg">
-					<source src="/assets/video/hero.mp4" type="video/mp4">
-				</video>
+				<picture>
+					<source media="(max-aspect-ratio: 3/4)" srcset="/assets/img/hero_tall.jpg">
+					<img src="/assets/img/hero.jpg?v=pt1" alt="" width="1600" height="900" fetchpriority="high">
+				</picture>
+				<video class="hero__video" muted loop playsinline preload="none" data-wide="/assets/video/hero.mp4?v=pt1" data-tall="/assets/video/hero_tall.mp4"></video>
 				<div class="hero__shade"></div>
 				<div class="scanlines"></div>
 				<div class="cctv cctv--hero">
 					<span class="cctv__rec"><i></i>REC</span>
-					<span class="cctv__cam">KAM 4 · VSTUPNÍ HALA</span>
+					<span class="cctv__cam">KAM 4 · CHODBA</span>
 					<span class="cctv__time" data-clock>STŘEDA 23:47:12</span>
 					<span class="cctv__corner cctv__corner--tl"></span>
 					<span class="cctv__corner cctv__corner--tr"></span>
@@ -97,27 +101,36 @@
 				</div>
 			</div>
 			<div class="hero__content">
-				<img class="hero__logo" src="/assets/img/logo.png" alt="Hush Heist" width="420" height="164">
-				<p class="eyebrow">Online loupež pro kamarády · 1 až 7 hráčů</p>
-				<h1 class="hero__title">Ukradni lup.<br><span>Hlídej si pusu.</span></h1>
-				<p class="hero__lead">Parta zlodějů v noci vykrádá obchodní dům, vilu, muzeum, banku, kasino nebo televizi a domlouvá se hlasem. Jenže v místnostech visí mikrofony a ochranka slyší každé slovo. Hlídá kamarád, a když nikdo nechce, hlídá počítač. Stačí jedno hlasité „hele, tady je trezor!“ a máte to spočítané.</p>
-				<div class="hero__actions">
-					<a class="btn btn--gold btn--lg" href="#stahnout">
-						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16" /></svg>
-						<span class="btn__text">Stáhnout demo<small data-mac-label="pro Mac · zdarma">Windows a Mac · zdarma</small></span>
-					</a>
-					<a class="btn btn--ghost btn--lg" href="/assets/video/trailer.mp4" data-trailer>
-						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>
-						Zhlédnout trailer
-					</a>
-					<a class="btn btn--ghost btn--lg" href="#o-hre">Jak se to hraje</a>
+				<div class="hero__top">
+					<img class="hero__logo" src="/assets/img/logo.png" alt="Hush Heist" width="420" height="164">
+					<p class="stamp if-playtest"><b>Interní playtest</b><small>demo pro pozvané</small></p>
+					<p class="stamp stamp--soon if-soon"><b>Již brzy na Steamu</b><small>přidej si do přání</small></p>
 				</div>
+				<h1 class="hero__title">Ukradni lup.<span>Hlídej si pusu.</span></h1>
+				<p class="hero__lead">Parta zlodějů v noci vykrádá budovu. Ochranka je hlídá kamerami, mikrofony a dronem s paralyzérem. Zloději se slyší podle vzdálenosti, jenže <b>co řekneš u mikrofonu, slyší i ochranka.</b></p>
+				<div class="hero__actions">
+					<a class="btn btn--gold btn--lg if-playtest" data-dl href="https://github.com/Matyhead/startheist-web/releases/latest/download/HushHeist-demo.zip">
+						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16" /></svg>
+						<span class="btn__text">Stáhnout demo (playtest)<small data-os-label data-win="pro Windows · zdarma" data-mac="pro Mac · zdarma">pro Windows · zdarma</small></span>
+					</a>
+					<a class="btn btn--steam btn--lg if-soon" data-steam href="#stahnout">
+						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5l-1.2-1.1C6.2 15.3 3.5 12.8 3.5 9.6A4.6 4.6 0 0 1 8.1 5c1.5 0 2.9.7 3.9 1.8A5.1 5.1 0 0 1 15.9 5a4.6 4.6 0 0 1 4.6 4.6c0 3.2-2.7 5.7-7.3 9.8z" /></svg>
+						<span class="btn__text">Přidat do přání<small>již brzy na Steamu</small></span>
+					</a>
+					<button class="btn btn--ghost btn--lg" type="button" data-trailer>
+						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>
+						Trailer · 30 s
+					</button>
+				</div>
+				<p class="hero__alt if-playtest">Máš <a data-dl-alt data-win="Windows" data-mac="Mac" href="https://github.com/Matyhead/startheist-web/releases/latest/download/HushHeist-mac.zip">Mac</a>? · <a href="#stahnout">Návod pro testery</a> · potřebuješ Steam</p>
+				<p class="hero__alt if-soon">Demo z playtestu je pořád ke stažení: <a href="#stahnout">Windows a Mac</a></p>
+				<p class="hero__phone">Hraje se na počítači s Windows nebo Macem. <button class="linkbtn" type="button" data-share>Pošli si odkaz</button> a stáhni si demo tam.</p>
 				<ul class="chips" aria-label="Základní informace">
 					<li>1–7 hráčů</li>
+					<li>hlas podle vzdálenosti</li>
 					<li>ochranka: kamarád, nebo počítač</li>
 					<li>kolo 7 minut</li>
-					<li>hlas podle vzdálenosti</li>
-					<li>anglicky i česky</li>
+					<li>česky i anglicky</li>
 					<li>Windows · Mac · Steam</li>
 				</ul>
 			</div>
@@ -126,283 +139,372 @@
 
 		<div class="tape" aria-hidden="true">
 			<div class="tape__track">
-				<span>POZOR · MOKRÁ PODLAHA · NEMLUVIT U MIKROFONU · DNY BEZ KRÁDEŽE: 0 · POZOR · MOKRÁ PODLAHA · NEMLUVIT U MIKROFONU · DNY BEZ KRÁDEŽE: 0 · </span>
-				<span>POZOR · MOKRÁ PODLAHA · NEMLUVIT U MIKROFONU · DNY BEZ KRÁDEŽE: 0 · POZOR · MOKRÁ PODLAHA · NEMLUVIT U MIKROFONU · DNY BEZ KRÁDEŽE: 0 · </span>
+				<span>POZOR · MIKROFONY V PROVOZU · NEMLUVIT U MIKROFONU · MOKRÁ PODLAHA · DNY BEZ KRÁDEŽE: 0 · POZOR · MIKROFONY V PROVOZU · NEMLUVIT U MIKROFONU · MOKRÁ PODLAHA · DNY BEZ KRÁDEŽE: 0 · </span>
+				<span>POZOR · MIKROFONY V PROVOZU · NEMLUVIT U MIKROFONU · MOKRÁ PODLAHA · DNY BEZ KRÁDEŽE: 0 · POZOR · MIKROFONY V PROVOZU · NEMLUVIT U MIKROFONU · MOKRÁ PODLAHA · DNY BEZ KRÁDEŽE: 0 · </span>
 			</div>
 		</div>
 
-		<!-- O co jde -->
+		<!-- O co jde: tři věty a trailer -->
 		<section class="section" id="o-hre">
 			<div class="wrap">
-				<div class="intro">
-					<div class="intro__text reveal">
-						<p class="eyebrow">O co jde</p>
-						<h2 class="h2">Loupež, kde se nejvíc nadělá pusou</h2>
-						<p class="lead">Hush Heist je hra o tom, jak potichu vykrást obchodní dům, když vás nese adrenalin a kamarád vedle zrovna řve, že našel sochu. Zloději se slyší podle vzdálenosti. Co si šeptnete v rohu, slyší jen parťák vedle vás. Jenže v místnostech visí mikrofony a ochranka slyší všechno, co se u nich řekne.</p>
-					</div>
-					<figure class="intro__media reveal">
-						<div class="frame">
-							<video data-src="/assets/video/cctv.mp4" muted loop playsinline preload="none" data-poster="/assets/img/cctv.jpg" aria-label="Počítač ochranky: kamera zachytí zloděje v klenotech"></video>
-						</div>
-						<figcaption>Pohled ochranky: kamera zahlédla zloděje v klenotech a hned je tu poplach i s místností.</figcaption>
-					</figure>
+				<div class="section__head section__head--center reveal">
+					<p class="eyebrow">O co jde</p>
+					<h2 class="h2">Loupež, kde tě prozradí <em>vlastní pusa</em></h2>
 				</div>
-				<div class="pillars">
-					<article class="pillar reveal">
-						<div class="pillar__icon pillar__icon--gold">
-							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5 11a7 7 0 0 0 14 0M12 18v3" /></svg>
-						</div>
-						<h3>Hlas podle vzdálenosti</h3>
-						<p>Šeptáš parťákovi u ucha, nebo křičíš přes celý obchod. Zdi a zavřené dveře hlas tlumí, alarm ho úplně přehluší.</p>
+				<div class="trio">
+					<article class="trio__card trio__card--gold reveal">
+						<div class="trio__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16v11H4zM8 8V6a4 4 0 0 1 8 0v2M12 12v3" /></svg></div>
+						<h3>Zloději kradou</h3>
+						<p>V noci vlezou do obchodního domu, vily, muzea, banky, kasina nebo televize. Za sedm minut musí dostat lup do dodávky. Ve dvou, ve třech, nebo celou partou.</p>
 					</article>
-					<article class="pillar reveal">
-						<div class="pillar__icon pillar__icon--blue">
-							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h3l3-7 4 14 3-7h5" /></svg>
-						</div>
-						<h3>Ochranka poslouchá</h3>
-						<p>Mikrofony chytí kroky, páčidlo, rozbitou vázu i každé slovo. Kamery a čidla hlídají, dron s paralyzérem honí. Hlídá kamarád, nebo počítač.</p>
+					<article class="trio__card trio__card--blue reveal">
+						<div class="trio__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l12-3 2 6-12 3zM9 12l1 4M5 19h8M17 7h4" /></svg></div>
+						<h3>Ochranka hlídá</h3>
+						<p>Sedí v kanceláři u kamer, poslouchá mikrofony, zamyká, zhasíná a honí zloděje dronem s paralyzérem. Hlídá kamarád, a když nikdo nechce, hlídá počítač.</p>
 					</article>
-					<article class="pillar reveal">
-						<div class="pillar__icon pillar__icon--red">
-							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16v11H4zM8 8V6a4 4 0 0 1 8 0v2M12 12v3" /></svg>
-						</div>
-						<h3>Všechno jde ukrást</h3>
-						<p>Televize, zlaté cihly, sarkofág, zlatý záchod, automat JACKPOT i kartonový pan Novák. Křesla, kytky a sudy jdou taky vzít a hodit. Těžké věci unesete jen ve dvou a gumové ruce se natahují, dokud nepraskne.</p>
+					<article class="trio__card trio__card--red reveal">
+						<div class="trio__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5 11a7 7 0 0 0 14 0M12 18v3" /></svg></div>
+						<h3>Pusa prozradí</h3>
+						<p>Zloději se slyší podle vzdálenosti, jako by stáli vedle sebe. Jenže co řekneš pod mikrofonem, slyší i ochranka. Stačí jedno hlasité „tady je trezor!“.</p>
 					</article>
 				</div>
+				<button class="trailer-card reveal" type="button" data-trailer aria-label="Přehrát trailer Hush Heist (30 sekund, se zvukem)">
+					<img src="/assets/img/trailer.jpg" alt="" loading="lazy" width="1600" height="900">
+					<span class="trailer-card__play"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l15 8-15 8z" /></svg></i>Pusť si trailer</span>
+					<span class="trailer-card__meta">TRAILER · 0:30 · SE ZVUKEM</span>
+				</button>
 			</div>
 		</section>
 
-		<!-- Ochranka počítačem: hraje se i ve dvou nebo sám -->
-		<section class="section section--panel" id="pocitac">
+		<!-- Hlas a odposlechy -->
+		<section class="section section--panel" id="hlas">
 			<div class="wrap">
-				<div class="intro intro--last">
-					<div class="intro__text reveal">
-						<p class="eyebrow">Ve dvou, ve třech, nebo sám</p>
-						<h2 class="h2">Nikdo nechce hlídat? Hlídá počítač.</h2>
-						<p class="lead">Když v hospodě nikdo nevleze do popelnice, převezme ochranku Hlídač Systém 3000. Má stejné kamery, zámky a dron jako člověk, takže se dá hrát ve dvou, celou partou za zloděje, nebo klidně sám.</p>
-						<ul class="ticks ticks--blue">
-							<li><b>Slyší, co řekneš u mikrofonu.</b> Kdo se prozradí, dostane hlášku MIKROFON TĚ SLYŠEL a z rozhlasu ve stropě cinkne znělka.</li>
-							<li><b>Zamkne dveře, spustí alarm nebo zhasne</b> a pošle dron s autopilotem. Ten letí průlezy nad dveřmi až k poplachu, míří s pípáním a občas mine.</li>
-							<li><b>Oklamete ho jako člověka.</b> Schovejte se do skříně, strňte mezi figurínami, nebo dron srazte hozenou věcí a ukradněte ho.</li>
-							<li><b>Přitvrdí podle party.</b> Na samotného zloděje je mírnější, na tři a víc nejtvrdší.</li>
+				<div class="feature">
+					<div class="reveal">
+						<p class="eyebrow eyebrow--red">Hlas a odposlechy</p>
+						<h2 class="h2">Šeptej. <em class="red">Ochranka poslouchá.</em></h2>
+						<p class="lead">Šeptneš parťákovi u ucha, nebo zařveš přes celé patro. Hlas se nese podle vzdálenosti jako ve skutečné budově. Jenže ve stropě visí mikrofony a co se u nich řekne, slyší ochranka do posledního slova.</p>
+						<ul class="points points--red">
+							<li><b>Zdi a zavřené dveře hlas tlumí,</b> alarm ho přehluší úplně.</li>
+							<li><b>Mikrofony chytí i kroky,</b> páčidlo, rozbitou vázu a tažení těžkých věcí. Ochranka na plánku vidí, který bliká.</li>
+							<li><b>Vysílačka na B</b> donese hlas celé partě, ať je kdekoli.</li>
+							<li><b>Rušička</b> na chvíli zahltí mikrofony v okolí šumem. Kamery tě ale vidí dál.</li>
+							<li><b>Sprint tě zadýchá</b> a mikrofon oddechování uslyší.</li>
+							<li><b>Helium z balónku:</b> dvacet vteřin mluvíš jako kreslená postavička. Slyší to všichni, ochranka taky.</li>
+							<li><b>Chytili tě?</b> Z cely na ochranku křičíš přes sklo. Ona ti odpoví rozhlasem do kterékoli místnosti.</li>
 						</ul>
 					</div>
-					<figure class="intro__media reveal">
-						<div class="frame">
-							<video data-src="/assets/video/auto_drone.mp4" muted loop playsinline preload="none" data-poster="/assets/img/auto_drone.jpg" aria-label="Dron ochranky počítačem přiletí chodbou a omráčí zloděje"></video>
+					<figure class="ev reveal">
+						<span class="ev__tag">Důkaz č. 1 · chodba</span>
+						<div class="ev__frame ev__frame--square">
+							<video data-src="/assets/video/talk.mp4" muted loop playsinline preload="none" data-poster="/assets/img/talk.jpg" aria-label="Dva zloději se domlouvají na chodbě přímo pod stropním mikrofonem"></video>
+							<span class="mic" aria-hidden="true"><i></i><i></i><i></i></span>
+							<span class="mic__label" aria-hidden="true">MIKROFON</span>
+							<p class="heard" aria-hidden="true"><span class="heard__bars"><i></i><i></i><i></i><i></i><i></i></span><span class="heard__text">KANCELÁŘ OCHRANKY SLYŠÍ: <b>„Hele, tady je trezor!“</b></span></p>
 						</div>
-						<figcaption>Ferda s Lojzou si povídali pod mikrofonem. Počítač je slyšel a poslal dron.</figcaption>
+						<figcaption>Lojza s Ferdou se domlouvají pod stropním mikrofonem. Ochranka v kanceláři slyší každé slovo.</figcaption>
 					</figure>
 				</div>
 			</div>
 		</section>
 
-		<!-- Tma a čelovky -->
-		<section class="section section--night" id="tma">
+		<!-- Gumové ruce a nošení ve dvou -->
+		<section class="section" id="ruce">
 			<div class="wrap">
-				<div class="intro intro--flip intro--last">
-					<div class="intro__text reveal">
+				<div class="feature feature--flip">
+					<div class="reveal">
+						<p class="eyebrow">Gumové ruce a nošení ve dvou</p>
+						<h2 class="h2">Ruce z gumy. <em>Trezor pro dva.</em></h2>
+						<p class="lead">Lup držíš v dlaních přilepených k jeho bokům. Když se od něj vzdálíš, ruce se natahují, ztenčují a guma vrže. Moc daleko a utrhnou se: boing, hluk pro mikrofony a pár vteřin ti plandají po zemi.</p>
+						<ul class="points">
+							<li><b>Socha, trezor, zlatý automat JACKPOT:</b> sám je nepohneš. Ve dvou to jde, dokud každý netáhne jinam.</li>
+							<li><b>Televize ve dvou jde rychleji</b> a každý další nosič přidá.</li>
+							<li><b>Malé věci do čtyř kapes,</b> velké v rukou na pružině. Narážejí do zdí a čím těžší, tím pomaleji jdeš.</li>
+							<li><b>Vzít a hodit jde skoro všechno:</b> křesla, kytky, figuríny, stojany s oblečením. Dveře a šuplíky se táhnou rukou.</li>
+						</ul>
+					</div>
+					<figure class="ev reveal">
+						<span class="ev__tag">Důkaz č. 2 · galerie</span>
+						<div class="ev__frame">
+							<video data-src="/assets/video/stretch.mp4?v=pt1" muted loop playsinline preload="none" data-poster="/assets/img/stretch.jpg?v=pt1" aria-label="Zloděj sám táhne bronzovou sochu, ruce se natahují"></video>
+						</div>
+						<figcaption><strong>Sám na sochu.</strong> Socha se nehne, ruce ano. Natahují se, dokud to nepraskne.</figcaption>
+					</figure>
+				</div>
+				<div class="bento">
+					<figure class="ev ev--wide reveal">
+						<span class="ev__tag">Důkaz č. 3 · muzeum</span>
+						<div class="ev__frame">
+							<video data-src="/assets/video/museum.mp4" muted loop playsinline preload="none" data-poster="/assets/img/museum.jpg" aria-label="Zloděj v muzeu odchází od sochy a gumové ruce se táhnou přes sál"></video>
+						</div>
+						<figcaption><strong>Muzeum.</strong> Ještě kousek a bude to.</figcaption>
+					</figure>
+					<figure class="ev reveal">
+						<span class="ev__tag">Důkaz č. 4 · elektronika</span>
+						<div class="ev__frame">
+							<video data-src="/assets/video/carry.mp4?v=pt1" muted loop playsinline preload="none" data-poster="/assets/img/carry.jpg?v=pt1" aria-label="Zloděj z první osoby nese televizi v gumových rukou"></video>
+						</div>
+						<figcaption><strong>Z první osoby.</strong> Televize v rukou, gumové ruce před očima.</figcaption>
+					</figure>
+				</div>
+			</div>
+		</section>
+
+		<!-- Fyzikální pády -->
+		<section class="section section--panel" id="pady">
+			<div class="wrap">
+				<div class="section__head reveal">
+					<p class="eyebrow">Fyzikální pády</p>
+					<h2 class="h2">Každý pád <em>počítá fyzika</em></h2>
+					<p class="lead">Uklouzneš na banánové slupce, šlápneš do pěny z rozbitého hasičáku, trefí tě hozená židle nebo paralyzér dronu. Tělo letí tam, kam ho rána poslala, a ze schodů se skutálí až dolů. Pak vstaneš a děláš, že se nic nestalo.</p>
+				</div>
+				<div class="bento">
+					<figure class="ev ev--wide reveal">
+						<span class="ev__tag">Důkaz č. 5 · schodiště</span>
+						<div class="ev__frame">
+							<video data-src="/assets/video/stairs.mp4" muted loop playsinline preload="none" data-poster="/assets/img/stairs.jpg" aria-label="Zloděj padá ze schodů jako hadrová panenka"></video>
+						</div>
+						<figcaption><strong>Schodiště.</strong> Dolů to jde rychleji, než čekal.</figcaption>
+					</figure>
+					<figure class="ev reveal">
+						<span class="ev__tag">Důkaz č. 6 · chodba</span>
+						<div class="ev__frame">
+							<video data-src="/assets/video/slip.mp4?v=k3" muted loop playsinline preload="none" data-poster="/assets/img/slip.jpg?v=k3" aria-label="Zloděj uklouzne na banánové slupce a odrazí se od kbelíku"></video>
+						</div>
+						<figcaption><strong>Banán na chodbě.</strong> Ochranka to má na kameře.</figcaption>
+					</figure>
+					<figure class="ev reveal">
+						<span class="ev__tag">Důkaz č. 7 · hospoda</span>
+						<div class="ev__frame">
+							<video data-src="/assets/video/knock.mp4?v=k3" muted loop playsinline preload="none" data-poster="/assets/img/knock.jpg?v=k3" aria-label="Ferda hodí po Lojzovi židli a Lojza jde k zemi"></video>
+						</div>
+						<figcaption><strong>Židlí po kamarádovi.</strong> V hospodě se nikdo nezlobí. Moc.</figcaption>
+					</figure>
+					<div class="ev ev--wide reveal">
+						<ul class="points points--red" style="margin:0">
+							<li><b>Porazí tě</b> banán, mokrá podlaha, hozená židle, lahev nebo koule, pořádné strčení, paralyzér a pád z výšky (z vršku žebříku nebo skokem do schodiště z patra).</li>
+							<li><b>Polštářek ani gumová kachna</b> tě neporazí. V noci ale parťáka srazí i hozený lup, tak pozor, kam míříš.</li>
+							<li><b>Pád vidí celá parta stejně,</b> i po síti. A když je dost trapný, skončí v novinách.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Ochranka -->
+		<section class="section section--blue" id="ochranka">
+			<div class="wrap">
+				<div class="feature">
+					<div class="reveal">
+						<p class="eyebrow eyebrow--blue">Ochranka</p>
+						<h2 class="h2">Kamery, mikrofony <em class="blue">a dron s paralyzérem</em></h2>
+						<p class="lead">Jeden z party hlídá z kanceláře, kterou neopustí. Ve dne má devadesát vteřin, aby na plánku rozmístil kamery, mikrofony a čidla. V noci sleduje obrazovky, poslouchá a zasahuje.</p>
+						<p class="lead" style="margin-top:14px">Vyhraje, když jsou všichni zloději v cele, nebo jim dojde čas.</p>
+					</div>
+					<figure class="ev reveal">
+						<span class="ev__tag">Důkaz č. 8 · paralyzér</span>
+						<div class="ev__frame">
+							<video data-src="/assets/video/stun.mp4" muted loop playsinline preload="none" data-poster="/assets/img/stun.jpg" aria-label="Dron ochranky přiletí chodbou a omráčí zloděje paralyzérem"></video>
+						</div>
+						<figcaption>Dron přiletí chodbou, cvak, a zloděj leží. Parťák ho může zvednout, jinak se probere v cele.</figcaption>
+					</figure>
+				</div>
+				<div class="kit">
+					<article class="kit__item reveal">
+						<h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l12-3 2 6-12 3zM9 12l1 4M5 19h8M17 7h4" /></svg>Kamery a čidla</h3>
+						<p>Kamera, která zloděje vidí déle než chvilku, spustí poplach. Čidlo hlásí každého, kdo se neplíží.</p>
+					</article>
+					<article class="kit__item reveal">
+						<h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5 11a7 7 0 0 0 14 0M12 18v3" /></svg>Mikrofony</h3>
+						<p>Slyší hlas, kroky i rány. Na plánku bliká ten, u kterého se zrovna něco děje.</p>
+					</article>
+					<article class="kit__item reveal">
+						<h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 11V8a6 6 0 0 1 12 0v3M5 11h14v10H5zM12 15v2" /></svg>Zámky a alarm</h3>
+						<p>Klik na dveře je zamkne. Alarm zloděje v místnosti ohluší a otočí jim ovládání naruby.</p>
+					</article>
+					<article class="kit__item reveal">
+						<h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z" /></svg>Zhasnout</h3>
+						<p>Místnost na 25 vteřin ztmavne a kamery skoro nevidí. Kdo rozsvítí čelovku, je vidět jako na dlani.</p>
+					</article>
+					<article class="kit__item reveal">
+						<h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h4M15 5h4M7 5v3M17 5v3M7 8h10v4H7zM12 12v3M9 18l3-3 3 3" /></svg>Dron s paralyzérem</h3>
+						<p>FPV brýle, setrvačnost a baterka. Létá průlezy nad dveřmi, venku ztratí signál. A když spadne, zloději ho ukradnou.</p>
+					</article>
+					<article class="kit__item reveal">
+						<h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h3l5 4V6L7 10zM16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12" /></svg>Rozhlas a cela</h3>
+						<p>Ochranka mluví do vybrané místnosti z reproduktoru ve stropě. Chycení sedí v cele a parťáci je můžou vysvobodit.</p>
+					</article>
+				</div>
+
+				<div class="feature feature--flip" style="margin-top:clamp(56px,7vw,96px)">
+					<div class="reveal">
 						<p class="eyebrow">Ochranka zhasne</p>
-						<h2 class="h2">Tma schová. Čelovka prozradí.</h2>
-						<p class="lead">Ochranka klikne na žárovku na plánku a místnost na 25&nbsp;vteřin zhasne. Ve tmě vás kamery skoro nevidí, jenže vy nevidíte lup. Rozsvítíte čelovku a kamery i dron vás mají jako na dlani.</p>
-						<ul class="ticks ticks--gold">
-							<li><b>Čelovka na L.</b> Parťáci vidí její kužel přes celou místnost. Kamera taky.</li>
-							<li><b>Bez čelovky</b> vás kamera ve tmě pozná až na čtyři metry.</li>
+						<h3 class="h2" style="font-size:clamp(34px,4.4vw,56px)">Tma schová. <em>Čelovka prozradí.</em></h3>
+						<ul class="points">
+							<li><b>Ve tmě</b> tě kamera pozná až zblízka. Jenže ty nevidíš lup.</li>
+							<li><b>Čelovka na L</b> posvítí na cestu. Její kužel vidí parťáci, kamery i dron.</li>
 							<li><b>Při bouřce</b> zhasíná místnosti blesk sám a hrom přehluší kroky i hlas u mikrofonů.</li>
 						</ul>
 					</div>
-					<figure class="intro__media reveal">
-						<div class="frame frame--glow">
+					<figure class="ev reveal">
+						<span class="ev__tag">Důkaz č. 9 · kasino</span>
+						<div class="ev__frame ev__frame--glow">
 							<video data-src="/assets/video/dark.mp4" muted loop playsinline preload="none" data-poster="/assets/img/dark.jpg" aria-label="Ochranka zhasne hernu kasina a dva zloději rozsvítí čelovky"></video>
 						</div>
 						<figcaption>Herna kasina: ochranka zhasla, Ferda s Lojzou rozsvítili čelovky.</figcaption>
 					</figure>
 				</div>
-			</div>
-		</section>
 
-		<!-- Průběh kola -->
-		<section class="section" id="kolo">
-			<div class="wrap">
-				<div class="section__head reveal">
-					<p class="eyebrow">Jak probíhá kolo</p>
-					<h2 class="h2">Večer hospoda, v noci akce, ráno noviny</h2>
-				</div>
-				<ol class="timeline">
-					<li class="step reveal">
-						<figure class="step__media frame">
-							<img src="/assets/img/pub.jpg" alt="Hospoda U Zlatého lumpa: parta, bar a nástěnka s akcemi" loading="lazy" width="1280" height="720">
-						</figure>
-						<div class="step__text">
-							<span class="step__num">0</span>
-							<p class="step__time">Večer · hospoda</p>
-							<h3>Výběr akce</h3>
-							<p>V hospodě U Zlatého lumpa hodíte nůž do fotky akce na nástěnce. Kdo bude hlídat, rozhodne popelnice: kdo v ní sedí, je ochranka. Klidně ho tam strčte. Když je prázdná, hlídá počítač.</p>
-						</div>
-					</li>
-					<li class="step reveal">
-						<figure class="step__media frame">
-							<img src="/assets/img/ui_planning.jpg" alt="Plán loupeže: plánek budovy, hlasování o vstupu a výběr nástroje" loading="lazy" width="1600" height="900">
-						</figure>
-						<div class="step__text">
-							<span class="step__num">1</span>
-							<p class="step__time">Odpoledne · 90 sekund</p>
-							<h3>Příprava</h3>
-							<p>Ochranka na plánku rozmisťuje kamery, mikrofony a pohybová čidla. Zloději mezitím u dodávky hlasují, kudy vlezou, a vybírají si nástroje. Ochranka je neslyší, takže je čas se domluvit.</p>
-						</div>
-					</li>
-					<li class="step reveal">
-						<figure class="step__media frame">
-							<video data-src="/assets/video/van.mp4" muted loop playsinline preload="none" data-poster="/assets/img/van.jpg" aria-label="Dodávka v noci přijíždí k obchodu"></video>
-						</figure>
-						<div class="step__text">
-							<span class="step__num">2</span>
-							<p class="step__time">Noc · 7 minut</p>
-							<h3>Loupež</h3>
-							<p>Dodávka „instalatérů“ zaparkuje u vchodu. Máte sedm minut, abyste do ní dostali lup za cílovou částku. Ochranka zamyká dveře, zhasíná, spouští alarmy a honí vás dronem. Hudba přitvrdí, když jde do tuhého. Každá noc je jiná: jiný lup, jiné zamčené dveře, občas bouřka.</p>
-						</div>
-					</li>
-					<li class="step reveal">
-						<figure class="step__media frame">
-							<video data-src="/assets/video/news.mp4" muted loop playsinline preload="none" data-poster="/assets/img/news.jpg" aria-label="Noviny Šeptanda na konci kola"></video>
-						</figure>
-						<div class="step__text">
-							<span class="step__num">3</span>
-							<p class="step__time">Ráno</p>
-							<h3>Noviny</h3>
-							<p>Kolo končí titulní stranou bulváru Šeptanda: kolik jste ukradli, co jste rozbili, kdo uklouzl. A místo fotky běží video vašeho největšího trapasu.</p>
-						</div>
-					</li>
-				</ol>
-			</div>
-		</section>
-
-		<!-- Hospoda: lobby, kde se vybírá akce a ochranka -->
-		<section class="section section--panel" id="hospoda">
-			<div class="wrap">
-				<div class="intro">
-					<div class="intro__text reveal">
-						<p class="eyebrow">Než se vyrazí</p>
-						<h2 class="h2">Lobby je hospoda U Zlatého lumpa</h2>
-						<p class="lead">Žádné menu s tlačítky. Než se jede na akci, parta pobíhá po pajzlu z devadesátek, hází po sobě lahve a půllitry, strká se a domlouvá, koho dneska vykrade.</p>
-						<ul class="ticks ticks--gold">
-							<li><b>Kdo sedí v popelnici, hlídá.</b> Vleze tam sám, nebo ho tam parta strčí. Kdo hlídal minule, toho popelnice vyplivne. Prázdná popelnice znamená, že hlídá počítač.</li>
-							<li><b>Akce se vybírá hozeným nožem</b> do fotky na nástěnce u šéfa. Nůž má rukojeť ve tvé barvě a zapíchne se se zachvěním. Až mají všichni hozeno, šéf ukáže na vítěze a jede se.</li>
-							<li><b>Na věšáku se zrcadlem</b> si vybereš, co máš na hlavě a přes oči. Další kusy se odemykají za ukradené peníze (ochrance za uhlídané) a parta tě v nich uvidí v hospodě, při loupeži, na fotce i v novinách.</li>
-							<li><b>Tabule Úspěchy</b> ukáže, kdo z party už má Pracovní úraz (uklouzni s velkou věcí v rukou) nebo Sběratele umění (odjeď jen s gumovou kachnou). Úspěchů je 21.</li>
+				<div class="robot reveal">
+					<div>
+						<p class="robot__name">HLÍDAČ SYSTÉM 3000</p>
+						<h3>Hrajete ve dvou nebo ve třech? Hlídá počítač.</h3>
+						<p class="lead">Když v hospodě nikdo nevleze do popelnice, převezme ochranku počítač. Má stejné kamery, mikrofony, zámky a dron jako člověk, takže se dá krást celou partou, klidně jen ve dvou.</p>
+						<ul class="points points--blue">
+							<li><b>Slyší, co řeknete u mikrofonu,</b> zamyká, spouští alarm a zhasíná.</li>
+							<li><b>Dron s autopilotem</b> jde po hluku, otočí se za tím, koho zahlédne, a prohledá i vedlejší místnosti.</li>
+							<li><b>Přitvrdí podle party:</b> na samotného zloděje je mírnější, na tři a víc nejtvrdší.</li>
 						</ul>
 					</div>
-					<figure class="intro__media reveal">
-						<div class="frame">
-							<video data-src="/assets/video/pub.mp4" muted loop playsinline preload="none" data-poster="/assets/img/pub.jpg" aria-label="Parta v hospodě: karaoke, tanec a nástěnka s akcemi"></video>
+					<figure class="ev">
+						<div class="ev__frame">
+							<video data-src="/assets/video/auto_drone.mp4" muted loop playsinline preload="none" data-poster="/assets/img/auto_drone.jpg" aria-label="Dron ochranky počítačem přiletí chodbou a omráčí zloděje"></video>
 						</div>
-						<figcaption>Ferda zpívá karaoke, Lojza tancuje a Mařka si dala třetího panáka.</figcaption>
+						<figcaption>Ferda s Lojzou si povídali pod mikrofonem. Počítač je slyšel a poslal dron.</figcaption>
 					</figure>
 				</div>
-				<div class="bento">
-					<figure class="clip clip--wide reveal">
-						<img src="/assets/img/pub_board.jpg" alt="Nástěnka se třemi akcemi, noční událostí a zapíchnutými noži" loading="lazy" width="1600" height="900">
-						<figcaption><strong>Nástěnka u šéfa.</strong> Každý večer tři akce: obtížnost v lebkách, odhad lupu, počet pater a občas noční událost. Kde je víc nožů, tam se jede. Při shodě rozhodne los.</figcaption>
+
+				<h3 class="subhead reveal">Proti tomu má každý zloděj jeden nástroj</h3>
+				<p class="reveal">Parta se musí doplňovat. Najeď na záznam a uvidíš nástroj v akci.</p>
+				<div class="tools">
+					<article class="tool reveal">
+						<div class="ev__frame"><video data-src="/assets/video/tool_spray.mp4" muted loop playsinline preload="none" data-poster="/assets/img/tool_spray.jpg" aria-label="Sprej zastříká kameru"></video></div>
+						<h3>Sprej <span>3× použití</span></h3>
+						<p>Kameru nebo čidlo zastříkáš načerno. Ochranka kouká do tmy.</p>
+					</article>
+					<article class="tool reveal">
+						<div class="ev__frame"><video data-src="/assets/video/tool_jammer.mp4" muted loop playsinline preload="none" data-poster="/assets/img/tool_jammer.jpg" aria-label="Rušička umlčí mikrofon"></video></div>
+						<h3>Rušička <span>2× použití</span></h3>
+						<p>Mikrofony v okolí chvíli slyší jen šum.</p>
+					</article>
+					<article class="tool reveal">
+						<div class="ev__frame"><video data-src="/assets/video/tool_crowbar.mp4" muted loop playsinline preload="none" data-poster="/assets/img/tool_crowbar.jpg" aria-label="Páčidlo vypáčí dveře"></video></div>
+						<h3>Páčidlo <span>bez omezení</span></h3>
+						<p>Dveře, okno i vitrína. Rychle, ale hodně nahlas.</p>
+					</article>
+					<article class="tool reveal">
+						<div class="ev__frame"><video data-src="/assets/video/tool_cutter.mp4" muted loop playsinline preload="none" data-poster="/assets/img/tool_cutter.jpg" aria-label="Řezák vyřízne sklo vitríny"></video></div>
+						<h3>Řezák na sklo <span>bez omezení</span></h3>
+						<p>Ručně vyřízneš díru do skla. Potichu, ale déle.</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<!-- Hospoda jako lobby -->
+		<section class="section section--night" id="hospoda">
+			<div class="wrap">
+				<div class="feature">
+					<div class="reveal">
+						<p class="eyebrow">Lobby je hospoda</p>
+						<h2 class="h2">U Zlatého <em>lumpa</em></h2>
+						<p class="lead">Žádné menu s tlačítky. Než se vyrazí, parta pobíhá po pajzlu z devadesátek, hází po sobě lahve a židle a domlouvá, koho dneska vykrade.</p>
+						<ul class="points">
+							<li><b>Kdo vleze do popelnice, hlídá.</b> Klidně ho tam strčte. Prázdná popelnice znamená, že hlídá počítač.</li>
+							<li><b>Akce se vybírá hozeným nožem</b> do fotky na nástěnce u šéfa. Kde je víc nožů, tam se jede.</li>
+							<li><b>Šéf dá kvótu na tři akce.</b> Splníte: slaví a další je vyšší. Nesplníte: vyhazov přes celou hospodu a jede se od nuly.</li>
+							<li><b>Ze společné kasy se nakupuje</b> u šéfova stolku: lepší páčidlo, delší ruce, kapsa navíc, banánová slupka nebo prdící polštářek. Za každá dvě vylepšení přikoupí pojišťovna ochrance kus výbavy.</li>
+							<li><b>Věšák se zrcadlem:</b> čepice a brýle za ukradené peníze (ochrance za uhlídané). Parta tě v nich uvidí v hospodě, při loupeži i v novinách.</li>
+						</ul>
+					</div>
+					<figure class="ev reveal">
+						<span class="ev__tag">Nástěnka u šéfa</span>
+						<div class="ev__frame">
+							<img src="/assets/img/sm/pub_board.jpg" alt="Nástěnka se třemi akcemi, noční událostí a zapíchnutými noži" loading="lazy" width="960" height="540">
+						</div>
+						<figcaption>Tři akce na večer: obtížnost v lebkách, odhad lupu, počet pater a občas noční událost.</figcaption>
 					</figure>
-					<figure class="clip reveal">
-						<img src="/assets/img/pub_bin.jpg" alt="Hráč s čepicí ochranky sedí v popelnici, nad ním svítící cedule OCHRANKA" loading="lazy" width="1600" height="900">
-						<figcaption><strong>Popelnice č. 07.</strong> Kdo v ní sedí, hlídá. Svítící cedule nad ní ukazuje kdo.</figcaption>
+				</div>
+				<div class="bento" style="margin-top:clamp(44px,6vw,80px)">
+					<figure class="ev reveal">
+						<span class="ev__tag">Popelnice č. 07</span>
+						<div class="ev__frame"><img src="/assets/img/sm/pub_bin.jpg" alt="Hráč s čepicí ochranky sedí v popelnici, nad ním svítící cedule OCHRANKA" loading="lazy" width="960" height="540"></div>
+						<figcaption><strong>Kdo v ní sedí, hlídá.</strong> Cedule nad ní ukazuje kdo.</figcaption>
 					</figure>
-					<figure class="clip reveal">
-						<img src="/assets/img/pub_karaoke_screen.jpg" alt="Karaoke: zpěvák mává u mikrofonu, za ním obrazovka s textem" loading="lazy" width="1600" height="900">
-						<figcaption><strong>Karaoke.</strong> Písničky o loupeži, ozvěna jak z laciné aparatury a na konci potleskoměr.</figcaption>
+					<figure class="ev reveal">
+						<span class="ev__tag">Šéfův obchod</span>
+						<div class="ev__frame"><img src="/assets/img/sm/boss_shop.jpg" alt="Šéfův obchod: stolek se zbožím a cenovkami, za ním šéf" loading="lazy" width="960" height="540"></div>
+						<figcaption><strong>Kupuje kdokoli z party.</strong> Kdo utratí kasu za polštářky, ten to pak vysvětluje.</figcaption>
 					</figure>
-					<figure class="clip clip--wide clip--photo reveal">
-						<img src="/assets/img/polaroid.jpg" alt="Polaroid party z fotokoutku: čtyři zloději u stěny s výškovým metrem" loading="lazy" width="1100" height="908">
-						<figcaption><strong>Fotokoutek.</strong> Stěna s výškovým metrem jako při zatčení. Odpočet, blesk a každému se polaroid party uloží do Obrázků, i s datem a jmény podezřelých.</figcaption>
-					</figure>
-					<figure class="clip clip--wide reveal">
-						<video data-src="/assets/video/knock.mp4?v=k3" muted loop playsinline preload="none" data-poster="/assets/img/knock.jpg?v=k3" aria-label="Ferda hodí po Lojzovi židli a Lojza jde k zemi"></video>
-						<figcaption><strong>Židlí po kamarádovi.</strong> Hozená židle, lahev nebo pořádné strčení porazí jako banánová slupka a tělo letí tam, kam ho rána poslala. V noci parťáka porazí i hozený lup, tak pozor, kam míříte.</figcaption>
-					</figure>
-					<figure class="clip reveal">
-						<img src="/assets/img/pub_wardrobe.jpg" alt="Zloděj v kovbojském klobouku a slunečních brýlích u věšáku se zrcadlem" loading="lazy" width="1600" height="900">
-						<figcaption><strong>Věšák se zrcadlem.</strong> Fez, cylindr, brýle s nosem. Odemykají se za ukradené peníze a uvidí je všichni.</figcaption>
+					<figure class="ev reveal">
+						<span class="ev__tag">Věšák se zrcadlem</span>
+						<div class="ev__frame"><img src="/assets/img/sm/pub_wardrobe.jpg" alt="Zloděj v kovbojském klobouku a slunečních brýlích u věšáku se zrcadlem" loading="lazy" width="960" height="540"></div>
+						<figcaption><strong>Fez, cylindr, brýle s nosem.</strong> Odemykají se za lup.</figcaption>
 					</figure>
 				</div>
 				<ul class="chips chips--center reveal" aria-label="Co dalšího je v hospodě">
+					<li>kulečník</li>
 					<li>šipky</li>
-					<li>kulečník (trojúhelník u WC ho rozestaví)</li>
-					<li>helium z balónku</li>
-					<li>tabule Kdo vyhrává</li>
 					<li>jednoruký bandita</li>
 					<li>jukebox</li>
+					<li>helium z balónku</li>
+					<li>fotokoutek s polaroidem</li>
 					<li>whisky (po třetím panáku na zem)</li>
-					<li>cigarety</li>
-					<li>tabule Dnešní kasa</li>
+					<li>21 úspěchů na tabuli</li>
 				</ul>
 			</div>
 		</section>
 
-		<!-- Šéfova kvóta a obchod -->
-		<section class="section" id="kvota">
-			<div class="wrap">
-				<div class="intro intro--flip intro--last">
-					<div class="intro__text reveal">
-						<p class="eyebrow">Šéf chce svůj podíl</p>
-						<h2 class="h2">Kvóta na večer a obchod za lup</h2>
-						<p class="lead">Šéf dá partě kvótu na tři akce. Co odvezete v dodávce, jde do kvóty i do společné kasy party, a z kasy se nakupuje přímo u jeho stolku.</p>
-						<ul class="ticks ticks--gold">
-							<li><b>V obchodě</b> je sprej a rušička navíc, lepší páčidlo, ostřejší řezák, kapsa navíc, delší ruce, banánová slupka a prdící polštářek k dodávce.</li>
-							<li><b>Kupovat může kdokoli z party,</b> z peněz všech. Kdo utratí kasu za polštářky, ten to pak vysvětluje.</li>
-							<li><b>Za každá dvě vylepšení</b> přikoupí pojišťovna ochrance kameru, čidlo nebo mikrofon navíc. Síly se vyrovnávají.</li>
-							<li><b>Splněná kvóta:</b> šéf slaví a další je vyšší. <b>Nesplněná: vyhazov.</b> Šéf partu přehodí přes celou hospodu a začíná se od nuly.</li>
-						</ul>
-					</div>
-					<figure class="intro__media reveal">
-						<div class="frame">
-							<img src="/assets/img/boss_shop.jpg" alt="Šéfův obchod: stolek se zbožím a cenovkami, za ním šéf" loading="lazy" width="1600" height="900">
-						</div>
-						<figcaption>Šéfův obchod: zboží s cenovkami, kasa party na ceduli a šéf za stolkem.</figcaption>
-					</figure>
-				</div>
-			</div>
-		</section>
-
-		<!-- Akce: mapy -->
-		<section class="section section--panel" id="akce">
+		<!-- Místa a noční události -->
+		<section class="section" id="mista">
 			<div class="wrap">
 				<div class="section__head reveal">
 					<p class="eyebrow">Kam se dneska jde</p>
-					<h2 class="h2">Každou noc jinde</h2>
+					<h2 class="h2">Šest míst. <em>Každá noc jinak.</em></h2>
 					<p class="lead">Obchodní dům Koruna je vyladěný do posledního regálu. Vily, muzea, banky, kasina a televize se staví pokaždé jinak: jiné místnosti, jiný lup, jiné zamčené dveře. Některé mají dvě patra a trezor se pak snáší po schodech ve dvou.</p>
 				</div>
 				<div class="places">
 					<article class="place reveal">
-						<div class="place__media"><img src="/assets/img/stretch.jpg" alt="Zloděj táhne sochu galerií na gumových rukou" loading="lazy" width="1280" height="720"></div>
-						<h3>Obchodní dům <span>1 patro</span></h3>
-						<p>Elektronika, klenoty, galerie se sochou a gumová kachna vystavená jako umění.</p>
+						<img src="/assets/img/stretch.jpg?v=pt1" alt="Galerie obchodního domu s bronzovou sochou" loading="lazy" width="960" height="540">
+						<div class="place__body">
+							<h3>Obchodní dům <span>1 patro</span></h3>
+							<p>Elektronika, klenoty, galerie se sochou a gumová kachna vystavená jako umění.</p>
+						</div>
 					</article>
 					<article class="place reveal">
-						<div class="place__media"><img src="/assets/img/map_villa.jpg" alt="Zlatý záchod v koupelně vily" loading="lazy" width="1600" height="900"></div>
-						<h3>Vila <span>1–2 patra</span></h3>
-						<p>Zlatý záchod v koupelně, víno ve vinotéce, portrét majitele za pár korun. Nahoře ložnice s trezorem.</p>
+						<img src="/assets/img/sm/map_villa.jpg" alt="Zlatý záchod v koupelně vily" loading="lazy" width="960" height="540">
+						<div class="place__body">
+							<h3>Vila <span>1–2 patra</span></h3>
+							<p>Zlatý záchod v koupelně, víno ve vinotéce a nahoře ložnice s trezorem.</p>
+						</div>
 					</article>
 					<article class="place reveal">
-						<div class="place__media"><img src="/assets/img/map_museum.jpg" alt="Sál dinosaurů s kostrou a lebkou" loading="lazy" width="1600" height="900"></div>
-						<h3>Muzeum <span>1–2 patra</span></h3>
-						<p>Kostra dinosaura, sarkofág s mumií a banán přilepený páskou ke zdi za 12 000 dolarů.</p>
+						<img src="/assets/img/sm/map_museum.jpg" alt="Sál dinosaurů s kostrou a lebkou" loading="lazy" width="960" height="540">
+						<div class="place__body">
+							<h3>Muzeum <span>1–2 patra</span></h3>
+							<p>Kostra dinosaura, sarkofág s mumií a banán přilepený páskou ke zdi za 12 000 dolarů.</p>
+						</div>
 					</article>
 					<article class="place reveal">
-						<div class="place__media"><img src="/assets/img/map_bank.jpg" alt="Trezor banky se zlatými cihlami a klecí s penězi" loading="lazy" width="1600" height="900"></div>
-						<h3>Banka <span>1–2 patra</span></h3>
-						<p>Trezor za ocelovými dveřmi: páčidlo, nebo ventilace. Uvnitř zlaté cihly, pytle peněz a prasátko s nápisem „nouzová rezerva“.</p>
+						<img src="/assets/img/sm/map_bank.jpg" alt="Trezor banky se zlatými cihlami a klecí s penězi" loading="lazy" width="960" height="540">
+						<div class="place__body">
+							<h3>Banka <span>1–2 patra</span></h3>
+							<p>Ocelové dveře trezoru: páčidlo, nebo ventilace. Uvnitř zlaté cihly a prasátko „nouzová rezerva“.</p>
+						</div>
 					</article>
 					<article class="place reveal">
-						<div class="place__media"><img src="/assets/img/map_casino.jpg" alt="Zlatý automat JACKPOT ve VIP salonku kasina" loading="lazy" width="1600" height="900"></div>
-						<h3>Kasino <span>1–2 patra</span></h3>
-						<p>Ruleta, řady automatů a ve VIP salonku zlatý automat JACKPOT, který unesou jen dva. Chycený automat zvoní jako o výhru a mikrofon to slyší.</p>
+						<img src="/assets/img/sm/map_casino.jpg" alt="Zlatý automat JACKPOT ve VIP salonku kasina" loading="lazy" width="960" height="540">
+						<div class="place__body">
+							<h3>Kasino <span>1–2 patra</span></h3>
+							<p>Ruleta, řady automatů a zlatý JACKPOT pro dva. Chycený automat zvoní jako o výhru a mikrofon to slyší.</p>
+						</div>
 					</article>
 					<article class="place reveal">
-						<div class="place__media"><img src="/assets/img/map_studio.jpg" alt="Studio televizní soutěže s kolem štěstí" loading="lazy" width="1600" height="900"></div>
-						<h3>Televize <span>1–2 patra</span></h3>
-						<p>Studio zpráv se studiovou kamerou pro dva, soutěž s kolem štěstí, maskérna a v archivu jediná kazeta Silvestr 1996.</p>
+						<img src="/assets/img/sm/map_studio.jpg" alt="Studio televizní soutěže s kolem štěstí" loading="lazy" width="960" height="540">
+						<div class="place__body">
+							<h3>Televize <span>1–2 patra</span></h3>
+							<p>Studio zpráv se studiovou kamerou pro dva, kolo štěstí, maskérna a v archivu kazeta Silvestr 1996.</p>
+						</div>
 					</article>
 				</div>
 				<div class="events reveal">
@@ -422,194 +524,143 @@
 			</div>
 		</section>
 
-		<!-- Role -->
-		<section class="section" id="role">
-			<div class="wrap">
-				<div class="section__head reveal">
-					<p class="eyebrow">Dvě strany</p>
-					<h2 class="h2">Za koho budeš hrát?</h2>
-					<p class="lead">Nejlíp se hraje ve třech zlodějích proti jedné ochrance. Kdo hlídá, rozhodne v hospodě popelnice, a kdo hlídal minule, ten jde příště krást. Když nehlídá nikdo, hlídá počítač.</p>
-				</div>
-				<div class="roles">
-					<article class="role role--thief reveal">
-						<div class="role__media">
-							<video data-src="/assets/video/carry.mp4" muted loop playsinline preload="none" data-poster="/assets/img/carry.jpg" aria-label="Zloděj z první osoby nese televizi"></video>
-						</div>
-						<div class="role__body">
-							<p class="role__tag">Zloději</p>
-							<h3>Dostaňte lup do dodávky</h3>
-							<ul class="ticks">
-								<li>Každý má jeden nástroj: sprej, rušičku, páčidlo, nebo řezák na sklo. Musíte se doplňovat.</li>
-								<li>Schovejte se ve skříni, prolezte ventilací, nebo strňte mezi figurínami a kamery vás nepoznají.</li>
-								<li>Chyceného parťáka odvezou do cely. Můžete pro něj doběhnout a vypáčit zámek.</li>
-								<li>Ve tmě rozsviť čelovku. Uvidíš lup, jenže kamery uvidí tebe.</li>
-								<li>Sprint vás zadýchá a mikrofon oddechování uslyší. Někdy je lepší jít pomalu.</li>
-							</ul>
-							<p class="role__win"><strong>Vyhrajete,</strong> když je v dodávce cílová částka. Ve třech je to $25 000, menší parta má cíl nižší.</p>
-						</div>
-					</article>
-					<article class="role role--guard reveal">
-						<div class="role__media">
-							<video data-src="/assets/video/drone.mp4" muted loop playsinline preload="none" data-poster="/assets/img/drone.jpg" aria-label="Pohled z dronu ochranky"></video>
-						</div>
-						<div class="role__body">
-							<p class="role__tag">Ochranka</p>
-							<h3>Uhlídej to z kanceláře</h3>
-							<ul class="ticks">
-								<li>U počítače sleduješ kamery a plánek budovy a posloucháš mikrofony.</li>
-								<li>Zamykáš dveře, zhasínáš a spouštíš alarm: zloděje v místnosti ohluší a otočí jim ovládání naruby.</li>
-								<li>Nasadíš FPV brýle a honíš zloděje dronem s paralyzérem. Pozor na baterku a nelétej ven, tam ztratíš signál. A hlavně ať ti ho neukradnou.</li>
-								<li>Vybereš místnost a mluvíš do ní rozhlasem. Chycení zloději na tebe z cely křičí přes sklo a buší do něj.</li>
-								<li>Za uhlídaný lup se ti odemykají kusy na věšáku, tři jen pro ochranku: služební čepice, zrcadlovky a knír.</li>
-							</ul>
-							<p class="role__win"><strong>Vyhraješ,</strong> když jsou všichni zloději v cele, nebo jim dojde čas.</p>
-						</div>
-					</article>
-				</div>
-			</div>
-		</section>
-
-		<!-- Vtipné momenty -->
-		<section class="section section--panel" id="prdel">
-			<div class="wrap">
-				<div class="section__head reveal">
-					<p class="eyebrow">Ukázky ze hry</p>
-					<h2 class="h2">A proč je to taková prdel</h2>
-					<p class="lead">Fyzika, gumové ruce a hlasový chat. Nejlepší momenty si nenaplánujete.</p>
-				</div>
-				<div class="bento">
-					<figure class="clip clip--wide reveal">
-						<video data-src="/assets/video/slip.mp4?v=k3" muted loop playsinline preload="none" data-poster="/assets/img/slip.jpg?v=k3" aria-label="Zloděj uklouzne na banánové slupce"></video>
-						<div class="cctv"><span class="cctv__rec"><i></i>REC</span><span class="cctv__cam">KAM 6 · CHODBA</span></div>
-						<figcaption><strong>Mokrá podlaha.</strong> Banánová slupka a pěna z rozbitého hasičáku. Pád počítá skutečná fyzika: kdo uklouzne, proletí chodbou, odrazí se od kbelíku a ze schodů se skutálí až dolů.</figcaption>
-					</figure>
-					<figure class="clip reveal">
-						<video data-src="/assets/video/fart.mp4" muted loop playsinline preload="none" data-poster="/assets/img/fart.jpg" aria-label="Zloděj chytí prdící polštářek"></video>
-						<figcaption><strong>Prdící polštářek.</strong> Mikrofon u lavičky ho slyšel. Ochranka taky.</figcaption>
-					</figure>
-					<figure class="clip reveal">
-						<video data-src="/assets/video/crew.mp4" muted loop playsinline preload="none" data-poster="/assets/img/crew.jpg" aria-label="Tři zloději mávají a tancují u dodávky"></video>
-						<figcaption><strong>Parta.</strong> Mávnout, ukázat, „pššt“ a vítězný taneček. Domluvíte se i beze slov.</figcaption>
-					</figure>
-					<figure class="clip clip--wide reveal">
-						<video data-src="/assets/video/stretch.mp4" muted loop playsinline preload="none" data-poster="/assets/img/stretch.jpg" aria-label="Zloděj táhne sochu na gumových rukou"></video>
-						<div class="cctv"><span class="cctv__rec"><i></i>REC</span><span class="cctv__cam">KAM 2 · GALERIE</span></div>
-						<figcaption><strong>Gumové ruce.</strong> Socha je těžká, ruce ne. Natahují se, dokud to nepraskne. Těžké věci noste ve dvou.</figcaption>
-					</figure>
-				</div>
-				<div class="pillars pillars--after">
-					<article class="pillar reveal">
-						<div class="pillar__icon pillar__icon--blue">
-							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0-6 6c0 4 6 9 6 9s6-5 6-9a6 6 0 0 0-6-6zM12 18v3" /></svg>
-						</div>
-						<h3>Helium</h3>
-						<p>Balónky v hospodě, ve vile i v muzeu. Kdo se nadechne, mluví dvacet vteřin jako kreslená postavička. Slyší to všichni, i ochranka přes mikrofon.</p>
-					</article>
-					<article class="pillar reveal">
-						<div class="pillar__icon pillar__icon--red">
-							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h3l5 4V6L7 10zM16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12" /></svg>
-						</div>
-						<h3>Rozhlas a cela</h3>
-						<p>Ochranka mluví do vybrané místnosti z reproduktoru ve stropě. Chycení zloději na ni z cely křičí přes sklo a buší do něj.</p>
-					</article>
-					<article class="pillar reveal">
-						<div class="pillar__icon pillar__icon--gold">
-							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19l6-6M14 4l6 6-5 5-6-6zM4 14l6 6" /></svg>
-						</div>
-						<h3>Házej s rozmyslem</h3>
-						<p>Pořádně hozená tvrdá věc srazí parťáka, rozbije kameru i sestřelí dron ochranky. Polštářek ne.</p>
-					</article>
-				</div>
-			</div>
-		</section>
-
-		<!-- Nástroje -->
-		<section class="section" id="nastroje">
-			<div class="wrap">
-				<div class="section__head reveal">
-					<p class="eyebrow">Výbava zlodějů</p>
-					<h2 class="h2">Čtyři nástroje, každý má jen jeden</h2>
-					<p class="lead">Před kolem si každý vybere jeden nástroj, šéf prodává vylepšení. Najeď na záznam a uvidíš ho v akci.</p>
-				</div>
-				<div class="tools">
-					<article class="tool reveal">
-						<div class="tool__media">
-							<video data-src="/assets/video/tool_spray.mp4" muted loop playsinline preload="none" data-poster="/assets/img/tool_spray.jpg" aria-label="Sprej zastříká kameru"></video>
-						</div>
-						<div class="tool__body">
-							<h3>Sprej <span>3× použití</span></h3>
-							<p>Kameru nebo čidlo zastříkáš načerno. Ochranka pak kouká do tmy.</p>
-						</div>
-					</article>
-					<article class="tool reveal">
-						<div class="tool__media">
-							<video data-src="/assets/video/tool_jammer.mp4" muted loop playsinline preload="none" data-poster="/assets/img/tool_jammer.jpg" aria-label="Rušička umlčí mikrofon"></video>
-						</div>
-						<div class="tool__body">
-							<h3>Rušička <span>2× použití</span></h3>
-							<p>Mikrofony v okolí chvíli slyší jen šum. Kamery tě ale pořád vidí.</p>
-						</div>
-					</article>
-					<article class="tool reveal">
-						<div class="tool__media">
-							<video data-src="/assets/video/tool_crowbar.mp4" muted loop playsinline preload="none" data-poster="/assets/img/tool_crowbar.jpg" aria-label="Páčidlo vypáčí dveře"></video>
-						</div>
-						<div class="tool__body">
-							<h3>Páčidlo <span>bez omezení</span></h3>
-							<p>Rychle otevře zamčené dveře, okno i vitrínu. Je to ale hodně slyšet.</p>
-						</div>
-					</article>
-					<article class="tool reveal">
-						<div class="tool__media">
-							<video data-src="/assets/video/tool_cutter.mp4" muted loop playsinline preload="none" data-poster="/assets/img/tool_cutter.jpg" aria-label="Řezák vyřízne sklo vitríny"></video>
-						</div>
-						<div class="tool__body">
-							<h3>Řezák na sklo <span>bez omezení</span></h3>
-							<p>Potichu vyřízne sklo okna nebo vitríny. Trvá to déle.</p>
-						</div>
-					</article>
-				</div>
-			</div>
-		</section>
-
-		<!-- Noviny -->
+		<!-- Noviny a klipy -->
 		<section class="section section--paper" id="noviny">
 			<div class="wrap news">
-				<div class="news__text reveal">
-					<p class="news__kicker">Krimi · Obchodní dům Koruna</p>
+				<div class="reveal">
+					<p class="news__mast">Šeptanda · ranní vydání · krimi</p>
 					<h2 class="news__title">Ráno o vás píšou noviny</h2>
-					<p class="news__lead">Každé kolo skončí titulní stranou bulváru Šeptanda. Kolik jste ukradli, co jste rozbili, kdo uklouzl, kdo ukradl dron ochranky a jestli vás nevyhodil šéf. Místo fotky běží video nejtrapnějšího momentu noci.</p>
-					<p class="news__note">Tlačítko ULOŽIT VIDEO uloží ten trapas jako GIF do Obrázků, rovnou ke sdílení. Pak hostitel klikne na ODVETA a jede se znovu. Většinou s jinou ochrankou.</p>
+					<p class="news__lead">Každé kolo končí titulní stranou bulváru Šeptanda: kolik jste ukradli, co jste rozbili, kdo uklouzl, kdo ukradl dron a jestli vás nevyhodil šéf. <b>Místo fotky běží video nejtrapnějšího momentu noci.</b></p>
+					<p class="news__note">Tlačítko <b>ULOŽIT VIDEO</b> uloží ten trapas jako GIF do Obrázků, rovnou ke sdílení. Pak hostitel klikne na <b>ODVETA</b> a jede se znovu, většinou s jinou ochrankou.</p>
 				</div>
 				<figure class="news__paper reveal">
-					<video data-src="/assets/video/news.mp4" muted loop playsinline preload="none" data-poster="/assets/img/news.jpg" aria-label="Titulní strana Šeptandy s videem"></video>
+					<video data-src="/assets/video/news.mp4" muted loop playsinline preload="none" data-poster="/assets/img/news.jpg" aria-label="Titulní strana Šeptandy s videem trapasu"></video>
 				</figure>
 			</div>
 		</section>
 
-		<!-- Galerie -->
-		<section class="section" id="galerie">
+		<!-- Stažení a návod pro testery -->
+		<section class="section download" id="stahnout">
 			<div class="wrap">
-				<div class="section__head reveal">
-					<p class="eyebrow">Galerie</p>
-					<h2 class="h2">Jak to vypadá</h2>
+				<div class="section__head section__head--center reveal">
+					<p class="eyebrow if-playtest">Pozvánka na akci</p>
+					<p class="eyebrow if-soon">Již brzy na Steamu</p>
+					<h2 class="h2 if-playtest">Stáhni demo <em>a pozvi partu</em></h2>
+					<h2 class="h2 if-soon">Přidej si hru <em>do přání</em></h2>
+					<p class="lead if-playtest">Hush Heist se právě testuje s pozvanými hráči. Demo je zdarma, něco se občas rozbije a o to víc se nasmějete.</p>
+					<p class="lead if-soon">Hush Heist míří na Steam. Přidej si ho do seznamu přání, a než vyjde, zahraj si demo z playtestu.</p>
 				</div>
-				<div class="gallery">
-					<button class="shot reveal" data-full="/assets/img/ui_planning.jpg"><img src="/assets/img/ui_planning.jpg" alt="Plán loupeže s ukázkou nástroje" loading="lazy" width="1600" height="900"><span>Plán loupeže</span></button>
-					<button class="shot reveal" data-full="/assets/img/ui_setup.jpg"><img src="/assets/img/ui_setup.jpg" alt="Příprava ochranky s pokrytím kamer" loading="lazy" width="1600" height="900"><span>Příprava ochranky</span></button>
-					<button class="shot reveal" data-full="/assets/img/cctv_still.jpg"><img src="/assets/img/cctv_still.jpg" alt="Počítač ochranky s poplachem" loading="lazy" width="1600" height="900"><span>Kamery a poplach</span></button>
-					<button class="shot reveal" data-full="/assets/img/ui_map.jpg"><img src="/assets/img/ui_map.jpg" alt="Plánek budovy u počítače ochranky se zámky a žárovkami" loading="lazy" width="1600" height="900"><span>Plánek: zámky, alarm a světla</span></button>
-					<button class="shot reveal" data-full="/assets/img/map_casino_hall.jpg"><img src="/assets/img/map_casino_hall.jpg" alt="Herna kasina s ruletou a karetními stoly" loading="lazy" width="1600" height="900"><span>Herna kasina</span></button>
-					<button class="shot reveal" data-full="/assets/img/map_studio_news.jpg"><img src="/assets/img/map_studio_news.jpg" alt="Studio zpráv s kulisou nočního města" loading="lazy" width="1600" height="900"><span>Studio zpráv</span></button>
-					<button class="shot reveal" data-full="/assets/img/pub.jpg"><img src="/assets/img/pub.jpg" alt="Hospoda U Zlatého lumpa s partou" loading="lazy" width="1280" height="720"><span>Hospoda U Zlatého lumpa</span></button>
-					<button class="shot reveal" data-full="/assets/img/map_gold.jpg"><img src="/assets/img/map_gold.jpg" alt="Zlaté cihly na regálu v trezoru" loading="lazy" width="1600" height="900"><span>Zlaté cihly v trezoru</span></button>
-					<button class="shot reveal" data-full="/assets/img/guard_office.jpg"><img src="/assets/img/guard_office.jpg" alt="Kancelář ochranky" loading="lazy" width="1600" height="900"><span>Kancelář ochranky</span></button>
+				<div class="dossier reveal">
+					<p class="stamp if-playtest" aria-hidden="true"><b>Playtest</b><small>jen pro pozvané</small></p>
+					<div>
+						<h3 style="font:400 34px/1 var(--display);text-transform:uppercase">Demo pro Windows a Mac</h3>
+						<div class="dl__buttons" id="download-buttons">
+							<a class="btn btn--steam btn--xl if-soon" data-steam href="#stahnout">
+								<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5l-1.2-1.1C6.2 15.3 3.5 12.8 3.5 9.6A4.6 4.6 0 0 1 8.1 5c1.5 0 2.9.7 3.9 1.8A5.1 5.1 0 0 1 15.9 5a4.6 4.6 0 0 1 4.6 4.6c0 3.2-2.7 5.7-7.3 9.8z" /></svg>
+								<span class="btn__text">Přidat do přání na Steamu<small>již brzy</small></span>
+							</a>
+							<a class="btn btn--gold btn--xl" id="download-win" href="https://github.com/Matyhead/startheist-web/releases/latest/download/HushHeist-demo.zip">
+								<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16" /></svg>
+								<span class="btn__text">Stáhnout pro Windows<small data-meta>nejnovější verze · .zip, asi 170 MB</small></span>
+							</a>
+							<a class="btn btn--ghost btn--xl" id="download-mac" href="https://github.com/Matyhead/startheist-web/releases/latest/download/HushHeist-mac.zip">
+								<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16" /></svg>
+								<span class="btn__text">Stáhnout pro Mac<small data-meta>nejnovější verze · .zip, asi 190 MB</small></span>
+							</a>
+						</div>
+						<ul class="reqs">
+							<li>Windows 10 nebo 11 (64bit), nebo Mac s macOS 13 a novějším (Apple Silicon; Intel od macOS 11)</li>
+							<li>Zapnutý Steam s přihlášeným účtem (hru přes něj nekupuješ, jen musí běžet)</li>
+							<li>Mikrofon a sluchátka. Bez mikrofonu je to poloviční zábava.</li>
+							<li>Na Macu myš: pravým tlačítkem se hází a strká.</li>
+						</ul>
+					</div>
+					<ol class="steps" id="navod">
+						<li>
+							<h3>Rozbal celý zip</h3>
+							<p><b>Windows:</b> pravým tlačítkem na zip, <b>Extrahovat vše</b>. Ze zipu hru nespouštěj, chyběly by knihovny Steamu. <b>Mac:</b> dvojklik na zip, vznikne HushHeist.app.</p>
+						</li>
+						<li>
+							<h3>Zapni Steam a přihlas se</h3>
+							<p>Ve Steamu se hra ukáže jako „Spacewar“. To je testovací číslo pro hry ve vývoji, je to v pořádku.</p>
+						</li>
+						<li>
+							<h3>Spusť hru</h3>
+							<p><b>Windows:</b> HushHeist.exe. U modrého okna „Systém Windows ochránil počítač“ klikni na <b>Další informace</b> a <b>Přesto spustit</b>.</p>
+							<p><b>Mac:</b> poprvé hru macOS odmítne. Klikni na <b>Hotovo</b>, otevři <b>Nastavení systému › Soukromí a zabezpečení</b>, sjeď dolů a klikni na <b>Přesto otevřít</b>. Na dotaz na mikrofon dej Povolit.</p>
+						</li>
+						<li>
+							<h3>Přepni do češtiny</h3>
+							<p>Hra se spustí anglicky: <b>SETTINGS › Language / Jazyk › ČESKY</b>. Poprvé? <b>JAK SE HRAJE</b> má krátký úvod za zloděje i za ochranku.</p>
+						</li>
+						<li>
+							<h3>Založ hru a pozvi přátele</h3>
+							<p>Hostitel klikne na <b>ZALOŽIT HRU</b> a v hospodě přes <kbd>Esc</kbd> › <b>POZVAT PŘÁTELE</b> pošle pozvánky. Ostatní mají hru už zapnutou a kliknou na pozvánku v chatu Steamu, nebo v menu na <b>NAJÍT HRU</b>.</p>
+							<p class="note">Překryv Steamu (<kbd>Shift</kbd>+<kbd>Tab</kbd>) v demu nejde, hra se nespouští ze Steamu. Zvi přes Esc v hospodě.</p>
+						</li>
+					</ol>
+				</div>
+				<div class="shout">
+					<div class="shout__share reveal">
+						<h3>Pošli to dál</h3>
+						<p>Bavilo vás to? Pošli odkaz dalším partám. Čím víc lidí, tím víc trapasů v novinách.</p>
+						<button class="btn btn--gold btn--sm" type="button" data-share data-done="Odkaz zkopírován">Zkopírovat odkaz startheist.com</button>
+					</div>
+					<div class="reveal" id="zpetna-vazba">
+						<h3>Zpětná vazba</h3>
+						<p>Chyba, zásek nebo nápad? <span data-feedback-text>Napiš tomu, kdo tě pozval.</span> Pomůže i GIF z novin nebo snímek obrazovky.</p>
+						<a class="btn btn--ghost btn--sm" data-feedback href="#zpetna-vazba" hidden>Poslat zpětnou vazbu</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Časté dotazy -->
+		<section class="section section--panel" id="faq">
+			<div class="wrap wrap--narrow">
+				<div class="section__head reveal">
+					<p class="eyebrow">Časté dotazy</p>
+					<h2 class="h2">Když něco nejde</h2>
+				</div>
+				<div class="faq reveal">
+					<details>
+						<summary>Kolik nás musí být?</summary>
+						<p>Stačí jeden. Sám hraješ za zloděje proti počítači (<b>TRÉNINK</b>). Ve dvou můžete krást oba a hlídá počítač, nebo jeden z vás hlídá. Nejlíp se hraje ve třech zlodějích a jedné ochrance, nejvíc v sedmi.</p>
+					</details>
+					<details>
+						<summary>Kamarád klikl na pozvánku a Steam chce instalovat Spacewar</summary>
+						<p>Hush Heist musí běžet dřív, než na pozvánku klikneš. Okno Steamu zavři, zapni hru a klikni na pozvánku znovu. Nebo v menu <b>NAJÍT HRU</b> vyber lobby hostitele (nové se ukáže po pár vteřinách, případně <b>OBNOVIT</b>).</p>
+					</details>
+					<details>
+						<summary>Mac hlásí, že je aplikace poškozená</summary>
+						<p>Otevři Terminál, napiš <code>xattr -dr com.apple.quarantine</code>, mezeru, přetáhni do okna HushHeist.app a dej Enter. Pak hru otevři znovu. Na macOS 14 a starším jde místo Soukromí a zabezpečení i pravým tlačítkem na HushHeist.app a Otevřít. Okno hry naskočí, až odpovíš na dotaz na mikrofon.</p>
+					</details>
+					<details>
+						<summary>Kamarádi mě neslyší</summary>
+						<p>Ve Windows otevři Nastavení, Ochrana osobních údajů, Mikrofon a povol přístup desktopovým aplikacím. Na Macu Nastavení systému, Soukromí a zabezpečení, Mikrofon a zapni Hush Heist i Steam. Ve hře v <b>NASTAVENÍ › MIKROFON</b> vyber správný mikrofon a klikni na <b>TEST</b>. Někdo je moc slyšet? Esc a <b>HLASY HRÁČŮ</b> nastaví hlasitost každému zvlášť.</p>
+					</details>
+					<details>
+						<summary>Co když hostiteli spadne hra?</summary>
+						<p>Hru převezme další hráč a parta se sejde v hospodě. Co jste stihli naložit, se započítá do kasy i do šéfovy kvóty. Kdo vypadl, klikne na <b>PŘIPOJIT ZNOVU</b>.</p>
+					</details>
+					<details>
+						<summary>Hra se seká</summary>
+						<p>Esc, <b>NASTAVENÍ</b>, <b>OBRAZ A MYŠ</b> a grafiku přepni na <b>NÍZKÁ</b>. Celá obrazovka jde zapnout klávesou F11, na Macu Option+Enter.</p>
+					</details>
+					<details>
+						<summary>Kde najdu fotky z fotokoutku a GIFy z novin?</summary>
+						<p>Ve složce <b>Obrázky › Hush Heist</b> (ve Windows i na Macu). Fotka z fotokoutku se uloží každému, kdo je zrovna v hospodě, GIF z novin tomu, kdo klikne na ULOŽIT VIDEO.</p>
+					</details>
+					<details>
+						<summary>Jde to hrát bez Steamu?</summary>
+						<p>Po místní síti ano, v menu je <b>MÍSTNÍ SÍŤ</b>. Přes internet zatím jen přes Steam.</p>
+					</details>
 				</div>
 			</div>
 		</section>
 
 		<!-- Ovládání -->
-		<section class="section section--panel" id="ovladani">
+		<section class="section" id="ovladani">
 			<div class="wrap">
 				<div class="section__head reveal">
 					<p class="eyebrow">Ovládání</p>
@@ -664,130 +715,29 @@
 						<div class="key"><span><kbd>Mezerník</kbd></span>z popelnice ven</div>
 						<div class="key"><span><kbd>E</kbd></span>u šéfova stolku: koupit z kasy party</div>
 						<div class="key"><span><kbd>E</kbd></span>u tabule s pravidly: úvod do hry</div>
-						<div class="key"><span><kbd>E</kbd></span>u mikrofonu: karaoke</div>
 						<div class="key"><span><kbd>E</kbd></span>u foťáku: fotka party</div>
 						<div class="key"><span><kbd>E</kbd></span>u věšáku: nasadit čepici nebo brýle</div>
 						<div class="key"><span><kbd>E</kbd></span>panák, cigareta, automat, jukebox</div>
-						<div class="key"><span><kbd>E</kbd></span>u hospodského a šéfa: rada</div>
 						<div class="key"><span><kbd>Drž E</kbd></span>u kulečníku: šťouch tágem</div>
-						<div class="key"><span><kbd>E</kbd></span>trojúhelník u WC: rozestavit koule</div>
 						<div class="key"><span><kbd>E</kbd></span>u balónku: nadechnout helium</div>
 					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- Stažení a návod -->
-		<section class="section download" id="stahnout">
-			<div class="wrap">
-				<div class="download__card reveal">
-					<div class="download__info">
-						<p class="eyebrow">Demo pro kamarády</p>
-						<h2 class="h2">Stáhni si demo</h2>
-						<p class="lead">Hra je ve vývoji. Občas se něco rozbije a o to víc se nasmějete. Když narazíš na chybu, napiš tomu, kdo ti poslal odkaz.</p>
-						<div class="download__buttons" id="download-buttons">
-							<a class="btn btn--gold btn--xl" id="download-win" href="https://github.com/Matyhead/startheist-web/releases/latest/download/HushHeist-demo.zip">
-								<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16" /></svg>
-								<span class="btn__text">Stáhnout pro Windows<small data-meta>nejnovější verze · .zip, asi 170 MB</small></span>
-							</a>
-							<a class="btn btn--ghost btn--xl" id="download-mac" href="https://github.com/Matyhead/startheist-web/releases/latest/download/HushHeist-mac.zip">
-								<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16" /></svg>
-								<span class="btn__text">Stáhnout pro Mac<small data-meta>nejnovější verze · .zip, asi 190 MB</small></span>
-							</a>
-						</div>
-						<ul class="reqs">
-							<li>Windows 10 nebo 11 (64bit), nebo Mac s macOS 13 a novějším (Apple Silicon; Intel od macOS 11)</li>
-							<li>Steam s přihlášeným účtem</li>
-							<li>Mikrofon a sluchátka (bez mikrofonu je to poloviční zábava)</li>
-						</ul>
-					</div>
-					<ol class="install" id="jak-hrat">
-						<li>
-							<h3>Rozbal celý zip</h3>
-							<p><b>Windows:</b> pravým tlačítkem na soubor, <b>Extrahovat vše</b>. Ze zipu hru nespouštěj. <b>Mac:</b> dvojklik na zip, vznikne HushHeist.app (klidně ji přetáhni do Aplikací).</p>
-						</li>
-						<li>
-							<h3>Zapni Steam a přihlas se</h3>
-							<p>Ve Steamu se hra ukáže jako „Spacewar“. To je testovací číslo pro hry ve vývoji, je to v pořádku.</p>
-						</li>
-						<li>
-							<h3>Spusť hru</h3>
-							<p><b>Windows:</b> HushHeist.exe. U modrého okna „Systém Windows ochránil počítač“ klikni na <b>Další informace</b> a <b>Přesto spustit</b>. <b>Mac:</b> poprvé hru macOS odmítne, otevři <b>Nastavení systému › Soukromí a zabezpečení</b> a klikni na <b>Přesto otevřít</b>. Na dotaz na mikrofon odpověz Povolit.</p>
-						</li>
-						<li>
-							<h3>Založ hru, nebo se připoj</h3>
-							<p>Hra se spustí anglicky, češtinu zapneš v <b>SETTINGS</b> nahoře (Language / Jazyk). Hostitel dá <b>HOST GAME</b> (Založit hru) a v hospodě přes Esc pozve kamarády. Ostatní kliknou na pozvánku ve Steamu, nebo na <b>FIND GAME</b>. Poprvé? <b>HOW TO PLAY</b> (Jak se hraje) má krátký úvod za zloděje i za ochranku.</p>
-						</li>
-					</ol>
-				</div>
-			</div>
-		</section>
-
-		<!-- Časté dotazy -->
-		<section class="section section--panel" id="faq">
-			<div class="wrap wrap--narrow">
-				<div class="section__head reveal">
-					<p class="eyebrow">Časté dotazy</p>
-					<h2 class="h2">Když něco nejde</h2>
-				</div>
-				<div class="faq reveal">
-					<details>
-						<summary>Kolik nás musí být?</summary>
-						<p>Stačí jeden. Sám hraješ za zloděje proti počítači (<b>TRAINING</b>, Trénink). Ve dvou můžete krást oba a hlídat bude počítač, nebo jeden z vás hlídá. Nejlíp se hraje ve třech zlodějích a jedné ochrance, nejvíc v sedmi.</p>
-					</details>
-					<details>
-						<summary>Jak to rozběhnu na Macu?</summary>
-						<p>Stáhni verzi pro Mac (HushHeist-mac.zip), jede na Apple Silicon i na Intelu. Hra zatím není podepsaná u Applu, takže ji macOS napoprvé odmítne: klikni na <b>Hotovo</b>, otevři <b>Nastavení systému › Soukromí a zabezpečení</b>, sjeď dolů a u HushHeist klikni na <b>Přesto otevřít</b>. Na macOS 14 a starším jde i pravým tlačítkem na HushHeist.app a Otevřít. Když macOS hlásí, že je aplikace poškozená, napiš v Terminálu <code>xattr -dr com.apple.quarantine</code>, mezeru, přetáhni do okna HushHeist.app a dej Enter. Okno hry naskočí, až odpovíš na dotaz na mikrofon.</p>
-					</details>
-					<details>
-						<summary>Kamarádi mě neslyší</summary>
-						<p>Ve Windows otevři Nastavení, Ochrana osobních údajů, Mikrofon a povol přístup desktopovým aplikacím. Na Macu Nastavení systému, Soukromí a zabezpečení, Mikrofon a zapni Hush Heist i Steam. Ve hře v <b>SETTINGS › MICROPHONE</b> (Nastavení, Mikrofon) vyber správný mikrofon a klikni na <b>TEST</b>: hra pár vteřin nahraje a hned ti to přehraje. Někdo je moc slyšet? Esc a <b>PLAYER VOICES</b> (Hlasy hráčů) nastaví hlasitost každému zvlášť.</p>
-					</details>
-					<details>
-						<summary>Nevidím hru kamaráda v seznamu</summary>
-						<p>Nová hra se na Steamu ukáže až po pár vteřinách, klikni na <b>REFRESH</b>. Spolehlivější je pozvánka: hostitel v hospodě zmáčkne Esc a klikne na <b>INVITE FRIENDS</b>.</p>
-					</details>
-					<details>
-						<summary>Co když hostiteli spadne hra?</summary>
-						<p>Hru převezme další hráč a parta se sejde v hospodě. Co jste stihli naložit, se započítá do kasy i do šéfovy kvóty. Kdo vypadl, klikne na <b>REJOIN</b> (Připojit znovu) a počká v hospodě na konec kola.</p>
-					</details>
-					<details>
-						<summary>Hra se seká</summary>
-						<p>Esc, <b>SETTINGS</b>, <b>DISPLAY &amp; MOUSE</b> a grafiku přepni na <b>LOW</b> (česky Nastavení, Obraz a myš, Nízká). Celá obrazovka jde zapnout klávesou F11, na Macu Option+Enter.</p>
-					</details>
-					<details>
-						<summary>Je hra česky?</summary>
-						<p>Ano. Spustí se anglicky a v <b>SETTINGS</b> úplně nahoře přepneš <b>Language / Jazyk</b> na <b>ČESKY</b>. Hra si to zapamatuje.</p>
-					</details>
-					<details>
-						<summary>Kde najdu fotky z fotokoutku a GIFy z novin?</summary>
-						<p>Ve složce <b>Obrázky › Hush Heist</b> (ve Windows i na Macu). Fotka z fotokoutku se uloží každému, kdo je zrovna v hospodě, GIF z novin tomu, kdo klikne na ULOŽIT VIDEO.</p>
-					</details>
-					<details>
-						<summary>Jde to hrát bez Steamu?</summary>
-						<p>Po místní síti ano, v menu je <b>LOCAL NETWORK</b> (Místní síť). Přes internet zatím jen přes Steam.</p>
-					</details>
 				</div>
 			</div>
 		</section>
 	</main>
 
 	<footer class="footer">
-		<div class="wrap footer__inner">
+		<div class="wrap">
 			<img src="/assets/img/logo.png" alt="Hush Heist" width="140" height="55" loading="lazy">
-			<p>Hush Heist je ve vývoji. Tohle demo je pro kamarády a testery.</p>
+			<p class="if-playtest">Hush Heist je ve vývoji. Tohle demo je interní playtest pro pozvané.</p>
+			<p class="if-soon">Hush Heist · již brzy na Steamu. <a data-steam href="#stahnout">Přidej si ho do přání.</a></p>
 			<p class="footer__small"><a href="/en" hreflang="en" lang="en" data-lang="en">English version</a> · startheist.com · © 2026</p>
 		</div>
 	</footer>
 
-	<div class="lightbox trailer" id="trailer" hidden>
-		<button class="lightbox__close" aria-label="Zavřít">×</button>
+	<div class="lightbox" id="trailer" hidden>
+		<button class="lightbox__close" type="button" aria-label="Zavřít">×</button>
 		<video controls playsinline preload="none" aria-label="Trailer Hush Heist"></video>
-	</div>
-
-	<div class="lightbox" id="lightbox" hidden>
-		<button class="lightbox__close" aria-label="Zavřít">×</button>
-		<img alt="">
 	</div>
 
 	<script src="/main.js" defer></script>

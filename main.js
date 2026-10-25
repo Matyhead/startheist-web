@@ -1,20 +1,42 @@
-// Hush Heist web: videa se načtou a hrají, až když jsou vidět; navigace, záložky,
-// galerie, trailer, hodiny na „kameře“ v úvodu, přepínač jazyka a údaje o nejnovější verzi dema
-// z GitHubu (Windows i Mac, na Macu je Mac hlavní tlačítko). Stejný skript pro českou
-// (/) i anglickou (/en) stránku: jazyk pozná z <html lang>.
+// Hush Heist web: videa se načtou a hrají, až když jsou vidět; úvodní video na šířku nebo na výšku,
+// navigace, záložky, trailer, hodiny na „kameře“ v úvodu, přepínač jazyka, fáze webu z config.js
+// (playtest / již brzy na Steamu, odkaz na Steam a na zpětnou vazbu), sdílení odkazu a údaje
+// o nejnovější verzi dema z GitHubu (Windows i Mac, na Macu je Mac hlavní tlačítko).
+// Stejný skript pro českou (/) i anglickou (/en) stránku: jazyk pozná z <html lang>.
 (() => {
 	const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 	const repo = "Matyhead/startheist-web";
 	const czech = document.documentElement.lang === "cs";
+	const config = window.HH || {};
 
 	// Česká typografie: jednopísmenné předložky a spojky nezůstanou na konci řádku.
 	const glue = (root) => {
 		const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
 		for (let node = walker.nextNode(); node; node = walker.nextNode()) {
-			node.nodeValue = node.nodeValue.replace(/(^|[\s(„])([kvszaiouKVSZAIOU])\s+/g, "$1$2 ");
+			node.nodeValue = node.nodeValue.replace(/(^|[\s(„])([kvszaiouKVSZAIOU])\s+/g, "$1$2 ");
 		}
 	};
 	if (czech) document.querySelectorAll("p, li, h1, h2, h3, figcaption, summary").forEach(glue);
+
+	// Fáze webu: odkaz na Steam (bez adresy se tlačítka Steamu schovají) a na zpětnou vazbu.
+	document.querySelectorAll("[data-steam]").forEach((link) => {
+		if (config.steam) {
+			link.href = config.steam;
+			link.target = "_blank";
+			link.rel = "noopener";
+		} else if (link.classList.contains("btn")) {
+			link.hidden = true;
+		}
+	});
+	if (config.feedback) {
+		document.querySelectorAll("[data-feedback]").forEach((link) => {
+			link.href = config.feedback;
+			link.target = "_blank";
+			link.rel = "noopener";
+			link.hidden = false;
+		});
+		document.querySelectorAll("[data-feedback-text]").forEach((el) => (el.hidden = true));
+	}
 
 	// Přepínač jazyka: volbu si zapamatuje (kořen webu podle ní přesměruje, viz <head>).
 	document.querySelectorAll("[data-lang]").forEach((link) =>
@@ -56,6 +78,21 @@
 	);
 	document.querySelectorAll(".reveal").forEach((el) => revealer.observe(el));
 
+	// Úvodní video: na telefonu na výšku verze na výšku. Plakát pod ním je <picture>.
+	const hero = document.querySelector(".hero__video");
+	if (hero && !reduceMotion) {
+		const tall = window.matchMedia("(max-aspect-ratio: 3/4)");
+		const load = () => {
+			hero.classList.remove("is-playing");
+			hero.src = tall.matches ? hero.dataset.tall : hero.dataset.wide;
+			const promise = hero.play();
+			if (promise) promise.catch(() => {});
+		};
+		hero.addEventListener("playing", () => hero.classList.add("is-playing"));
+		tall.addEventListener("change", load);
+		load();
+	}
+
 	// Videa: zdroj až při přiblížení, přehrávat jen viditelná (šetří data i baterku).
 	const play = (video) => {
 		if (!video.src && video.dataset.src) {
@@ -86,8 +123,6 @@
 			parent.addEventListener("mouseleave", () => video.pause());
 			parent.addEventListener("click", () => (video.paused ? play(video) : video.pause()));
 		});
-		const hero = document.querySelector(".hero__video");
-		if (hero) hero.pause();
 	} else {
 		const watcher = new IntersectionObserver(
 			(entries) => {
@@ -136,29 +171,6 @@
 		})
 	);
 
-	// Galerie: obrázek přes celou obrazovku.
-	const box = document.getElementById("lightbox");
-	const boxImage = box.querySelector("img");
-	const closeBox = () => {
-		box.hidden = true;
-		document.body.style.overflow = "";
-	};
-	document.querySelectorAll(".shot").forEach((shot) =>
-		shot.addEventListener("click", () => {
-			boxImage.src = shot.dataset.full;
-			boxImage.alt = shot.querySelector("img").alt;
-			box.hidden = false;
-			document.body.style.overflow = "hidden";
-			box.querySelector("button").focus();
-		})
-	);
-	box.addEventListener("click", (event) => {
-		if (event.target !== boxImage) closeBox();
-	});
-	document.addEventListener("keydown", (event) => {
-		if (event.key === "Escape" && !box.hidden) closeBox();
-	});
-
 	// Trailer: hraje se zvukem po kliknutí; telefon na výšku dostane verzi na výšku.
 	const trailer = document.getElementById("trailer");
 	if (trailer) {
@@ -168,8 +180,8 @@
 			trailer.hidden = true;
 			document.body.style.overflow = "";
 		};
-		document.querySelectorAll("[data-trailer]").forEach((link) =>
-			link.addEventListener("click", (event) => {
+		document.querySelectorAll("[data-trailer]").forEach((button) =>
+			button.addEventListener("click", (event) => {
 				event.preventDefault();
 				const tall = window.matchMedia("(orientation: portrait) and (max-width: 820px)").matches;
 				const src = tall ? "/assets/video/trailer_vertical.mp4" : "/assets/video/trailer.mp4";
@@ -190,16 +202,57 @@
 		});
 	}
 
+	// Sdílení odkazu: na telefonu systémové sdílení, jinde zkopírování do schránky.
+	const url = "https://startheist.com" + (czech ? "/" : "/en");
+	document.querySelectorAll("[data-share]").forEach((button) =>
+		button.addEventListener("click", async () => {
+			if (navigator.share && navigator.maxTouchPoints > 1) {
+				try {
+					await navigator.share({ title: "Hush Heist", url });
+					return;
+				} catch (error) {
+					if (error && error.name === "AbortError") return;
+				}
+			}
+			try {
+				await navigator.clipboard.writeText(url);
+				if (button.dataset.done) {
+					const label = button.textContent;
+					button.textContent = button.dataset.done;
+					setTimeout(() => (button.textContent = label), 2200);
+				}
+			} catch (error) {
+				window.prompt(czech ? "Odkaz na hru:" : "Link to the game:", url);
+			}
+		})
+	);
+
 	// Stažení: na Macu je hlavní tlačítko verze pro Mac (iPad se hlásí jako Mac, ale má dotyk).
 	const platform = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
 	const onMac = /mac/i.test(platform) && navigator.maxTouchPoints < 2;
+	const zip = {
+		win: `https://github.com/${repo}/releases/latest/download/HushHeist-demo.zip`,
+		mac: `https://github.com/${repo}/releases/latest/download/HushHeist-mac.zip`,
+	};
+	const mine = onMac ? "mac" : "win";
+	const other = onMac ? "win" : "mac";
+	document.querySelectorAll("[data-dl]").forEach((link) => {
+		link.href = zip[mine];
+		const label = link.querySelector("[data-os-label]");
+		if (label) label.textContent = label.dataset[mine];
+		// Po kliknutí se stahování rozběhne a stránka sjede na návod pro testery.
+		link.addEventListener("click", () => setTimeout(() => document.getElementById("navod").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" }), 350));
+	});
+	document.querySelectorAll("[data-dl-alt]").forEach((link) => {
+		link.href = zip[other];
+		link.textContent = link.dataset[other];
+	});
 	const win = document.getElementById("download-win");
 	const mac = document.getElementById("download-mac");
 	if (onMac && win && mac) {
 		win.classList.replace("btn--gold", "btn--ghost");
 		mac.classList.replace("btn--ghost", "btn--gold");
 		mac.parentElement.insertBefore(mac, win);
-		document.querySelectorAll("[data-mac-label]").forEach((el) => (el.textContent = el.dataset.macLabel));
 	}
 
 	// Nejnovější verze dema (GitHub Releases): datum a velikost pod tlačítky.

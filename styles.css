@@ -240,7 +240,7 @@ h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.25; }
 	text-shadow: 0 4px 20px rgba(0, 0, 0, .6); white-space: nowrap;
 }
 .trailer-card__play i {
-	width: clamp(70px, 8vw, 104px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center;
+	width: clamp(76px, 9vw, 118px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center;
 	background: var(--gold); color: var(--ink); box-shadow: 0 0 0 10px rgba(255, 176, 0, .22), 0 12px 40px rgba(0, 0, 0, .5);
 	transition: transform .3s var(--ease), box-shadow .3s;
 }

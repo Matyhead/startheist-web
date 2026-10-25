@@ -65,12 +65,10 @@ code { font-family: var(--mono); font-size: .88em; background: rgba(255, 255, 25
 
 /* --- Typografie --- */
 .eyebrow {
-	display: inline-flex; align-items: center; gap: 10px;
-	margin: 0 0 14px;
-	font: 700 13px/1.2 var(--body); letter-spacing: .18em; text-transform: uppercase;
+	margin: 0 0 16px;
+	font: 600 14px/1.2 var(--body); letter-spacing: .12em; text-transform: uppercase;
 	color: var(--gold);
 }
-.eyebrow::before { content: ""; width: 26px; height: 2px; background: currentColor; }
 .eyebrow--blue { color: var(--blue); }
 .eyebrow--red { color: var(--red); }
 .h2 {
@@ -158,6 +156,11 @@ h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.25; }
 .hero__alt a:hover { color: var(--gold); }
 .hero__phone { display: none; margin: 0 0 22px; padding: 10px 14px; border-radius: 10px; background: rgba(79, 195, 247, .1); border: 1px solid rgba(79, 195, 247, .3); font-size: 14px; color: #cfe9f7; max-width: 520px; }
 @media (hover: none) and (pointer: coarse) { .hero__phone { display: block; } }
+.specs { display: flex; flex-wrap: wrap; gap: 0; margin: 8px 0 0; padding: 18px 0 0; border-top: 1px solid rgba(255, 255, 255, .14); max-width: 760px; }
+.specs div { padding-right: 36px; margin: 0 0 6px; }
+.specs dt { font: 600 12px/1.4 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.specs dd { margin: 2px 0 0; font-size: 16px; font-weight: 600; color: #fff; }
+.aside { margin: 34px 0 0; text-align: center; color: var(--muted); font-size: 16px; max-width: 70ch; margin-inline: auto; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .chips li { padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--soft); background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .12); }
 .chips--center { justify-content: center; margin-top: 30px; }
@@ -169,12 +172,10 @@ h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.25; }
 	color: var(--red); font-family: var(--display); text-transform: uppercase; line-height: 1;
 	transform: rotate(-6deg); background: rgba(255, 59, 47, .08);
 	box-shadow: inset 0 0 0 2px rgba(255, 59, 47, .25);
-	animation: stamp .6s var(--ease);
 }
 .stamp b { font-weight: 400; font-size: clamp(22px, 2.4vw, 30px); letter-spacing: .04em; color: inherit; }
 .stamp small { font: 700 10px/1.3 var(--body); letter-spacing: .2em; margin-top: 3px; }
 .stamp--soon { color: #66c0f4; border-color: #66c0f4; background: rgba(102, 192, 244, .08); box-shadow: inset 0 0 0 2px rgba(102, 192, 244, .25); }
-@keyframes stamp { from { transform: rotate(-16deg) scale(1.7); } }
 
 /* Překryv jako záznam z bezpečnostní kamery. */
 .cctv { position: absolute; inset: 0; pointer-events: none; font: 600 13px/1 var(--mono); color: rgba(255, 255, 255, .86); letter-spacing: .06em; text-shadow: 0 1px 3px rgba(0, 0, 0, .7); }
@@ -202,7 +203,8 @@ h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.25; }
 .tape::before, .tape::after { content: ""; position: absolute; inset: 0 0 auto; height: 6px; background: repeating-linear-gradient(-45deg, var(--ink) 0 12px, transparent 12px 24px); }
 .tape::after { inset: auto 0 0; }
 .tape__track { display: flex; width: max-content; animation: tape 40s linear infinite; padding: 15px 0 13px; }
-.tape__track span { font: 400 21px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; padding-right: 0; }
+.tape__track span { display: flex; align-items: center; font: 400 21px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+.tape__track i { flex: none; width: 34px; height: 14px; margin: 0 22px; background: repeating-linear-gradient(-45deg, var(--ink) 0 5px, transparent 5px 10px); }
 @keyframes tape { to { transform: translateX(-50%); } }
 
 /* --- Sekce --- */
@@ -213,27 +215,14 @@ h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.25; }
 .section__head { margin-bottom: clamp(36px, 5vw, 64px); max-width: 860px; }
 .section__head--center { margin-inline: auto; text-align: center; }
 .section__head--center .lead { margin-inline: auto; }
-.section__head--center .eyebrow::after { content: ""; width: 26px; height: 2px; background: currentColor; }
 
 /* Tři věty, ze kterých je jasné, o co jde. */
-.trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; counter-reset: trio; }
-.trio__card {
-	position: relative; padding: 28px 26px 26px; border-radius: var(--radius);
-	background: linear-gradient(180deg, var(--panel), rgba(19, 26, 37, .5)); border: 1px solid var(--border);
-	overflow: hidden;
-}
-.trio__card::before {
-	counter-increment: trio; content: "0" counter(trio);
-	position: absolute; right: 16px; top: 6px; font: 400 76px/1 var(--display); color: rgba(255, 255, 255, .05);
-}
-.trio__icon { width: 54px; height: 54px; border-radius: 14px; display: grid; place-items: center; margin-bottom: 18px; }
-.trio__icon svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.trio__card h3 { font: 400 30px/1 var(--display); text-transform: uppercase; letter-spacing: .01em; margin-bottom: 10px; }
+.trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 4vw, 56px); }
+.trio__card { position: relative; padding: 26px 0 0; border-top: 2px solid var(--gold); }
+.trio__card--blue { border-top-color: var(--blue); }
+.trio__card h3 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
 .trio__card p { margin: 0; color: var(--soft); }
-.trio__card--gold .trio__icon { color: var(--gold); background: rgba(255, 176, 0, .12); }
-.trio__card--blue .trio__icon { color: var(--blue); background: rgba(79, 195, 247, .12); }
-.trio__card--red .trio__icon { color: var(--red); background: rgba(255, 59, 47, .12); }
-.trio__card--red { border-color: rgba(255, 59, 47, .45); box-shadow: 0 0 0 1px rgba(255, 59, 47, .15), 0 20px 60px rgba(255, 59, 47, .08); }
+.trio__card--red { border-top-color: var(--red); }
 .trio__card--red h3 { color: var(--red); }
 
 /* Trailer. */
@@ -264,14 +253,9 @@ h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.25; }
 .feature--flip > :first-child { order: 2; }
 .feature .h2 { font-size: clamp(40px, 4.9vw, 66px); }
 .feature + .feature, .feature + .bento, .bento + .feature { margin-top: clamp(44px, 6vw, 80px); }
-.points { list-style: none; margin: 26px 0 0; padding: 0; display: grid; gap: 14px; }
-.points li { position: relative; padding-left: 34px; color: var(--soft); }
-.points li::before {
-	content: ""; position: absolute; left: 0; top: .28em; width: 20px; height: 20px; border-radius: 6px;
-	background: rgba(255, 176, 0, .14) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffb000' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 14px no-repeat;
-}
-.points--blue li::before { background-color: rgba(79, 195, 247, .14); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234fc3f7' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E"); }
-.points--red li::before { background-color: rgba(255, 59, 47, .14); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff3b2f' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E"); }
+.points { list-style: none; margin: 30px 0 0; padding: 0; border-top: 1px solid var(--border); }
+.points li { padding: 13px 0; border-bottom: 1px solid var(--border); color: var(--muted); }
+.points li b { color: #fff; font-weight: 600; }
 
 /* Záznam (video nebo snímek) se štítkem důkazu. */
 .ev { position: relative; margin: 0; }
@@ -279,13 +263,6 @@ h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.25; }
 .ev__frame img, .ev__frame video { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16 / 9; }
 .ev__frame--square img, .ev__frame--square video { aspect-ratio: 1; }
 .ev__frame--glow { box-shadow: 0 0 0 1px rgba(255, 176, 0, .25), 0 30px 90px rgba(255, 176, 0, .12); }
-.ev__tag {
-	position: absolute; z-index: 3; top: -14px; left: 18px;
-	padding: 6px 12px 5px 22px; border-radius: 4px;
-	background: #e9d8b0; color: #3b2a10; font: 800 11px/1.2 var(--body); letter-spacing: .14em; text-transform: uppercase;
-	transform: rotate(-3deg); box-shadow: 0 6px 16px rgba(0, 0, 0, .4);
-}
-.ev__tag::before { content: ""; position: absolute; left: 8px; top: 50%; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; background: var(--bg); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .4); }
 .ev figcaption { margin-top: 14px; font-size: 15px; color: var(--muted); }
 .ev figcaption strong { color: var(--gold); }
 
@@ -295,7 +272,6 @@ h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.25; }
 .mic i:nth-child(2) { animation-delay: .7s; }
 .mic i:nth-child(3) { animation-delay: 1.4s; }
 @keyframes ping { from { transform: scale(.4); opacity: 1; } to { transform: scale(2.2); opacity: 0; } }
-.mic__label { position: absolute; left: calc(67% + 44px); top: 2%; font: 700 12px/1 var(--mono); letter-spacing: .08em; color: #fff; background: var(--red); padding: 5px 8px; border-radius: 4px; }
 .heard {
 	position: absolute; left: 14px; right: 14px; bottom: 14px; z-index: 2;
 	display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 10px;
@@ -319,11 +295,9 @@ h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.25; }
 .bento .ev figcaption { font-size: 14.5px; }
 
 /* Ochranka: co má po ruce. */
-.kit { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: clamp(36px, 5vw, 56px); }
-.kit__item { padding: 22px 22px 20px; border-radius: 14px; background: var(--panel); border: 1px solid var(--border); transition: border-color .2s, transform .2s var(--ease); }
-.kit__item:hover { border-color: rgba(79, 195, 247, .5); transform: translateY(-3px); }
-.kit__item h3 { display: flex; align-items: center; gap: 12px; font-size: 18px; }
-.kit__item h3 svg { width: 26px; height: 26px; flex: none; fill: none; stroke: var(--blue); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.kit { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: clamp(40px, 5vw, 64px); background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.kit__item { padding: 26px 26px 24px; background: var(--bg); }
+.kit__item h3 { font-size: 18px; color: #fff; }
 .kit__item p { margin: 0; color: var(--muted); font-size: 15px; }
 
 /* Hlídač Systém 3000. */
@@ -401,6 +375,29 @@ h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.25; }
 .shout .btn { margin-top: 14px; }
 .shout__share { background: linear-gradient(135deg, rgba(255, 176, 0, .14), transparent 70%), var(--panel) !important; border-color: rgba(255, 176, 0, .4) !important; }
 
+/* Úspěchy: schované v <details>, karty jako výstřižek z Šeptandy (hláška ve hře). */
+.ach { max-width: 1080px; margin: 0 auto; }
+.ach__toggle {
+	display: flex; flex-direction: column; align-items: center; gap: 6px; width: max-content; max-width: 100%; margin: 0 auto;
+	padding: 16px 30px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, .26); cursor: pointer; list-style: none;
+	font: 800 17px/1.2 var(--body); letter-spacing: .02em; text-transform: uppercase; transition: border-color .2s, transform .2s var(--ease);
+}
+.ach__toggle::-webkit-details-marker { display: none; }
+.ach__toggle:hover { border-color: #fff; transform: translateY(-2px); }
+.ach__toggle small { font: 600 12px/1 var(--body); letter-spacing: .08em; color: var(--muted); }
+.ach[open] .ach__show, .ach:not([open]) .ach__hide { display: none; }
+.ach__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 22px; margin-top: 44px; }
+.clip {
+	margin: 0; padding: 0 18px 18px; background: var(--paper); color: var(--ink); border-radius: 3px;
+	box-shadow: 0 14px 30px rgba(0, 0, 0, .45); transform: rotate(-1deg);
+}
+.clip:nth-child(3n + 2) { transform: rotate(.8deg); }
+.clip:nth-child(3n) { transform: rotate(-.4deg); }
+.clip__band { display: flex; justify-content: space-between; gap: 10px; margin: 0 -18px 12px; padding: 7px 18px 6px; background: #c71f1a; color: var(--paper); font: 400 15px/1 var(--display); letter-spacing: .06em; text-transform: uppercase; }
+.clip--rare .clip__band { background: var(--ink); color: var(--gold); }
+.clip h3 { margin: 0 0 6px; font: 400 26px/1.08 var(--display); text-transform: uppercase; color: var(--ink); }
+.clip p:last-child { margin: 0; font: 400 15px/1.45 var(--serif); color: #3b3730; }
+
 /* Časté dotazy. */
 .faq { display: grid; gap: 10px; }
 .faq details { border-radius: 14px; background: var(--panel); border: 1px solid var(--border); }
@@ -422,7 +419,7 @@ h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.25; }
 .footer { padding: 60px 0 46px; border-top: 1px solid var(--border); background: #07090d; text-align: center; color: var(--muted); }
 .footer img { width: 140px; height: auto; margin: 0 auto 14px; opacity: .9; }
 .footer p { margin: 4px 0; }
-.footer__small { font-size: 14px; }
+.footer__small { display: flex; justify-content: center; gap: 22px; font-size: 14px; }
 .footer a { color: var(--soft); }
 
 /* Zvětšený snímek a trailer. */
@@ -493,14 +490,18 @@ h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.25; }
 	.steps li::before { left: 12px; }
 	.trailer-card__play { flex-direction: column; gap: 12px; font-size: 24px; }
 	.tape__track span { font-size: 17px; }
-	.mic__label { display: none; }
 	.heard { font-size: 12px; left: 10px; right: 10px; bottom: 10px; }
+	.ach__grid { grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 32px; }
+	.clip { padding: 0 12px 12px; }
+	.clip__band { flex-wrap: wrap; gap: 2px 8px; margin: 0 -12px 10px; padding: 6px 12px 5px; font-size: 12px; }
+	.clip h3 { font-size: 19px; }
+	.clip p:last-child { font-size: 13.5px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
 	html { scroll-behavior: auto; }
 	.reveal { opacity: 1; transform: none; transition: none; }
-	.tape__track, .cctv__rec i, .hero__scroll span, .mic i, .heard__bars i, .stamp { animation: none; }
+	.tape__track, .cctv__rec i, .hero__scroll span, .mic i, .heard__bars i { animation: none; }
 }
 .linkbtn { background: none; border: 0; padding: 0; font: inherit; font-weight: 700; color: var(--blue); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 [hidden] { display: none !important; }

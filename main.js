@@ -265,7 +265,7 @@
 				const asset = (release.assets || []).find((item) => item.name === name);
 				if (!button || !asset) return;
 				const size = Math.round(asset.size / 1048576);
-				button.querySelector("[data-meta]").textContent = czech ? `verze z ${date} · .zip, ${size} MB` : `${date} build · .zip, ${size} MB`;
+				button.querySelector("[data-meta]").textContent = czech ? `verze z ${date}, zip ${size} MB` : `${date} build, zip ${size} MB`;
 				button.href = asset.browser_download_url;
 			};
 			fill(win, "HushHeist-demo.zip");

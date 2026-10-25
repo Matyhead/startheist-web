@@ -231,7 +231,7 @@ h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.25; }
 	border: 0; border-radius: 20px; overflow: hidden; cursor: pointer; background: #000; color: #fff;
 	box-shadow: 0 30px 80px rgba(0, 0, 0, .55), 0 0 0 1px var(--border);
 }
-.trailer-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; transition: transform .6s var(--ease), filter .4s; filter: brightness(.82); }
+.trailer-card img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; transition: transform .6s var(--ease), filter .4s; filter: brightness(.82); }
 .trailer-card:hover img { transform: scale(1.03); filter: brightness(.95); }
 .trailer-card__play {
 	position: absolute; left: 50%; top: 50%; translate: -50% -50%;
@@ -488,7 +488,7 @@ h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.25; }
 	.dossier { padding: 30px 18px 22px; border-radius: 18px; }
 	.steps li { padding: 14px 14px 14px 58px; }
 	.steps li::before { left: 12px; }
-	.trailer-card__play { flex-direction: column; gap: 12px; font-size: 24px; }
+	.trailer-card__play i { width: 60px; box-shadow: 0 0 0 7px rgba(255, 176, 0, .22), 0 8px 24px rgba(0, 0, 0, .5); }
 	.tape__track span { font-size: 17px; }
 	.heard { font-size: 12px; left: 10px; right: 10px; bottom: 10px; }
 	.ach__grid { grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 32px; }

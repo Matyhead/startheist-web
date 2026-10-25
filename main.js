@@ -184,10 +184,10 @@
 			button.addEventListener("click", (event) => {
 				event.preventDefault();
 				const tall = window.matchMedia("(orientation: portrait) and (max-width: 820px)").matches;
-				const src = tall ? "/assets/video/trailer_vertical.mp4?v=2" : "/assets/video/trailer.mp4?v=2";
+				const src = tall ? "/assets/video/trailer_vertical.mp4?v=3" : "/assets/video/trailer.mp4?v=3";
 				trailer.classList.toggle("is-vertical", tall);
 				if (player.getAttribute("src") !== src) {
-					player.poster = tall ? "/assets/img/trailer_tall.jpg" : "/assets/img/trailer.jpg?v=2";
+					player.poster = tall ? "/assets/img/trailer_tall.jpg?v=3" : "/assets/img/trailer.jpg?v=3";
 					player.src = src;
 				}
 				trailer.hidden = false;

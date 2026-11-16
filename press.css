@@ -1,0 +1,238 @@
+/* Hush Heist: media kit (startheist.com/press). Stejný základ jako zbytek webu (styles.css),
+   tady jen to, co potřebuje stránka pro média: fact sheet, galerie, logo, barvy, texty ke zkopírování. */
+.press {
+	/* Paleta značky (popisky mají lepší kontrast než --muted webu). */
+	--night: #0b0e14;
+	--muted: #a9b2c1;
+}
+
+/* --- Horní lišta: logo a stažení všeho --- */
+.press-top { background: var(--night); border-bottom: 1px solid var(--border); }
+.press-top__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 28px; padding: 18px 0; }
+.press-top__brand { display: block; }
+/* Plné logo nejmíň 240 px na šířku (pod tím se mříže slévají). */
+.press-top__brand img { width: 240px; height: auto; }
+.press-top__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* --- Úvod --- */
+.press-hero { position: relative; isolation: isolate; overflow: hidden; padding: clamp(56px, 8vw, 108px) 0 clamp(44px, 6vw, 76px); background: var(--night); }
+.press-hero::before {
+	content: ""; position: absolute; inset: 0; z-index: -1;
+	background:
+		linear-gradient(90deg, var(--night) 0%, rgba(11, 14, 20, .95) 36%, rgba(11, 14, 20, .4) 68%, rgba(11, 14, 20, .12) 100%),
+		url("/assets/press/keyart/page_background.png") right center / cover no-repeat;
+}
+.press-hero::after { content: ""; position: absolute; inset: auto 0 0; height: 90px; z-index: -1; background: linear-gradient(0deg, var(--bg), transparent); }
+.press-hero__title {
+	margin: 0 0 18px; max-width: 14ch;
+	font-family: var(--display); font-weight: 400; text-transform: uppercase;
+	font-size: clamp(42px, 6.6vw, 96px); line-height: .94; letter-spacing: .005em; text-wrap: balance;
+	text-shadow: 0 6px 40px rgba(0, 0, 0, .5);
+}
+.press-hero__title em { font-style: normal; color: var(--gold); }
+.press-hero__tagline { margin: 0 0 18px; font: 400 clamp(22px, 2.6vw, 32px)/1.1 var(--display); letter-spacing: .02em; text-transform: uppercase; color: var(--gold-2); }
+.press-hero .lead { color: #dfe3ea; }
+
+/* Rozcestník sekcí. */
+.press-nav { margin-top: 34px; }
+.press-nav ul { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.press-nav a {
+	display: inline-block; padding: 7px 13px; border-radius: 999px;
+	font-size: 14px; font-weight: 600; text-decoration: none; color: var(--soft);
+	background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .14);
+	transition: border-color .2s, color .2s;
+}
+.press-nav a:hover { color: var(--gold); border-color: rgba(255, 176, 0, .6); }
+
+/* --- Sekce --- */
+.press-sec { padding: clamp(52px, 7vw, 92px) 0; border-top: 1px solid rgba(255, 255, 255, .06); }
+.press-sec--alt { background: var(--bg-2); }
+.press .h2 { font-size: clamp(34px, 4.4vw, 56px); }
+.press-sec__head { max-width: 820px; margin-bottom: clamp(24px, 3.4vw, 40px); }
+.press-sec__head p { margin: 0; color: var(--soft); }
+.press-sec__head p + p { margin-top: 8px; }
+.press h3 { color: #fff; }
+
+/* Zástupné údaje, které doplní majitel: musí být na první pohled vidět. Krátké drží na řádku,
+   dlouhý (.ph--long) se na telefonu zalomí a rámeček se rozdělí s ním. */
+.ph {
+	padding: 0 6px; border-radius: 5px;
+	border: 1px dashed rgba(255, 59, 47, .75); background: rgba(255, 59, 47, .1);
+	font: 600 .86em/1.5 var(--mono); color: #ffd9d6; white-space: nowrap;
+	-webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.ph--long { white-space: normal; }
+/* Kontakty, které ještě nejsou (config.js: press, steam, discord), se schovají; press.js je ukáže. */
+[data-need]:not([data-ready]) { display: none !important; }
+[data-missing][data-ready] { display: none !important; }
+/* Rozsah „2–7“ se nesmí rozdělit za pomlčkou. */
+.nb { white-space: nowrap; }
+.tag {
+	display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 5px; vertical-align: 1px;
+	font: 700 11px/1.5 var(--body); letter-spacing: .08em; text-transform: uppercase;
+	color: var(--ink); background: var(--tape);
+}
+
+/* --- Úvodní blok: popis a fact sheet jako postranní karta --- */
+.press-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 380px); gap: clamp(28px, 4vw, 60px); align-items: start; }
+.press-intro__main { grid-column: 1; grid-row: 1; min-width: 0; }
+.facts {
+	grid-column: 2; grid-row: 1;
+	padding: 24px 24px 14px; border-radius: var(--radius);
+	background: linear-gradient(180deg, #151c28, var(--panel)); border: 1px solid #33405a;
+	box-shadow: 0 30px 80px rgba(0, 0, 0, .45);
+}
+.facts h2 { margin: 0 0 12px; font: 400 30px/1 var(--display); text-transform: uppercase; letter-spacing: .01em; }
+.kv { margin: 0; }
+.kv > div { padding: 10px 0; border-top: 1px solid var(--border); }
+.kv dt { font: 600 12px/1.4 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.kv dd { margin: 3px 0 0; font-size: 15px; line-height: 1.5; color: var(--text); overflow-wrap: anywhere; }
+.kv dd small { display: block; margin-top: 2px; font-size: 13.5px; color: var(--muted); }
+.card > .kv > div:first-child { border-top: 0; padding-top: 0; }
+.kv a { color: var(--gold); font-weight: 600; text-underline-offset: 3px; }
+.kv a:hover { color: var(--gold-2); }
+
+.press-block + .press-block { margin-top: clamp(40px, 5vw, 64px); }
+.press-block > .h2 { margin-bottom: 20px; }
+.copy { padding: 22px 24px; border-radius: 14px; background: rgba(255, 255, 255, .035); border: 1px solid var(--border); }
+.copy + .copy, .copy + h3, .copy + p { margin-top: 22px; }
+.copy__label { margin: 0 0 10px; font: 600 12px/1.2 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+.copy p { margin: 0; color: var(--soft); }
+.copy p + p { margin-top: 10px; }
+.copy p + .kv { margin-top: 14px; }
+.press-block p { color: var(--soft); }
+.press-block h3 + p { margin-top: 0; }
+
+/* Šest funkcí. */
+.features { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; counter-reset: feat; }
+.features li { position: relative; padding: 18px 20px 18px 70px; border-radius: 14px; background: var(--panel); border: 1px solid var(--border); color: var(--soft); font-size: 16px; }
+.features li::before {
+	counter-increment: feat; content: counter(feat);
+	position: absolute; left: 18px; top: 17px; width: 36px; height: 36px; border-radius: 10px;
+	display: grid; place-items: center; background: var(--gold); color: var(--ink); font: 400 22px/1 var(--display);
+}
+.features b { display: block; margin-bottom: 4px; font-size: 17px; color: #fff; }
+
+/* --- Trailer: zatím zástupná karta jako kamera, která ještě není nainstalovaná --- */
+.trailer-ph {
+	position: relative; display: grid; place-items: center; aspect-ratio: 21 / 9; padding: 28px;
+	border-radius: 20px; border: 2px dashed #36425a; text-align: center; overflow: hidden;
+	background: radial-gradient(700px 300px at 50% 40%, rgba(255, 176, 0, .08), transparent 70%), repeating-linear-gradient(0deg, rgba(255, 255, 255, .025) 0 1px, transparent 1px 3px), #07090d;
+}
+.trailer-ph .cctv { inset: 14px; }
+/* Ikona je ztlumená: karta zatím nic nepřehrává, nemá vypadat jako tlačítko. */
+.trailer-ph__icon { width: 74px; height: 74px; margin: 0 auto 16px; border-radius: 50%; display: grid; place-items: center; border: 2px dashed rgba(255, 255, 255, .28); color: rgba(255, 255, 255, .38); }
+.trailer-ph__icon svg { width: 30px; height: 30px; margin-left: 5px; fill: currentColor; }
+.trailer-ph h3 { margin: 0 0 8px; font: 400 clamp(26px, 3.4vw, 42px)/1.05 var(--display); text-transform: uppercase; letter-spacing: .01em; }
+.trailer-ph p { margin: 0 auto; max-width: 52ch; color: var(--muted); font-size: 15px; }
+
+/* --- Galerie screenshotů --- */
+.shots { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 22px 18px; margin: 0; padding: 0; list-style: none; }
+.shot { margin: 0; }
+.shot a { display: block; overflow: hidden; border-radius: 12px; background: #05070b; border: 1px solid var(--border); transition: border-color .2s, transform .25s var(--ease); }
+.shot a:hover { border-color: rgba(255, 176, 0, .6); transform: translateY(-3px); }
+.shot img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.shot figcaption { display: flex; flex-direction: column; gap: 2px; margin-top: 9px; font-size: 14px; line-height: 1.4; color: var(--muted); }
+.shot figcaption b { font-weight: 600; color: var(--text); }
+.shot__res { font-family: var(--mono); font-size: 13px; }
+.shot__res--low { color: #ffd9a0; }
+
+/* --- Key art a loga: dlaždice, ve kterých je vidět celý obrázek --- */
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 22px 18px; margin: 0; padding: 0; list-style: none; }
+.tiles--logos { grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+.tile { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+/* overflow + min-height: 0, ať vysoký obrázek nenatáhne rámeček přes poměr 4 : 3. */
+.tile__frame { display: block; aspect-ratio: 4 / 3; min-height: 0; overflow: hidden; padding: 14px; border-radius: 12px; background: #05070b; border: 1px solid var(--border); transition: border-color .2s; }
+a.tile__frame:hover { border-color: rgba(255, 176, 0, .6); }
+.tile__frame img { width: 100%; height: 100%; object-fit: contain; }
+.tile__frame--logo { aspect-ratio: 16 / 10; padding: 26px; background: var(--night); }
+.tile__frame--paper { background: var(--paper); border-color: #d8d1bf; }
+.tile h3 { margin: 0; font-size: 17px; }
+.tile p { margin: 0; font-size: 14px; color: var(--muted); }
+.files { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; font-size: 14.5px; }
+.files a { color: var(--gold); font-weight: 700; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.files a:hover { color: var(--gold-2); }
+.files span { color: var(--muted); }
+.press-note { margin: 22px 0 0; font-size: 15px; color: var(--muted); }
+
+.rules { margin-top: clamp(28px, 4vw, 44px); padding: 22px 24px; border-radius: 14px; background: rgba(255, 255, 255, .035); border: 1px solid var(--border); }
+.rules h3 { margin-bottom: 12px; font-size: 18px; }
+.rules .reqs { font-size: 15px; color: var(--soft); }
+
+/* --- Barvy značky --- */
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
+.swatch { overflow: hidden; border-radius: 12px; background: var(--panel); border: 1px solid var(--border); }
+.swatch__chip { height: 92px; border-bottom: 1px solid rgba(255, 255, 255, .08); }
+.swatch__body { padding: 12px 14px 14px; }
+.swatch__name { display: block; font-weight: 700; color: #fff; }
+.swatch__hex { display: block; font: 600 14px/1.5 var(--mono); color: var(--soft); user-select: all; }
+.swatch__use { margin: 4px 0 0; font-size: 13.5px; line-height: 1.45; color: var(--muted); }
+.swatch--night .swatch__chip { background: #0b0e14; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14); }
+.swatch--gold .swatch__chip { background: #ffb000; }
+.swatch--red .swatch__chip { background: #ff3b2f; }
+.swatch--blue .swatch__chip { background: #4fc3f7; }
+.swatch--green .swatch__chip { background: #43d17a; }
+.swatch--tape .swatch__chip { background: repeating-linear-gradient(-45deg, #141417 0 10px, #ffd21f 10px 20px) top / 100% 10px no-repeat, #ffd21f; }
+.swatch--paper .swatch__chip { background: #f2edde; }
+.swatch--ink .swatch__chip { background: #141417; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14); }
+
+/* --- Karty s texty (pravidla pro videa, tvůrci, AI, vývojář, kontakt) --- */
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; }
+.card { padding: clamp(22px, 3vw, 34px); border-radius: 18px; background: var(--panel); border: 1px solid var(--border); scroll-margin-top: 24px; }
+.card--gold { background: linear-gradient(135deg, rgba(255, 176, 0, .1), transparent 65%), var(--panel); border-color: rgba(255, 176, 0, .35); }
+.card--blue { background: linear-gradient(135deg, rgba(79, 195, 247, .1), transparent 65%), var(--panel); border-color: rgba(79, 195, 247, .3); }
+.card .h2 { font-size: clamp(30px, 3.4vw, 44px); margin-bottom: 14px; }
+.card p { margin: 0; color: var(--soft); }
+.card p + p, .card p + .ticks, .card .ticks + p { margin-top: 14px; }
+.ticks { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; color: var(--soft); }
+.ticks li { position: relative; padding-left: 26px; }
+.ticks li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 10px; height: 10px; border-radius: 3px; background: var(--gold); }
+.card--blue .ticks li::before { background: var(--blue); }
+.quote { margin: 0; padding: 0 0 0 18px; border-left: 3px solid var(--blue); }
+.quote p { font-size: 17px; color: #dfe3ea; }
+
+/* --- Pro česká média --- */
+.press-cs { background: radial-gradient(900px 500px at 15% 10%, rgba(255, 176, 0, .07), transparent 60%), #07090d; }
+/* Větší řádkování než u anglických nadpisů: háčky a čárky verzálek by se mezi řádky dotýkaly. */
+.press-cs__hook { margin: 0 0 8px; font: 400 clamp(26px, 3.4vw, 40px)/1.2 var(--display); text-transform: uppercase; text-wrap: balance; }
+.press-cs__tagline { margin: 0 0 22px; font: 400 clamp(19px, 2vw, 24px)/1.1 var(--display); text-transform: uppercase; letter-spacing: .02em; color: var(--gold-2); }
+
+/* Patička má tu víc odkazů než na hlavní stránce. Plné logo v patičce nejmíň 240 px
+   (pravidlo z oddílu Logos na téže stránce). */
+.press .footer__small { flex-wrap: wrap; gap: 6px 22px; }
+.press .footer img { width: 240px; }
+
+/* Fact sheet jede s textem jen tam, kde se celý vejde na výšku okna (jinak by jeho konec
+   byl vidět až na konci popisu). */
+@media (min-width: 961px) and (min-height: 1360px) {
+	.facts { position: sticky; top: 24px; }
+}
+
+/* --- Menší obrazovky --- */
+@media (max-width: 960px) {
+	.press-intro { grid-template-columns: 1fr; }
+	.press-intro__main, .facts { grid-column: auto; grid-row: auto; }
+	.duo { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+	.press-hero::before {
+		background:
+			linear-gradient(0deg, var(--night) 30%, rgba(11, 14, 20, .82) 62%, rgba(11, 14, 20, .55) 100%),
+			url("/assets/press/keyart/page_background.png") 72% top / cover no-repeat;
+	}
+	.trailer-ph { aspect-ratio: auto; min-height: 300px; padding: 54px 18px 40px; }
+	.trailer-ph .cctv { font-size: 11px; }
+}
+@media (max-width: 620px) {
+	.press-top__inner { padding: 14px 0; }
+	.press-top__actions { width: 100%; }
+	.press-top__actions .btn { flex: 1 1 auto; }
+	.features li { padding: 16px 16px 16px 60px; }
+	.features li::before { left: 12px; top: 15px; }
+	.facts { padding: 20px 18px 10px; }
+	.copy, .rules { padding: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.shot a, .shot a:hover { transition: none; transform: none; }
+}

@@ -30,6 +30,36 @@ Jediné místo je `config.js` (načítá ho `<head>` obou stránek):
 - `feedback`: odkaz pro zpětnou vazbu (Discord, formulář). Prázdný = text „napiš tomu, kdo tě pozval“.
 
 V HTML se obsah pro jednotlivé fáze označuje třídami `if-playtest` a `if-soon`.
+- `press`, `discord`: e-mail pro média a pozvánka na Discord pro media kit `/press`. Prázdné = řádky
+  s kontaktem se v media kitu schovají (`press.js`, atribut `data-need`).
+
+## Media kit `/press`
+
+Stránka pro novináře a tvůrce (`press/index.html`, `press.css`, `press.js`, soubory v `assets/press/`,
+balík `assets/press/hush-heist-presskit.zip`). Po změně textů v `assets/press/` přebalit ZIP:
+
+```bash
+cd assets/press && rm hush-heist-presskit.zip && zip -X -r hush-heist-presskit.zip README.txt fact_sheet.txt logo keyart screenshots
+```
+
+## Administrace `/admin`
+
+Soukromý přehled projektu pro majitele (plán, rozhodnutí, dokumenty, balíčky assetů), přihlášení heslem.
+Tohle repo je veřejné, proto obsah administrace **není tady**: stránka (`admin/`) je jen zobrazení
+a funkce Vercelu v `api/admin/` čtou soukromé repo hry přes GitHub API. Bez proměnných prostředí
+administrace nic neukáže.
+
+Proměnné (Vercel › Settings › Environment Variables, Production, pak Redeploy):
+
+| Proměnná | Hodnota |
+|---|---|
+| `ADMIN_PASSWORD` | heslo aspoň 20 znaků, vygenerované (`openssl rand -base64 24`) a uložené ve správci hesel |
+| `ADMIN_SECRET` | náhodný řetězec aspoň 32 znaků (`openssl rand -hex 32`) |
+| `GITHUB_TOKEN` | fine-grained token jen pro čtení repa hry (Contents a Metadata: Read-only) |
+| `GITHUB_REPO`, `GITHUB_BRANCH` | volitelné (výchozí repo hry a `main`) |
+
+Přihlášení je podepsaná cookie na 30 dní, změna hesla nebo `ADMIN_SECRET` odhlásí všechna zařízení.
+Číst jde jen `docs/**` (markdown, JSON, obrázky) a `CLAUDE.md` repa hry a releasy se štítkem `assets-*`.
 
 ## Stažení dema
 

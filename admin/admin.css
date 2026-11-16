@@ -92,6 +92,12 @@ button, input { font: inherit; }
 @media (max-width: 700px) {
 	.top__in { flex-wrap: wrap; row-gap: 8px; justify-content: space-between; }
 	.nav { order: 3; flex-basis: 100%; }
+	.nav__link { padding: 8px 12px; }
+}
+/* Na telefonu jen znak a ADMIN, ať se Obnovit a Odhlásit vejdou na stejný řádek. */
+@media (max-width: 520px) {
+	.brand__name { display: none; }
+	.top__actions .btn--small { padding: 6px 12px; }
 }
 
 .main { max-width: 1240px; margin: 0 auto; padding: 24px 16px 80px; }

@@ -98,6 +98,8 @@ button, input { font: inherit; }
 @media (max-width: 520px) {
 	.brand__name { display: none; }
 	.top__actions .btn--small { padding: 6px 12px; }
+	.nav { gap: 2px; }
+	.nav__link { padding: 8px 9px; }
 }
 
 .main { max-width: 1240px; margin: 0 auto; padding: 24px 16px 80px; }
